@@ -22,7 +22,19 @@ namespace LePleiadi
             private int LI_HandleCreated;
             public delegate void OnPLCValueChange(object sender, int ClientHandle, object NewValue);
             public delegate void OnPLCWriteComplete(object sender, int ClientHandle, int TransactionID);
-
+            public event OnPLCValueChange OnValueChange;
+            public event OnPLCWriteComplete OnWriteComplete;
+            public static Comunicazioni Instance
+            {
+                get
+                {
+                    if(instance==null)
+                    {
+                        instance = new Comunicazioni("Kepware.KEPServerEX.V5", "myGroup", 1000);
+                    }
+                    return instance;
+                }
+            }
         }
         public class Variabili
         {
