@@ -12,6 +12,79 @@ namespace LePleiadi
 {
     class Comunicazione
     {
+        public class VariableHandle:Variabili
+        {
+            private Comunicazioni LO_Com;
+            public delegate void OnVarValueChange(object sender);
+            public delegate void OnVarWriteComplete(object sender);
+            public event OnVarValueChange OnValueChange;
+            public event OnVarWriteComplete OnWriteComplete;
+            public OPCAutomation.OPCItem VarOPCItem { get; set; }
+            public bool WritePending { get; set; }
+            public int WriteTransactionID { get; set; }
+            public VariableHandle(Comunicazioni Com, string Path, int VarHandle, bool Modifiable)
+            {
+                LO_Com = Com;
+                LS_Path = Path;
+                LI_VarHandle = VarHandle;
+                LO_ActualValue = null;
+                LB_Modifiable = Modifiable;
+                LO_VarType = VarEnum.VT_UNKNOWN;
+                LO_Com.OnValueChange += new Comunicazioni.OnPLCValueChange(LO_Com_OnValueChange);
+                LO_Com.OnWriteComplete += new Comunicazioni.OnPLCWriteComplete(LO_Com_OnWriteComplete);
+            }
+            public VariableHandle(Comunicazioni Com,string Path, int VarHandle, bool Modifiable, VarEnum VarType)
+            {
+                LO_Com = Com;
+                LS_Path = Path;
+                LI_VarHandle = VarHandle;
+                LO_ActualValue = null;
+                LB_Modifiable = Modifiable;
+                LO_VarType = VarType;
+                LO_Com.OnValueChange += new Comunicazioni.OnPLCValueChange(LO_Com_OnValueChange);
+                LO_Com.OnWriteComplete += new Comunicazioni.OnPLCWriteComplete(LO_Com_OnWriteComplete);
+            }
+            void LO_Com_OnWriteComplete(object sender,int ClientHandle, int TransactionID)
+            {
+                if(ClientHandle!=this.LI_VarHandle)
+                {
+                    return;
+                }
+                else
+                {
+                    this.WritePending = false;
+                    if (OnWriteComplete != null)
+                        OnWriteComplete(this);
+                }
+            }
+            void LO_Com_OnValueChange(object sender,Int32 ClientHandle, object NewValue)
+            {
+                try
+                {
+                    if (ClientHandle != this.LI_VarHandle)
+                        return;
+                    else
+                    {
+                        LO_ActualValue = NewValue;
+                        if (OnValueChange != null)
+                            OnValueChange(this);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error Value Change: " + ex.Message);
+                }
+
+            }
+            public bool Write(object res)
+            {
+                return LO_Com.SyncWrite(this, res, typeof(bool));
+            }
+            public bool Deregister()
+            {
+                return LO_Com.RemoveVariable(this);
+            }
+        }
         public class Comunicazioni
         {
             private static Comunicazioni instance;
@@ -25,7 +98,18 @@ namespace LePleiadi
             public delegate void OnPLCWriteComplete(object sender, int ClientHandle, int TransactionID);
             public event OnPLCValueChange OnValueChange;
             public event OnPLCWriteComplete OnWriteComplete;
-            public Comunicazioni(string PLCName, string GroupName, int UpdateRate)
+            public static Comunicazioni Instance
+            {
+                get
+                {
+                    if(instance==null)
+                    {
+                        instance.Connect();
+                    }
+                    return instance;
+                }
+            }
+            public Comunicazioni(string PLCName,string GroupName, int UpdateRate)
             {
                 try
                 {
@@ -34,31 +118,16 @@ namespace LePleiadi
                     LS_PLCName = PLCName;
                     LI_UpdateRate = UpdateRate;
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
-                    throw new Exception("Errore di comunicazione: " + ex.Message);
-                }
-            }
-            public static Comunicazioni Instance
-            {
-                get
-                {
-                    if(instance==null)
-                    {
-                        instance = new Comunicazioni("Kepware.KEPServerEX.V5", "myGroup", 1000);
-                    }
-                    return instance;
+                    throw new Exception("Comunication Error: " + ex.Message);
                 }
             }
             public bool IsConnected()
             {
                 if (LO_TheServer == null)
                     return false;
-                SERVERSTATUS status;
-                LO_TheServer.GetStatus(out status);
-                OPCSERVERSTATE state;
-                state = status.eServerState;
-                if (state == OPCSERVERSTATE.OPC_STATUS_RUNNING)
+                if (LO_MyGroup.IsActive)
                     return true;
                 else
                     return false;
@@ -67,151 +136,167 @@ namespace LePleiadi
             {
                 try
                 {
-                    LO_MyGroup.Active = false;
-                    LO_MyGroup.DataChanged -= new DataChangeEventHAndler(OnDataChanged);
-                    LO_MyGroup.ReadCompleted -= new ReadCompleteEventHandler(OnReadCompleted);
-                    LO_MyGroup.WriteCompleted -= new WriteCompleteEventHandler(OnWriteCompleted);
+                    LO_MyGroup.OPCItems.DefaultIsActive = false;
+                    LO_MyGroup.DataChange -= new DIOPCGroupEvent_DataChangeEventHandler(LO_MyGroup_DataChange);
+                    LO_MyGroup.AsyncWriteComplete -= new DIOPCGroupEvent_AsyncWriteCompleteEventHandler(LO_MyGroup_AsyncWriteComplete);
                     LO_TheServer.Disconnect();
                 }
                 catch(Exception ex)
                 {
-                    throw new Exception("Errore di connessione: " + ex.Message);
+                    throw new Exception("Comunication Error: " + ex.Message);
                 }
             }
-            public bool RemoveVariable(VariableHandle cvar)
+            public void Connect()
             {
-                int[] retVal;
-                int[] OPLHndServer = new int[1];
-                OPLHndServer[0] = cvar.VariableHandleServer;
-                bool result = false;
-                result = LO_MyGroup.RemoveItems(OPLHndServer, out retVal);
-                return result;
+                try
+                {
+                    LO_TheServer.Connect(LS_PLCName, "");
+                    LO_MyGroup = LO_TheServer.OPCGroups.Add(LS_GroupName);
+                    LO_MyGroup.IsSubscribed = true;
+                    LO_MyGroup.UpdateRate = LI_UpdateRate;
+                    LO_MyGroup.DataChange += new DIOPCGroupEvent_DataChangeEventHandler(LO_MyGroup_DataChange);
+                    LO_MyGroup.AsyncWriteComplete += new DIOPCGroupEvent_AsyncWriteCompleteEventHandler(LO_MyGroup_AsyncWriteComplete);
+                    LO_MyGroup.OPCItems.DefaultIsActive = true;
+                    LI_HandleCreated = 0;
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception("Connection Error: " + ex.Message);
+                }
             }
-            public OPCItemResult RegisterVariable(VariableHandle cvar)
+            public bool RemoveVariable(VariableHandle Var)
             {
-                OPCItemResult[] retVal;
-                OPCItemDef[] oPLCItemDef = new OPCItemDef[1];
-                oPLCItemDef[0] = new OPCItemDef(cvar.VariablePath, true, LI_HandleCreated, VarEnum.VT_EMPTY);
-                LO_MyGroup.AddItems(oPLCItemDef, out retVal);
-                cvar.VariableHandle = LI_HandleCreated;
-                cvar.VariableHandleServer = retVal[0].HandleServer;
+                Array OPLCHndServer = new Int32[2];
+                Array ErrArray = new Int32[1];
+                OPLCHndServer.SetValue(0, 1);
+                OPLCHndServer.SetValue(Var.VariableHandleServer, 1);
+                int NoItems = 1;
+                if(Var.VariableHandleServer>-1)
+                {
+                    LO_MyGroup.OPCItems.Remove(NoItems, ref OPLCHndServer, out ErrArray);
+                }
+                return true;
+            }
+            public bool RegisterVariable(VariableHandle Var)
+            {
+                OPCItem Item = LO_MyGroup.OPCItems.AddItem(Var.VariablePath, LI_HandleCreated);
+                Var.VariableHandle = LI_HandleCreated;
+                Var.VarOPCItem = Item;
+                Var.VariableHandleServer = Item.ServerHandle;
                 LI_HandleCreated += 1;
-                return retVal[0];
+                return Item.IsActive;
             }
-            public void AsyncRead(OPCItemResult oItem)
+            public void AsyncRead(VariableHandle OItem)
             {
-                int CancelID = 0;
-                int[] ArrayErr = new int[1];
-                int[] ArrayItem = new int[1];
-                ArrayItem[0] = oItem.HandleServer;
+                throw new NotImplementedException();
+            }
+            public string SyncRead(VariableHandle OItem)
+            {
+                Array SyncItemServerHandles = new int[2];
+                SyncItemServerHandles.SetValue(0, 0);
+                SyncItemServerHandles.SetValue(OItem.VariableHandleServer, 1);
+                Array SyncItemValues = new Object[2];
+                Array SyncItemServerError = new int[1];
+                Object Quality;
+                Object Timestamp;
+                int ItemCount = 1;
+                short Source = 2;
                 try
                 {
-                    LO_MyGroup.AsyncRead(ArrayItem, 55667788, out CancelID, out ArrayErr);
-                }
-                catch(Exception ex)
-                {
-                    throw new Exception(ex.ToString());
-                }
-            }
-            public string SyncRead(OPCItemResult oItem)
-            {
-                string retVal = "";
-                int[] ArrayErr = new int[1];
-                int[] ArrayItem = new int[1];
-                OPCItemState[] ArrayResult = new OPCItemState[1];
-                ArrayItem[0] = oItem.HandleServer;
-                try
-                {
-                    LO_MyGroup.SyncRead(OPC.Data.Interface.OPCDATASOURCE.OPC_DS_DEVICE, ArrayItem, out ArrayResult);
-                    retVal = ArrayResult[0].DataValue.ToString();
-                }
-                catch(Exception ex)
-                {
-                    throw new Exception(ex.ToString());
-                }
-                return retVal;
-            }
-            public void write(VariableHandle variable, object newValue)
-            {
-                int[] aE = new int[1];
-                int[] handle = new int[1];
-                object[] ItemValues = new object[1];
-                handle[0] = variable.VariableHandleServer;
-                ItemValues[0] = newValue;
-                try
-                {
-                    LO_MyGroup.SyncWrite(handle, ItemValues, out aE);
-                }
-                catch(Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-            }
-            public void ASyncWrite(VariableHandle variable, object newValue)
-            {
-                Random random = new Random();
-                int[] ae = new int[1];
-                int CancelID;
-                int[] handle = new int[1];
-                object[] ItemValues = new object[1];
-                handle[0] = variable.VariableHandleServer;
-                ItemValues[0] = newValue;
-                try
-                {
-                    LO_MyGroup.AsyncWrite(handle, ItemValues, random.Next(10000000, 9999999), out CancelID, out ae);
+                    LO_MyGroup.SyncRead(Source, ItemCount, ref SyncItemServerHandles, out SyncItemValues, out SyncItemServerError, out Quality, out Timestamp);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(ex.Message);
+                    throw new Exception(ex.ToString());
                 }
-            }
-            void OnWriteCompleted(object sender,WriteCompleteEventArgs e)
-            {
-                Console.WriteLine("Write Complete: " + e.TransactionID.ToString());
-                foreach (OPCWriteResult s in e.res)
+                string RetVal = "";
+                if(Convert.ToInt32(SyncItemServerError.GetValue(1))==0)
                 {
-                    if(s.Error>0)
+                    if(SyncItemValues.GetValue(1).GetType().IsArray)
                     {
-                        throw new Exception("Error Read:" + s.Error.ToString());
+                        var MyArray = new object[1];
+                        RetVal = "Array not supported";
                     }
                     else
                     {
-                        OnWriteComplete(this, e);
+                        RetVal = Convert.ToString(SyncItemValues.GetValue(1));
                     }
                 }
-            }
-            void UpdateData(OPCItemState[] e)
-            {
-                //
-            }
-            void OnReadCompleted(object sender, ReadCompleteEventArgs e)
-            {
-                Console.WriteLine("Read Complete: " + e.TransactionID.ToString());
-                foreach(OPCItemState s in e.sts)
+                else
                 {
-                    if(s.Error>0)
-                    {
-                        throw new Exception("Error in Read:" + s.Error.ToString());
-                    }
-                    else
-                    {
-                        OnValueChange(this, s);
-                    }
+                    RetVal = "Error in Sync Read";
+                }
+                OItem.ActualValue = RetVal;
+                return RetVal;
+            }
+            public bool SyncWrite(VariableHandle Variable, object NewValue, Type ValueType)
+            {
+                Array SyncItemServerHandles = new int[2];
+                SyncItemServerHandles.SetValue(0, 0);
+                SyncItemServerHandles.SetValue(Variable.VariableHandleServer, 1);
+                Array SyncItemValues = new Object[2];
+                SyncItemValues.SetValue(0, 0);
+                SyncItemValues.SetValue(Convert.ToBoolean(NewValue), 1);
+                Array SyncItemServerErrors = new int[1];
+                int ItemCount = 1;
+                try
+                {
+                    LO_MyGroup.SyncWrite(ItemCount, ref SyncItemServerHandles, ref SyncItemValues, out SyncItemServerErrors);
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.ToString());
                 }
             }
-            void OnDataChanged(object sender, DataChangeEventArgs e)
+            public void ASyncWrite(VariableHandle Variable, object NewValue, Type ValueType)
             {
-                Console.WriteLine("Data Change Event: " + e.TransactionID.ToString());
-                foreach(OPCItemState s in e.sts)
+                Variable.WritePending = true;
+                Array WriteItemServerHandles = new int[2];
+                WriteItemServerHandles.SetValue(0, 0);
+                WriteItemServerHandles.SetValue(Variable.VariableHandleServer, 1);
+                Array ASyncItemValues = new Object[2];
+                ASyncItemValues.SetValue(0, 0);
+                ASyncItemValues.SetValue(Convert.ToBoolean(NewValue), 1);
+                Array SyncItemServerError = new int[1];
+                int ItemCount = 1;
+                try
                 {
-                    if(s.Error>0)
+                    LO_MyGroup.SyncWrite(ItemCount, ref WriteItemServerHandles, ref ASyncItemValues, out SyncItemServerError);
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.ToString());
+                }
+            }
+            void LO_MyGroup_AsyncWriteComplete(int TransactionID,int NumItems,ref Array ClientHandles, ref Array Errors)
+            {
+                try
+                {
+                    int i;
+                    for(i=1;i<ClientHandles.Length;i++)
                     {
-                        throw new Exception("Error in read: " + s.Error.ToString());
+                        OnWriteComplete(this, Convert.ToInt32(ClientHandles.GetValue(i)), TransactionID);
                     }
-                    else
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            void LO_MyGroup_DataChange(int TransactionID,int NumItems,ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+            {
+                int i;
+                try
+                {
+                    for(i=0;i<=ClientHandles.Length;i++)
                     {
-                        OnValueChange(this, s);
+                        OnValueChange(this, Convert.ToInt32(ClientHandles.GetValue(i)), ItemValues.GetValue(i));
                     }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
                 }
             }
         }
