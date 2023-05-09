@@ -64,19 +64,11 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="PLC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PLC.Designer.cs">
-      <DependentUpon>PLC.cs</DependentUpon>
-    </Compile>
+    <Compile Include="PLC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PLC.resx">
-      <DependentUpon>PLC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
