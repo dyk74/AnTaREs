@@ -14,7 +14,7 @@ namespace LePleiadi
     {
         public class VariableHandle:Variabili
         {
-            private Comunicazioni LO_Com;
+            private readonly Comunicazioni LO_Com;
             public delegate void OnVarValueChange(object sender);
             public delegate void OnVarWriteComplete(object sender);
             public event OnVarValueChange OnValueChange;
@@ -87,7 +87,7 @@ namespace LePleiadi
         }
         public class Comunicazioni
         {
-            private static Comunicazioni instance;
+            private static readonly Comunicazioni instance;
             private OPCServer LO_TheServer;
             private OPCGroup LO_MyGroup;
             private string LS_PLCName;
