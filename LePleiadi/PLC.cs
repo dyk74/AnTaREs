@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using static LePleiadi.Comunicazione;
-
+using System.Windows.Forms;
 
 namespace LePleiadi
 {
@@ -18,7 +19,7 @@ namespace LePleiadi
             private VarEnum LO_TypeVarPLC;
             private Comunicazioni LO_Com;
             private static bool ResetAvailable = false;      
-            public void resetAsDefault()
+            public void ResetAsDefault()
             {
                 Main.btnUPS.NormalColor = System.Drawing.Color.FromArgb(192, 192, 0);
                 Main.btnUPS.NormalBorderColor = System.Drawing.Color.FromArgb(192, 192, 0);
@@ -61,7 +62,7 @@ namespace LePleiadi
                 LO_TypeVarPLC = VarEnum.VT_UNKNOWN;
                 LO_Com = Comunicazioni.Instance;
                 Alarm_BTN("normal");
-                resetAsDefault();
+                ResetAsDefault();
             }
             public AlarmUPS(VariableHandle OVariable)
             {
@@ -69,9 +70,9 @@ namespace LePleiadi
                 LO_Handle = OVariable;
                 LO_Com = Comunicazioni.Instance;
                 Alarm_BTN("normal");
-                resetAsDefault();
+                ResetAsDefault();
             }
-            public static void setResetAvailable()
+            public static void SetResetAvailable()
             {
                 if (!ResetAvailable)
                     Alarm_BTN("normal");
@@ -97,7 +98,7 @@ namespace LePleiadi
                     {
                         LO_Handle.OnValueChange -= new VariableHandle.OnVarValueChange(LO_Handle_OnValueChange);
                         LO_Com.RemoveVariable(LO_Handle);
-                        resetAsDefault();
+                        ResetAsDefault();
                     }
                 }
                 return RetVal;
@@ -147,7 +148,7 @@ namespace LePleiadi
                 LO_HandleRightOpen = null;
                 LO_Com = Comunicazioni.Instance;
             }
-            public void resetAsDefault()
+            public void ResetAsDefault()
             {
                 Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
                 Main.RoofOpenClose.Text = "Closed";
@@ -187,20 +188,457 @@ namespace LePleiadi
                         LO_Com.RemoveVariable(LO_HandleLeftClose);
                         LO_Com.RemoveVariable(LO_HandleRightOpen);
                         LO_Com.RemoveVariable(LO_HandleRightClose);
-                        resetAsDefault();
+                        ResetAsDefault();
                     }
                 }
                 return RetVal;
             }
             protected void DisplayValue()
             {
-
+                if((LO_HandleLeftClose!=null && LO_HandleLeftClose.ActualValue!=null) && (LO_HandleLeftOpen!=null && LO_HandleLeftOpen.ActualValue!=null) && (LO_HandleRightClose!=null && LO_HandleRightClose.ActualValue!=null) &&(LO_HandleRightOpen!=null && LO_HandleRightOpen.ActualValue!=null))
+                {
+                    bool RightOpen = Convert.ToBoolean(LO_HandleRightOpen.ActualValue);
+                    bool RightClose = Convert.ToBoolean(LO_HandleRightClose.ActualValue);
+                    bool LeftOpen = Convert.ToBoolean(LO_HandleLeftOpen.ActualValue);
+                    bool LeftClose = Convert.ToBoolean(LO_HandleLeftClose.ActualValue);
+                    if(RightClose && LeftClose)
+                    {
+                        Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                        Main.RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                        Main.RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    }
+                    else if(RightOpen && LeftClose)
+                    {
+                        Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(192, 192, 192);
+                        Main.RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                        Main.RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                    }
+                    else if(RightOpen && LeftOpen)
+                    {
+                        Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                        Main.RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                        Main.RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                    }
+                    else if(RightClose && LeftOpen)
+                    {
+                        Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(192, 192, 192);
+                        Main.RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                        Main.RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    }
+                    else
+                    {
+                        Main.RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+                        Main.RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+                        Main.RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+                    }
+                }
             }
             void LO_Roof_OnValueChange(object sender)
             {
                 DisplayValue();
             }
+            public string PathVarPLC_OpenRightRoof
+            {
+                get
+                {
+                    return LS_PathVarPLCRightOpen;
+                }
+                set
+                {
+                    LS_PathVarPLCRightOpen = value;
+                }
+            }
+            public string PathVarPLC_CloseRightRoof
+            {
+                get
+                {
+                    return LS_PathVarPLCRightClose;
+                }
+                set
+                {
+                    LS_PathVarPLCRightClose = value;
+                }
+            }
+            public string PathVarPLC_OpenLeftRoof
+            {
+                get
+                {
+                    return LS_PathVarPLCLeftOpen;
+                }
+                set
+                {
+                    LS_PathVarPLCLeftOpen = value;
+                }
+            }
+            public string PathVarPLC_CloseLeftRoof
+            {
+                get
+                {
+                    return LS_PathVarPLCLeftClose;
+                }
+                set
+                {
+                    LS_PathVarPLCLeftClose = value;
+                }
+            }
+            public VarEnum Type
+            {
+                get
+                {
+                    return LO_TypeVarPLC;
+                }
+                set
+                {
+                    LO_TypeVarPLC = value;
+                }
+            }
         }
-        
+        public class PLCValue
+        {
+            private VariableHandle LO_Handle;
+            private string LS_PathVarPLC;
+            private VarEnum LO_TypeVarPLC;
+            private Comunicazioni LO_Com;
+            private bool LB_Modifiable;
+            private bool LB_RedOnValue;
+            private Color LC_ColorOnTrue;
+            private Color LC_ColorOnFalse;
+            public PLCValue()
+            {
+                LO_Handle = null;
+                LS_PathVarPLC = "";
+                LO_TypeVarPLC = VarEnum.VT_UNKNOWN;
+                LO_Com = Comunicazioni.Instance;
+                LB_Modifiable = false;
+            }
+            public PLCValue(VariableHandle OVariable)
+            {
+                LO_Handle = null;
+                LO_Handle = OVariable;
+                LO_Com = Comunicazioni.Instance;
+                LB_Modifiable = false;
+            }
+            public void ResetAsDefault()
+            {
+                Main.LblPLCVariableValue.Text = "";
+                LB_Modifiable = false;
+                Main.LblPLCVariableValue.BackColor = Color.Yellow;
+            }
+            public bool OnLine(bool value)
+            {
+                bool RetVal = false;
+                if(!LS_PathVarPLC.Equals("")&&(LO_TypeVarPLC!=VarEnum.VT_UNKNOWN))
+                {
+                    if(LO_Handle==null)
+                    {
+                        LO_Handle = new VariableHandle(LO_Com, LS_PathVarPLC, -1, true, LO_TypeVarPLC);
+                    }
+                    if(value)
+                    {
+                        LO_Com.RegisterVariable(LO_Handle);
+                        LO_Handle.OnValueChange += new VariableHandle.OnVarValueChange(LO_Handle_OnValueChange);
+                    }
+                    else
+                    {
+                        LO_Handle.OnValueChange -= new VariableHandle.OnVarValueChange(LO_Handle_OnValueChange);
+                        LO_Com.RemoveVariable(LO_Handle);
+                        ResetAsDefault();
+                    }
+                }
+                return RetVal;
+            }
+            protected void DisplayValue()
+            {
+                if((LO_Handle!=null)&&(LO_Handle.ActualValue!=null))
+                {
+                    if(LO_Handle.VariableType==VarEnum.VT_BOOL)
+                    {
+                        bool res = Convert.ToBoolean(LO_Handle.ActualValue);
+                        Main.LblPLCVariableValue.Text = res.ToString();
+                        if(res)
+                        {
+                            Main.LblPLCVariableValue.BackColor = LC_ColorOnTrue;
+                        }
+                        else
+                        {
+                            Main.LblPLCVariableValue.BackColor = LC_ColorOnFalse;
+                        }
+                    }
+                    else
+                    {
+                        Main.LblPLCVariableValue.Text = LO_Handle.ActualValue.ToString();
+                    }
+                }  
+            }
+            void LO_Handle_OnValueChange(object sender)
+            {
+                DisplayValue();
+            }
+            public string PathVarPLC
+            {
+                get
+                {
+                    return LS_PathVarPLC;
+                }
+                set
+                {
+                    LS_PathVarPLC = value;
+                }
+            }
+            public VarEnum Type
+            {
+                get
+                {
+                    return LO_TypeVarPLC;
+                }
+                set
+                {
+                    LO_TypeVarPLC = value;
+                }
+            }
+            public string VariableName
+            {
+                get
+                {
+                    return Main.LblPLCVariableName.Text;
+                }
+                set
+                {
+                    Main.LblPLCVariableName.Text = value;
+                }
+            }
+            public Color ColorOnTrue
+            {
+                get
+                {
+                    return LC_ColorOnTrue;
+                }
+                set
+                {
+                    LC_ColorOnTrue = value;
+                }
+            }
+            public Color ColorOnFalse
+            {
+                get
+                {
+                    return LC_ColorOnFalse;
+                }
+                set
+                {
+                    LC_ColorOnFalse = value;
+                }
+            }
+            public bool Modifiable
+            {
+                get
+                {
+                    return LB_Modifiable;
+                }
+                set
+                {
+                    if (LO_Handle != null)
+                    {
+                        LO_Handle.Modifiable = value;
+                        LB_Modifiable = value;
+                    }
+                    else
+                        LB_Modifiable = value;
+                }
+            }
+        }
+        public class PLCChangeValue
+        {
+            private static VariableHandle LO_HandleRun;
+            private string LS_PathVarPLCRun;
+            private VarEnum LO_TypeVarPLCRun;
+            private static VariableHandle LO_HandleDirection;
+            private string LS_PathVarPLCDirection;
+            private VarEnum LO_TypeVarPLCDirection;
+            private static bool LB_DirectionValue;
+            private Comunicazioni LO_Com;
+            public PLCChangeValue()
+            {
+                LO_HandleRun = null;
+                LS_PathVarPLCRun = "";
+                LO_TypeVarPLCRun = VarEnum.VT_UNKNOWN;
+                LO_HandleDirection = null;
+                LS_PathVarPLCDirection = "";
+                LO_TypeVarPLCDirection = VarEnum.VT_UNKNOWN;
+                LO_Com = Comunicazioni.Instance;
+                ResetDefault();
+            }
+            public PLCChangeValue(VariableHandle OVariableRun, VariableHandle OVariableDirection)
+            {
+                LO_HandleRun = null;
+                LO_HandleRun = OVariableRun;
+                LO_HandleDirection = null;
+                LO_HandleDirection = OVariableDirection;
+                LO_Com = Comunicazioni.Instance;
+                ResetDefault();
+            }
+            public void ResetDefault()
+            {
+                Main.lblValueDirection.Text = "-";
+                Main.lblValueRun.Text = "-";
+                Main.lblValueDirection.BackColor = Color.Yellow;
+                Main.lblValueRun.BackColor = Color.Yellow;
+            }
+            public bool Online(bool value)
+            {
+                bool retVal = false;
+                if(!LS_PathVarPLCRun.Equals("")&&(LO_TypeVarPLCRun!=VarEnum.VT_UNKNOWN))
+                {
+                    if (LO_HandleRun == null)
+                        LO_HandleRun = new VariableHandle(LO_Com, LS_PathVarPLCRun, -1, true, LO_TypeVarPLCRun);
+                    if (LO_HandleDirection == null)
+                        LO_HandleDirection = new VariableHandle(LO_Com, LS_PathVarPLCDirection, -1, true, LO_TypeVarPLCDirection);
+                    if(value)
+                    {
+                        LO_Com.RegisterVariable(LO_HandleRun);
+                        LO_HandleRun.OnValueChange += new VariableHandle.OnVarValueChange(LO_Handle_OnValueChangeRun);
+                        LO_Com.RegisterVariable(LO_HandleDirection);
+                        LO_HandleDirection.OnValueChange += new VariableHandle.OnVarValueChange(LO_Handle_OnValueChangeDirection);
+                        Main.lblValueRun.BackColor = Color.Transparent;
+                        Main.lblValueDirection.BackColor = Color.Transparent;
+                    }
+                    else
+                    {
+                        LO_HandleRun.OnValueChange -= new VariableHandle.OnVarValueChange(LO_Handle_OnValueChangeRun);
+                        LO_Com.RemoveVariable(LO_HandleRun);
+                        LO_HandleDirection.OnValueChange -= new VariableHandle.OnVarValueChange(LO_Handle_OnValueChangeDirection);
+                        LO_Com.RemoveVariable(LO_HandleDirection);
+                        ResetDefault();
+                    }
+                }
+                return retVal;
+            }
+            void LO_Handle_OnValueChangeRun(object sender)
+            {
+                DisplayValueRun();
+            }
+            void LO_Handle_OnValueChangeDirection(object sender)
+            {
+                DisplayValueDirection();
+            }
+            protected void DisplayValueRun()
+            {
+                if((LO_HandleRun!=null)&&(LO_HandleRun.ActualValue!=null))
+                {
+                    if (LO_HandleRun.VariableType == VarEnum.VT_BOOL)
+                    {
+                        bool res = Convert.ToBoolean(LO_HandleRun.ActualValue);
+                        if (res)
+                            Main.lblValueRun.Text = "R1";
+                        else
+                            Main.lblValueRun.Text = "R0";
+                    }
+                    else
+                        Main.lblValueRun.Text = LO_HandleRun.ActualValue.ToString();
+                }
+            }
+            protected void DisplayValueDirection()
+            {
+                if((LO_HandleDirection!=null)&&(LO_HandleDirection.ActualValue!=null))
+                {
+                    if (LO_HandleDirection.VariableType == VarEnum.VT_BOOL)
+                    {
+                        bool res = Convert.ToBoolean(LO_HandleDirection.ActualValue);
+                        if (res)
+                            Main.lblValueDirection.Text = "D1";
+                        else
+                            Main.lblValueDirection.Text = "D0";
+                    }
+                    else
+                        Main.lblValueDirection.Text = LO_HandleDirection.ActualValue.ToString();
+                }
+            }
+            public string PathVarPLCRun
+            {
+                get
+                {
+                    return LS_PathVarPLCRun;
+                }
+                set
+                {
+                    LS_PathVarPLCRun = value;
+                }
+            }
+            public string PathVarPLCDirection
+            {
+                get
+                {
+                    return LS_PathVarPLCDirection;
+                }
+                set
+                {
+                    LS_PathVarPLCDirection = value;
+                }
+            }
+            public bool DirectionValue
+            {
+                get
+                {
+                    return LB_DirectionValue;
+                }
+                set
+                {
+                    LB_DirectionValue = value;
+                }
+            }
+            public VarEnum TypeRun
+            {
+                get
+                {
+                    return LO_TypeVarPLCRun;
+                }
+                set
+                {
+                    LO_TypeVarPLCRun = value;
+                }
+            }
+            public VarEnum TypeDirection
+            {
+                get
+                {
+                    return LO_TypeVarPLCDirection;
+                }
+                set
+                {
+                    LO_TypeVarPLCDirection = value;
+                }
+            }
+            public string VariableName
+            {
+                get
+                {
+                    return Main.btnEvent.Text;
+                }
+                set
+                {
+                    Main.btnEvent.Text = value;
+                }
+            }
+            public static void BtnEvent_Click(object sender, System.EventArgs e)
+            {
+                if (LO_HandleDirection.Write(LB_DirectionValue))
+                {
+                    if(LO_HandleRun.Write(true))
+                    {
+                        //
+                    }
+                }
+            }
+
+            internal class EventHandler
+            {
+                private Action<object, MouseEventArgs> btnEvent_Click;
+
+                public EventHandler(Action<object, MouseEventArgs> btnEvent_Click)
+                {
+                    this.btnEvent_Click = btnEvent_Click;
+                }
+            }
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace LePleiadi
         public class Comunicazioni
         {
             private static readonly Comunicazioni instance;
-            private OPCServer LO_TheServer;
+            private readonly OPCServer LO_TheServer;
             private OPCGroup LO_MyGroup;
             private string LS_PLCName;
             private string LS_GroupName;

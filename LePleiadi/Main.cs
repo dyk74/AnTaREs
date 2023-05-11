@@ -24,13 +24,91 @@ namespace LePleiadi
             Main.RoofOpenClose = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.RoofLeft = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.RoofRight = new MetroSet_UI.Controls.MetroSetEllipse();
+            Main.LblPLCVariableName = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.LblPLCVariableValue = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.btnEvent = new MetroSet_UI.Controls.MetroSetButton();
+            Main.lblValueDirection = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.lblValueRun = new MetroSet_UI.Controls.MetroSetLabel();
             InitializeComponent();
-            btnUPS_Initialize();
-            lblUPS_Initialize();
+            BtnUPS_Initialize();
+            LblUPS_Initialize();
             RoofOpenClose_Initialize();
-            
+            PLCLabel_Initialize();
+            PLCChange_initialize();
         }
-        private void btnUPS_Initialize()
+        private void PLCChange_initialize()
+        {
+            this.grpChange.Controls.Add(Main.lblValueRun);
+            this.grpChange.Controls.Add(Main.lblValueDirection);
+            this.grpChange.Controls.Add(Main.btnEvent);
+            btnEvent.Location = new System.Drawing.Point(6, 25);
+            btnEvent.Name = "btnEvent";
+            btnEvent.PressTextColor = System.Drawing.Color.White;
+            btnEvent.Size = new System.Drawing.Size(124, 45);
+            btnEvent.Style = MetroSet_UI.Enums.Style.Light;
+            btnEvent.StyleManager = null;
+            btnEvent.TabIndex = 3;
+            btnEvent.Text = "Event";
+            btnEvent.ThemeAuthor = "Narwin";
+            btnEvent.ThemeName = "MetroLite";
+            btnEvent.Click += BtnEvent_Click;
+            //btnEvent.Click += new PLC.PLCChangeValue.EventHandler(PLC.PLCChangeValue.btnEvent_Click);
+            lblValueDirection.IsDerivedStyle = true;
+            lblValueDirection.Location = new System.Drawing.Point(136, 47);
+            lblValueDirection.Name = "lblValueDirection";
+            lblValueDirection.Size = new System.Drawing.Size(100, 23);
+            lblValueDirection.Style = MetroSet_UI.Enums.Style.Light;
+            lblValueDirection.StyleManager = null;
+            lblValueDirection.TabIndex = 5;
+            lblValueDirection.Text = "-";
+            lblValueDirection.ThemeAuthor = "Narwin";
+            lblValueDirection.ThemeName = "MetroLite";
+            lblValueRun.IsDerivedStyle = true;
+            lblValueRun.Location = new System.Drawing.Point(136, 25);
+            lblValueRun.Name = "lblValueRun";
+            lblValueRun.Size = new System.Drawing.Size(100, 23);
+            lblValueRun.Style = MetroSet_UI.Enums.Style.Light;
+            lblValueRun.StyleManager = null;
+            lblValueRun.TabIndex = 6;
+            lblValueRun.Text = "-";
+            lblValueRun.ThemeAuthor = "Narwin";
+            lblValueRun.ThemeName = "MetroLite";
+
+        }
+
+        private void BtnEvent_Click(object sender, EventArgs e)
+        {
+            PLC.PLCChangeValue.BtnEvent_Click(sender, e);
+        }
+
+        private void PLCLabel_Initialize()
+        {
+            this.grpPLC.Controls.Add(Main.LblPLCVariableValue);
+            this.grpPLC.Controls.Add(Main.LblPLCVariableName);
+            LblPLCVariableName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPLCVariableName.IsDerivedStyle = true;
+            LblPLCVariableName.Location = new System.Drawing.Point(6, 25);
+            LblPLCVariableName.Name = "LblPLCVariableName";
+            LblPLCVariableName.Size = new System.Drawing.Size(100, 23);
+            LblPLCVariableName.Style = MetroSet_UI.Enums.Style.Light;
+            LblPLCVariableName.StyleManager = null;
+            LblPLCVariableName.TabIndex = 0;
+            LblPLCVariableName.Text = "Variable";
+            LblPLCVariableName.ThemeAuthor = "Narwin";
+            LblPLCVariableName.ThemeName = "MetroLite";
+            LblPLCVariableValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPLCVariableValue.IsDerivedStyle = true;
+            LblPLCVariableValue.Location = new System.Drawing.Point(70, 25);
+            LblPLCVariableValue.Name = "LblPLCVariableValue";
+            LblPLCVariableValue.Size = new System.Drawing.Size(100, 23);
+            LblPLCVariableValue.Style = MetroSet_UI.Enums.Style.Light;
+            LblPLCVariableValue.StyleManager = null;
+            LblPLCVariableValue.TabIndex = 1;
+            LblPLCVariableValue.Text = "0";
+            LblPLCVariableValue.ThemeAuthor = "Narwin";
+            LblPLCVariableValue.ThemeName = "MetroLite";
+        }
+        private void BtnUPS_Initialize()
         {
             btnUPS.IsDerivedStyle = true;
             btnUPS.Location = new System.Drawing.Point(10, 25);
@@ -50,10 +128,10 @@ namespace LePleiadi
             btnUPS.DisabledBorderColor = Color.FromArgb(192, 192, 192);
             btnUPS.DisabledForeColor = Color.FromArgb(255, 255, 255);
             btnUPS.DisabledBackColor = Color.FromArgb(192, 192, 192);
-            btnUPS.Click += new System.EventHandler(btnUPS_Click);
+            btnUPS.Click += new System.EventHandler(BtnUPS_Click);
             btnUPS.Enabled = false;
         }
-        private void lblUPS_Initialize()
+        private void LblUPS_Initialize()
         {
             this.metroAllarmi.Controls.Add(Main.lblUPS);
             lblUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -70,9 +148,9 @@ namespace LePleiadi
         }
         private void RoofOpenClose_Initialize()
         {
-            this.metroTetto.Controls.Add(Main.RoofOpenClose);
-            this.metroTetto.Controls.Add(Main.RoofRight);
-            this.metroTetto.Controls.Add(Main.RoofLeft);
+            this.grpRoof.Controls.Add(Main.RoofOpenClose);
+            this.grpRoof.Controls.Add(Main.RoofRight);
+            this.grpRoof.Controls.Add(Main.RoofLeft);
             RoofOpenClose.BorderThickness = 0;
             RoofLeft.BorderThickness = 5;
             RoofLeft.DisabledBorderColor = System.Drawing.Color.FromArgb(0, 192, 0);
@@ -88,16 +166,18 @@ namespace LePleiadi
             RoofLeft.ImageSize = new System.Drawing.Size(32, 32);
             RoofRight.ImageSize = new System.Drawing.Size(32, 32);
             RoofOpenClose.Location = new System.Drawing.Point(64, 12);
-            RoofLeft.Location = new System.Drawing.Point(128, 64);
+            RoofLeft.Location = new System.Drawing.Point(150, 33);
+            RoofRight.Location = new System.Drawing.Point(190, 33);
             RoofOpenClose.Name = "RoofOpenClose";
             RoofOpenClose.Size = new System.Drawing.Size(76, 76);
             RoofLeft.Size = new System.Drawing.Size(38, 38);
+            RoofRight.Size = new System.Drawing.Size(38, 38);
             RoofOpenClose.Style = MetroSet_UI.Enums.Style.Light;
             RoofOpenClose.StyleManager = this.Stile;
             RoofOpenClose.ThemeAuthor = "Narwin";
             RoofOpenClose.ThemeName = "MetroLite";
         }
-        private void swConnect_SwitchedChanged(object sender)
+        private void SwConnect_SwitchedChanged(object sender)
         {
 
             MetroSetSwitch swC = sender as MetroSetSwitch;
@@ -117,10 +197,10 @@ namespace LePleiadi
                // MetroSetMessageBox.Show(this, "connesso");
             }
         }
-        private void btnUPS_Click(object sender,EventArgs e)
+        private void BtnUPS_Click(object sender,EventArgs e)
         {
             PLC.AlarmUPS.LO_Handle.Write(false);
-            PLC.AlarmUPS.setResetAvailable();
+            PLC.AlarmUPS.SetResetAvailable();
         }
 
 
