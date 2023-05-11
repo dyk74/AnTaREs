@@ -42,6 +42,7 @@ namespace LePleiadi
             this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.grpRoof = new System.Windows.Forms.GroupBox();
             this.grpPLC = new System.Windows.Forms.GroupBox();
+            this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
@@ -279,14 +280,44 @@ namespace LePleiadi
             this.grpPLC.TabStop = false;
             this.grpPLC.Text = "PLC Label";
             // 
+            // _metroSetControlBox1
+            // 
+            this._metroSetControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._metroSetControlBox1.BackColor = System.Drawing.Color.Transparent;
+            this._metroSetControlBox1.CloseHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this._metroSetControlBox1.CloseHoverForeColor = System.Drawing.Color.White;
+            this._metroSetControlBox1.CloseNormalForeColor = System.Drawing.Color.Gray;
+            this._metroSetControlBox1.DisabledForeColor = System.Drawing.Color.DimGray;
+            this._metroSetControlBox1.IsDerivedStyle = true;
+            this._metroSetControlBox1.Location = new System.Drawing.Point(685, 18);
+            this._metroSetControlBox1.MaximizeBox = true;
+            this._metroSetControlBox1.MaximizeHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this._metroSetControlBox1.MaximizeHoverForeColor = System.Drawing.Color.Gray;
+            this._metroSetControlBox1.MaximizeNormalForeColor = System.Drawing.Color.Gray;
+            this._metroSetControlBox1.MinimizeBox = true;
+            this._metroSetControlBox1.MinimizeHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this._metroSetControlBox1.MinimizeHoverForeColor = System.Drawing.Color.Gray;
+            this._metroSetControlBox1.MinimizeNormalForeColor = System.Drawing.Color.Gray;
+            this._metroSetControlBox1.Name = "_metroSetControlBox1";
+            this._metroSetControlBox1.Size = new System.Drawing.Size(100, 25);
+            this._metroSetControlBox1.Style = MetroSet_UI.Enums.Style.Light;
+            this._metroSetControlBox1.StyleManager = this.Stile;
+            this._metroSetControlBox1.TabIndex = 2;
+            this._metroSetControlBox1.Text = "_metroSetControlBox1";
+            this._metroSetControlBox1.ThemeAuthor = null;
+            this._metroSetControlBox1.ThemeName = null;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._metroSetControlBox1);
             this.Controls.Add(this.TabConnection);
             this.Name = "Main";
+            this.Padding = new System.Windows.Forms.Padding(12, 90, 12, 12);
             this.StyleManager = this.Stile;
+            this.TextColor = System.Drawing.Color.White;
             this.ThemeName = "MetroLight";
             this.TabConnection.ResumeLayout(false);
             this.metroControllo.ResumeLayout(false);
@@ -321,6 +352,7 @@ namespace LePleiadi
         public static MetroSet_UI.Controls.MetroSetButton btnEvent;
         private System.Windows.Forms.GroupBox grpRoof;
         private System.Windows.Forms.GroupBox grpPLC;
+        private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
     }
 }
 
