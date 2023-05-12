@@ -29,12 +29,41 @@ namespace LePleiadi
             Main.btnEvent = new MetroSet_UI.Controls.MetroSetButton();
             Main.lblValueDirection = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblValueRun = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.lblUnit = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.lblErrorCode = new MetroSet_UI.Controls.MetroSetLabel();
             InitializeComponent();
             BtnUPS_Initialize();
             LblUPS_Initialize();
             RoofOpenClose_Initialize();
             PLCLabel_Initialize();
             PLCChange_initialize();
+        }
+        private void PLCCPU_Initialize()
+        {
+            lblUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            lblUnit.IsDerivedStyle = true;
+            lblUnit.Location = new System.Drawing.Point(7, 20);
+            lblUnit.Name = "lblUnit";
+            lblUnit.Size = new System.Drawing.Size(100, 23);
+            lblUnit.Style = MetroSet_UI.Enums.Style.Light;
+            lblUnit.StyleManager = null;
+            lblUnit.TabIndex = 0;
+            lblUnit.Text = "0";
+            lblUnit.ThemeAuthor = "Narwin";
+            lblUnit.ThemeName = "MetroLite";
+            lblErrorCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            lblErrorCode.IsDerivedStyle = true;
+            lblErrorCode.Location = new System.Drawing.Point(7, 47);
+            lblErrorCode.Name = "lblErrorCode";
+            lblErrorCode.Size = new System.Drawing.Size(100, 23);
+            lblErrorCode.Style = MetroSet_UI.Enums.Style.Light;
+            lblErrorCode.StyleManager = null;
+            lblErrorCode.TabIndex = 1;
+            lblErrorCode.Text = "0";
+            lblErrorCode.ThemeAuthor = "Narwin";
+            lblErrorCode.ThemeName = "MetroLite";
+            lblErrorCode.Click += LblErrorCode_Click;
+
         }
         private void PLCChange_initialize()
         {
@@ -52,7 +81,6 @@ namespace LePleiadi
             btnEvent.ThemeAuthor = "Narwin";
             btnEvent.ThemeName = "MetroLite";
             btnEvent.Click += BtnEvent_Click;
-            //btnEvent.Click += new PLC.PLCChangeValue.EventHandler(PLC.PLCChangeValue.btnEvent_Click);
             lblValueDirection.IsDerivedStyle = true;
             lblValueDirection.Location = new System.Drawing.Point(136, 47);
             lblValueDirection.Name = "lblValueDirection";
@@ -75,7 +103,10 @@ namespace LePleiadi
             lblValueRun.ThemeName = "MetroLite";
 
         }
+        private void LblErrorCode_Click(object sender,EventArgs e)
+        {
 
+        }
         private void BtnEvent_Click(object sender, EventArgs e)
         {
             PLC.PLCChangeValue.BtnEvent_Click(sender, e);

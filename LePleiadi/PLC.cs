@@ -15,10 +15,10 @@ namespace LePleiadi
         public  class AlarmUPS
         {
             public static VariableHandle LO_Handle;
-            private string LS_PathVarPLC;
-            private VarEnum LO_TypeVarPLC;
-            private Comunicazioni LO_Com;
-            private static bool ResetAvailable = false;      
+            private readonly string LS_PathVarPLC;
+            private readonly VarEnum LO_TypeVarPLC;
+            private readonly Comunicazioni LO_Com;
+            private static readonly bool ResetAvailable = false;      
             public void ResetAsDefault()
             {
                 Main.btnUPS.NormalColor = System.Drawing.Color.FromArgb(192, 192, 0);
@@ -126,7 +126,7 @@ namespace LePleiadi
             private string LS_PathVarPLCRightOpen;
             private string LS_PathVarPLCRightClose;
             private VarEnum LO_TypeVarPLC;
-            private Comunicazioni LO_Com;
+            private readonly Comunicazioni LO_Com;
             public PLCRoof()
             {
                 LO_HandleLeftOpen = null;
@@ -298,9 +298,8 @@ namespace LePleiadi
             private VariableHandle LO_Handle;
             private string LS_PathVarPLC;
             private VarEnum LO_TypeVarPLC;
-            private Comunicazioni LO_Com;
+            private readonly Comunicazioni LO_Com;
             private bool LB_Modifiable;
-            private bool LB_RedOnValue;
             private Color LC_ColorOnTrue;
             private Color LC_ColorOnFalse;
             public PLCValue()
@@ -456,7 +455,7 @@ namespace LePleiadi
             private string LS_PathVarPLCDirection;
             private VarEnum LO_TypeVarPLCDirection;
             private static bool LB_DirectionValue;
-            private Comunicazioni LO_Com;
+            private readonly Comunicazioni LO_Com;
             public PLCChangeValue()
             {
                 LO_HandleRun = null;
@@ -632,12 +631,162 @@ namespace LePleiadi
 
             internal class EventHandler
             {
-                private Action<object, MouseEventArgs> btnEvent_Click;
+                private readonly Action<object, MouseEventArgs> btnEvent_Click;
 
                 public EventHandler(Action<object, MouseEventArgs> btnEvent_Click)
                 {
                     this.btnEvent_Click = btnEvent_Click;
                 }
+            }
+        }
+        public class PLCCPU
+        {
+            private VariableHandle LO_HandleErrorCode;
+            private VariableHandle LO_HandleUnit;
+            private string LS_PathVarPLCUnit;
+            private string LS_PathVarPLCErrorCode;
+            private VarEnum LO_TypeVarPLCUnit;
+            private VarEnum LO_TypeVarPLCErrorCode;
+            private readonly Comunicazioni LO_Com;
+            private int UnityNumber;
+            private static int ErrValue = -1;
+            public PLCCPU()
+            {
+                LO_HandleUnit = null;
+                LS_PathVarPLCUnit = "";
+                LO_TypeVarPLCUnit = VarEnum.VT_UNKNOWN;
+                LO_HandleErrorCode = null;
+                LS_PathVarPLCErrorCode = "";
+                LO_TypeVarPLCErrorCode = VarEnum.VT_UNKNOWN;
+                LO_Com = Comunicazioni.Instance;
+            }
+            public void ResetDefault()
+            {
+                Main.lblErrorCode.Text = "";
+                Main.lblUnit.Text = "";
+            }
+            public bool Online(bool value)
+            {
+                bool retVal = false;
+                if(!LS_PathVarPLCUnit.Equals("") && !LS_PathVarPLCErrorCode.Equals("") && (LO_TypeVarPLCErrorCode!=VarEnum.VT_UNKNOWN) &&(LO_TypeVarPLCUnit!=VarEnum.VT_UNKNOWN))
+                {
+                    if (LO_HandleUnit==null)
+                        LO_HandleUnit = new VariableHandle(LO_Com, LS_PathVarPLCUnit, -1, true);
+                    if (LO_HandleErrorCode == null)
+                        LO_HandleErrorCode = new VariableHandle(LO_Com, LS_PathVarPLCErrorCode, -1, true);
+                    if(value)
+                    {
+                        LO_Com.RegisterVariable(LO_HandleUnit);
+                        LO_HandleUnit.OnValueChange += new VariableHandle.OnVarValueChange(LO_HandleUnit_OnValueChange);
+                        LO_Com.RegisterVariable(LO_HandleErrorCode);
+                        LO_HandleErrorCode.OnValueChange += new VariableHandle.OnVarValueChange(LO_HandleErrorCode_OnValueChange);
+                    }
+                    else
+                    {
+                        LO_HandleUnit.OnValueChange -= new VariableHandle.OnVarValueChange(LO_HandleUnit_OnValueChange);
+                        LO_Com.RemoveVariable(LO_HandleUnit);
+                        LO_HandleErrorCode.OnValueChange -= new VariableHandle.OnVarValueChange(LO_HandleErrorCode_OnValueChange);
+                        LO_Com.RemoveVariable(LO_HandleErrorCode);
+                        ResetDefault();
+                    }
+                }
+                return retVal;
+            }
+            void LO_HandleUnit_OnValueChange(object sender)
+            {
+                ChangeUnityName();
+            }
+            void LO_HandleErrorCode_OnValueChange(object sender)
+            {
+                ChangeErrorCode();
+            }
+            protected void ChangeUnityName()
+            {
+                if((LO_HandleUnit!=null)&&(LO_HandleUnit.ActualValue!=null))
+                {
+                    if (LO_HandleUnit.ActualValue.ToString().Equals(""))
+                        Main.lblUnit.Text = "Unit: " + UnityNumber;
+                    else
+                        Main.lblUnit.Text = LO_HandleUnit.ActualValue.ToString();
+                }
+            }
+            protected void ChangeErrorCode()
+            {
+                if((LO_HandleErrorCode!=null)&&(LO_HandleErrorCode.ActualValue!=null))
+                {
+                    Main.lblErrorCode.Text = LO_HandleErrorCode.ActualValue.ToString();
+                    if(LO_HandleErrorCode.VariableType==VarEnum.VT_INT)
+                    {
+                        ErrValue = Convert.ToInt32(LO_HandleErrorCode.ActualValue);
+                        if (ErrValue > 0)
+                            Main.lblErrorCode.BackColor = Color.Red;
+                        else
+                            Main.lblErrorCode.BackColor = Color.Green;
+                    }
+                }
+            }
+            public string PathVarPLCUnit
+            {
+                get
+                {
+                    return LS_PathVarPLCUnit;
+                }
+                set
+                {
+                    LS_PathVarPLCUnit = value;
+                }
+            }
+            public VarEnum TypeUnit
+            {
+                get
+                {
+                    return LO_TypeVarPLCUnit;
+                }
+                set
+                {
+                    LO_TypeVarPLCUnit = value;
+                }
+            }
+            public string PathVarErrorCode
+            {
+                get
+                {
+                    return LS_PathVarPLCErrorCode;
+                }
+                set
+                {
+                    LS_PathVarPLCErrorCode = value;
+                }
+            }
+            public VarEnum TypeErrorCode
+            {
+                get
+                {
+                    return LO_TypeVarPLCErrorCode;
+                }
+                set
+                {
+                    LO_TypeVarPLCErrorCode = value;
+                }
+            }
+            public int UnitNumber
+            {
+                get
+                {
+                    return UnityNumber;
+                }
+                set
+                {
+                    UnityNumber = value;
+                }
+            }
+            public static void LblErrorCode_Click(object sender, EventArgs e)
+            {
+
+                if (ErrValue >= 0)
+                    MessageBox.Show("Binary: " + Convert.ToString(Convert.ToByte(ErrValue), 2));
+                else
+                    MessageBox.Show("Error reading data");
             }
         }
     }

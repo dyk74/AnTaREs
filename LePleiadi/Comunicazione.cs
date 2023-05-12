@@ -90,9 +90,9 @@ namespace LePleiadi
             private static readonly Comunicazioni instance;
             private readonly OPCServer LO_TheServer;
             private OPCGroup LO_MyGroup;
-            private string LS_PLCName;
-            private string LS_GroupName;
-            private int LI_UpdateRate;
+            private readonly string LS_PLCName;
+            private readonly string LS_GroupName;
+            private readonly int LI_UpdateRate;
             private int LI_HandleCreated;
             public delegate void OnPLCValueChange(object sender, int ClientHandle, object NewValue);
             public delegate void OnPLCWriteComplete(object sender, int ClientHandle, int TransactionID);

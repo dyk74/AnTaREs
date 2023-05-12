@@ -43,10 +43,13 @@ namespace LePleiadi
             this.grpRoof = new System.Windows.Forms.GroupBox();
             this.grpPLC = new System.Windows.Forms.GroupBox();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
+            this.grpCPU = new System.Windows.Forms.GroupBox();
+
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
             this.grpRoof.SuspendLayout();
+            this.grpCPU.SuspendLayout();
             this.SuspendLayout();
             // 
             // Stile
@@ -177,6 +180,7 @@ namespace LePleiadi
             // metroPLC
             // 
             this.metroPLC.BaseColor = System.Drawing.Color.White;
+            this.metroPLC.Controls.Add(this.grpCPU);
             this.metroPLC.Controls.Add(this.grpPLC);
             this.metroPLC.Controls.Add(this.grpRoof);
             this.metroPLC.Controls.Add(this.grpChange);
@@ -307,6 +311,27 @@ namespace LePleiadi
             this._metroSetControlBox1.ThemeAuthor = null;
             this._metroSetControlBox1.ThemeName = null;
             // 
+            // grpCPU
+            // 
+            this.grpCPU.BackColor = System.Drawing.SystemColors.Window;
+            this.grpCPU.Controls.Add(Main.lblErrorCode);
+            this.grpCPU.Controls.Add(Main.lblUnit);
+            this.grpCPU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpCPU.Location = new System.Drawing.Point(302, 3);
+            this.grpCPU.Name = "grpCPU";
+            this.grpCPU.Size = new System.Drawing.Size(200, 90);
+            this.grpCPU.TabIndex = 8;
+            this.grpCPU.TabStop = false;
+            this.grpCPU.Text = "CPU";
+            // 
+            // lblUnit
+            // 
+
+            // 
+            // lblErrorCode
+            // 
+ 
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -323,6 +348,7 @@ namespace LePleiadi
             this.metroControllo.ResumeLayout(false);
             this.metroPLC.ResumeLayout(false);
             this.grpRoof.ResumeLayout(false);
+            this.grpCPU.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -353,6 +379,9 @@ namespace LePleiadi
         private System.Windows.Forms.GroupBox grpRoof;
         private System.Windows.Forms.GroupBox grpPLC;
         private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
+        private System.Windows.Forms.GroupBox grpCPU;
+        public static MetroSet_UI.Controls.MetroSetLabel lblErrorCode;
+        public static MetroSet_UI.Controls.MetroSetLabel lblUnit;
     }
 }
 
