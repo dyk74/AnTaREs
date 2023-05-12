@@ -31,15 +31,110 @@ namespace LePleiadi
             Main.lblValueRun = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblUnit = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblErrorCode = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.btnChange= new MetroSet_UI.Controls.MetroSetButton();
+            Main.lblChange = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.chkToogle = new MetroSet_UI.Controls.MetroSetCheckBox();
+            Main.eclSecurityChain = new MetroSet_UI.Controls.MetroSetEllipse();
+            Main.lblSecurityChain = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.PLC_Tooltip = new System.Windows.Forms.ToolTip(this.components);
             InitializeComponent();
             BtnUPS_Initialize();
             LblUPS_Initialize();
             RoofOpenClose_Initialize();
             PLCLabel_Initialize();
-            PLCChange_initialize();
+            PLCFastChange_initialize();
+            PLCChange_Initialize();
+            PLCCPU_Initialize();
+            PLCToogle_Initialize();
+            PLCChainElement_Initialize();
+        }
+        private void PLCChainElement_Initialize()
+        {
+            this.grpSecurityChain.Controls.Add(Main.lblSecurityChain);
+            this.grpSecurityChain.Controls.Add(Main.eclSecurityChain);
+            eclSecurityChain.BorderThickness = 0;
+            eclSecurityChain.Enabled = false;
+            eclSecurityChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            eclSecurityChain.Image = null;
+            eclSecurityChain.ImageSize = new System.Drawing.Size(64, 64);
+            eclSecurityChain.IsDerivedStyle = true;
+            eclSecurityChain.Location = new System.Drawing.Point(6, 19);
+            eclSecurityChain.Name = "eclSecurityChain";
+            eclSecurityChain.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            eclSecurityChain.NormalTextColor = System.Drawing.Color.Black;
+            eclSecurityChain.PressTextColor = System.Drawing.Color.White;
+            eclSecurityChain.Size = new System.Drawing.Size(75, 75);
+            eclSecurityChain.Style = MetroSet_UI.Enums.Style.Light;
+            eclSecurityChain.StyleManager = null;
+            eclSecurityChain.TabIndex = 0;
+            eclSecurityChain.ThemeAuthor = "Narwin";
+            eclSecurityChain.ThemeName = "MetroLite";
+            lblSecurityChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            lblSecurityChain.IsDerivedStyle = true;
+            lblSecurityChain.Location = new System.Drawing.Point(87, 40);
+            lblSecurityChain.Name = "lblSecurityChain";
+            lblSecurityChain.Size = new System.Drawing.Size(130, 23);
+            lblSecurityChain.Style = MetroSet_UI.Enums.Style.Light;
+            lblSecurityChain.StyleManager = null;
+            lblSecurityChain.TabIndex = 1;
+            lblSecurityChain.Text = "-";
+            lblSecurityChain.ThemeAuthor = "Narwin";
+            lblSecurityChain.ThemeName = "MetroLite";
+        }
+        private void PLCToogle_Initialize()
+        {
+            this.grpTooglePLC.Controls.Add(Main.chkToogle);
+            chkToogle.BackColor = System.Drawing.Color.Transparent;
+            chkToogle.Checked = false;
+            chkToogle.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
+            chkToogle.Cursor = System.Windows.Forms.Cursors.Hand;
+            chkToogle.IsDerivedStyle = true;
+            chkToogle.Location = new System.Drawing.Point(6, 19);
+            chkToogle.Name = "chkToogle";
+            chkToogle.SignStyle = MetroSet_UI.Enums.SignStyle.Shape;
+            chkToogle.Size = new System.Drawing.Size(154, 16);
+            chkToogle.Style = MetroSet_UI.Enums.Style.Light;
+            chkToogle.StyleManager = this.Stile;
+            chkToogle.TabIndex = 10;
+            chkToogle.Text = "-";
+            chkToogle.ThemeAuthor = null;
+            chkToogle.ThemeName = null;
+            chkToogle.CheckedChanged += ChkToogle_CheckedChanged; 
+        }
+        private void ChkToogle_CheckedChanged(object sender)
+        {
+            PLC.PLC_Toogle.ChkToogle_CheckedChanged(sender);
+        }
+        private void PLCChange_Initialize()
+        {
+            this.grpToogle.Controls.Add(Main.lblChange);
+            this.grpToogle.Controls.Add(Main.btnChange);
+            btnChange.IsDerivedStyle = true;
+            btnChange.Location = new System.Drawing.Point(6, 25);
+            btnChange.Name = "btnChange";
+            btnChange.Size = new System.Drawing.Size(124, 45);
+            btnChange.Style = MetroSet_UI.Enums.Style.Light;
+            btnChange.StyleManager = null;
+            btnChange.TabIndex = 0;
+            btnChange.Text = "Event";
+            btnChange.ThemeAuthor = "Narwin";
+            btnChange.ThemeName = "MetroLite";
+            btnChange.Click += BtnChange_Click;
+            lblChange.IsDerivedStyle = true;
+            lblChange.Location = new System.Drawing.Point(136, 25);
+            lblChange.Name = "lblChange";
+            lblChange.Size = new System.Drawing.Size(100, 23);
+            lblChange.Style = MetroSet_UI.Enums.Style.Light;
+            lblChange.StyleManager = null;
+            lblChange.TabIndex = 1;
+            lblChange.Text = "-";
+            lblChange.ThemeAuthor = "Narwin";
+            lblChange.ThemeName = "MetroLite";
         }
         private void PLCCPU_Initialize()
         {
+            this.grpCPU.Controls.Add(Main.lblUnit);
+            this.grpCPU.Controls.Add(Main.lblErrorCode);
             lblUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             lblUnit.IsDerivedStyle = true;
             lblUnit.Location = new System.Drawing.Point(7, 20);
@@ -65,11 +160,11 @@ namespace LePleiadi
             lblErrorCode.Click += LblErrorCode_Click;
 
         }
-        private void PLCChange_initialize()
+        private void PLCFastChange_initialize()
         {
-            this.grpChange.Controls.Add(Main.lblValueRun);
-            this.grpChange.Controls.Add(Main.lblValueDirection);
-            this.grpChange.Controls.Add(Main.btnEvent);
+            this.grpFastChange.Controls.Add(Main.lblValueRun);
+            this.grpFastChange.Controls.Add(Main.lblValueDirection);
+            this.grpFastChange.Controls.Add(Main.btnEvent);
             btnEvent.Location = new System.Drawing.Point(6, 25);
             btnEvent.Name = "btnEvent";
             btnEvent.PressTextColor = System.Drawing.Color.White;
@@ -109,9 +204,12 @@ namespace LePleiadi
         }
         private void BtnEvent_Click(object sender, EventArgs e)
         {
-            PLC.PLCChangeValue.BtnEvent_Click(sender, e);
+            PLC.PLC_ChangeValue.BtnEvent_Click(sender, e);
         }
-
+        private void BtnChange_Click(object sender, EventArgs e)
+        {
+            PLC.PLC_Value.BtnChange_Click(sender, e);
+        }
         private void PLCLabel_Initialize()
         {
             this.grpPLC.Controls.Add(Main.LblPLCVariableValue);
@@ -230,10 +328,9 @@ namespace LePleiadi
         }
         private void BtnUPS_Click(object sender,EventArgs e)
         {
-            PLC.AlarmUPS.LO_Handle.Write(false);
-            PLC.AlarmUPS.SetResetAvailable();
+            PLC.Alarm_UPS.LO_Handle.Write(false);
+            PLC.Alarm_UPS.SetResetAvailable();
         }
-
 
     }
 }
