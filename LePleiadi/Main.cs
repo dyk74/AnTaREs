@@ -36,7 +36,10 @@ namespace LePleiadi
             Main.chkToogle = new MetroSet_UI.Controls.MetroSetCheckBox();
             Main.eclSecurityChain = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.lblSecurityChain = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.PLC_Tooltip = new System.Windows.Forms.ToolTip(this.components);
+            Main.lblKeepAlive = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.btn_KeepAlive = new MetroSet_UI.Controls.MetroSetEllipse();
+            Main.Pb_Loading = new MetroSet_UI.Controls.MetroSetProgressBar();
+            Main.Lbl_Loading = new MetroSet_UI.Controls.MetroSetLabel();
             InitializeComponent();
             BtnUPS_Initialize();
             LblUPS_Initialize();
@@ -47,6 +50,69 @@ namespace LePleiadi
             PLCCPU_Initialize();
             PLCToogle_Initialize();
             PLCChainElement_Initialize();
+            Loading_Initialize();
+            KeepAlive_Initialize();
+        }
+        private void KeepAlive_Initialize()
+        {
+            this.grp_KeepAlive.Controls.Add(Main.btn_KeepAlive);
+            this.grp_KeepAlive.Controls.Add(Main.lblKeepAlive);
+            lblKeepAlive.IsDerivedStyle = true;
+            lblKeepAlive.Location = new System.Drawing.Point(7, 51);
+            lblKeepAlive.Name = "lblKeepAlive";
+            lblKeepAlive.Size = new System.Drawing.Size(77, 23);
+            lblKeepAlive.Style = MetroSet_UI.Enums.Style.Light;
+            lblKeepAlive.Text = "Server";
+            lblKeepAlive.ThemeAuthor = "Narwin";
+            lblKeepAlive.ThemeName = "MetroLite";
+            btn_KeepAlive.BorderThickness = 0;
+            btn_KeepAlive.Enabled = false;
+            btn_KeepAlive.Image = null;
+            btn_KeepAlive.ImageSize = new System.Drawing.Size(64, 64);
+            btn_KeepAlive.IsDerivedStyle = true;
+            btn_KeepAlive.Location = new System.Drawing.Point(90, 34);
+            btn_KeepAlive.Name = "btn_KeepAlive";
+            btn_KeepAlive.NormalColor = System.Drawing.Color.Red;
+            btn_KeepAlive.Size = new System.Drawing.Size(55, 55);
+            btn_KeepAlive.Style = MetroSet_UI.Enums.Style.Light;
+            btn_KeepAlive.StyleManager = null;
+            btn_KeepAlive.TabIndex = 1;
+            btn_KeepAlive.ThemeAuthor = "Narwin";
+            btn_KeepAlive.ThemeName = "MetroLite";
+        }
+        private void Loading_Initialize()
+        {
+            this.grpLoading.Controls.Add(Main.Lbl_Loading);
+            this.grpLoading.Controls.Add(Main.Pb_Loading);
+            Pb_Loading.IsDerivedStyle = true;
+            Pb_Loading.Location = new System.Drawing.Point(263, 19);
+            Pb_Loading.Maximum = 100;
+            Pb_Loading.Minimum = 0;
+            Pb_Loading.Name = "Pb_Loading";
+            Pb_Loading.Orientation = MetroSet_UI.Enums.ProgressOrientation.Horizontal;
+            Pb_Loading.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            Pb_Loading.Size = new System.Drawing.Size(490, 20);
+            Pb_Loading.Style = MetroSet_UI.Enums.Style.Light;
+            Pb_Loading.StyleManager = null;
+            Pb_Loading.TabIndex = 0;
+            Pb_Loading.Click += Pb_Loading_Click;
+            Pb_Loading.ThemeAuthor = "Narwin";
+            Pb_Loading.ThemeName = "MetroLite";
+            Pb_Loading.Value = 0;
+            Lbl_Loading.IsDerivedStyle = true;
+            Lbl_Loading.Location = new System.Drawing.Point(12, 15);
+            Lbl_Loading.Name = "Lbl_Loading";
+            Lbl_Loading.Size = new System.Drawing.Size(245, 23);
+            Lbl_Loading.Style = MetroSet_UI.Enums.Style.Light;
+            Lbl_Loading.StyleManager = null;
+            Lbl_Loading.TabIndex = 1;
+            Lbl_Loading.Text = ".";
+            Lbl_Loading.ThemeAuthor = "Narwin";
+            Lbl_Loading.ThemeName = "MetroLite";
+        }
+        private void Pb_Loading_Click(object sender, EventArgs e)
+        {
+            PLC.PLC_Loading.Pb_Loading_Click(sender, e);
         }
         private void PLCChainElement_Initialize()
         {
@@ -79,7 +145,7 @@ namespace LePleiadi
             lblSecurityChain.TabIndex = 1;
             lblSecurityChain.Text = "-";
             lblSecurityChain.ThemeAuthor = "Narwin";
-            lblSecurityChain.ThemeName = "MetroLite";
+            lblSecurityChain.ThemeName = "MetroLite";  
         }
         private void PLCToogle_Initialize()
         {
