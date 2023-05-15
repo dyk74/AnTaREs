@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comunicazione.cs" />
+    <Compile Include="Gauge.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
