@@ -8,6 +8,10 @@ using System.Runtime.InteropServices;
 using static LePleiadi.Comunicazione;
 using System.Windows.Forms;
 using System.Timers;
+using System.Net.NetworkInformation;
+using System.Diagnostics;
+using System.Management;
+using System.Net;
 
 namespace LePleiadi
 {
@@ -1408,6 +1412,161 @@ namespace LePleiadi
                 {
                     LO_TypeVarPLC = value;
                 }
+            }
+        }
+        public class PLC_CheckConnectivity
+        {
+            public string DestinationIP
+            {
+                get
+                {
+                    return Main.txtIP.Text;
+                }
+                set
+                {
+                    Main.txtIP.Text = value;
+                }
+            }
+            public static void Btn_Ping_Click(object sender,EventArgs e)
+            {
+                Main.btnIPStatus.NormalColor = Color.Gray;
+                TestConnectivity();
+            }
+            public static void TestConnectivity()
+            {
+                if (Main.txtIP.Equals(""))
+                    return;
+                if (PLC_Utility.HasICMPConnectivity(Main.txtIP.Text))
+                    Main.btnIPStatus.NormalColor = Color.Green;
+                else
+                    Main.btnIPStatus.NormalColor = Color.Red;
+            }
+        }
+        public class PLC_SystemInformation
+        {
+            PerformanceCounter CpuCounter;
+            PerformanceCounter RamCounter;
+            System.Timers.Timer MyTimer;
+            public PLC_SystemInformation()
+            {
+                CpuCounter = new PerformanceCounter();
+                CpuCounter.CategoryName = "Processor";
+                CpuCounter.CounterName = "% Processor Time";
+                CpuCounter.InstanceName = "_Total";
+                RamCounter = new PerformanceCounter("Memory", "Available MBytes");
+                Main.PB_Ram.Maximum = Convert.ToInt32(GetTotalMemoryInKByte() / 1048576);
+                Main.PB_CPUUsage.Maximum = 100;
+                Main.PB_CPUUsage.Style = (MetroSet_UI.Enums.Style)ProgressBarStyle.Continuous;
+                Main.PB_Ram.Style = (MetroSet_UI.Enums.Style)ProgressBarStyle.Continuous;
+            }
+            public void Start()
+            {
+                MyTimer = new System.Timers.Timer();
+                MyTimer.Elapsed += new ElapsedEventHandler(UpdateIndicators);
+                MyTimer.Interval = 1000;
+                MyTimer.Start();
+            }
+            public void Stop()
+            {
+                MyTimer.Stop();
+                MyTimer = null;
+            }
+            static ulong GetTotalMemoryInKByte()
+            {
+                ObjectQuery OQuery=new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+                ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher(OQuery);
+                ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
+                ulong Total_Visible_Memory=0 ;
+                ulong Free_Physical_Memory;
+                ulong Total_Virtual_Memory;
+                ulong Free_Virtual_Memory;
+                foreach (ManagementObject managementObject in managementObjectCollection)
+                {
+                    Total_Visible_Memory= (ulong)managementObject["TotalVisibleMemorySize"];
+                    Free_Physical_Memory= (ulong)managementObject["FreePhysicalMemory"];
+                    Total_Virtual_Memory= (ulong)managementObject["TotalVirtualMemorySize"];
+                    Free_Virtual_Memory= (ulong)managementObject["FreeVirtualMemory"];
+                }
+                return Total_Visible_Memory;
+            }
+            public void UpdateIndicators(object source,ElapsedEventArgs e)
+            {
+                Main.PB_CPUUsage.Invoke((MethodInvoker)delegate
+                {
+                    UpdateCPU();
+                });
+                Main.PB_Ram.Invoke((MethodInvoker)delegate
+                {
+                    UpdateMemory();
+                });
+                Main.lblUptime_Value.Invoke((MethodInvoker)delegate
+                {
+                    UpdateServerTime();
+                });
+                Main.LblIP_Value.Invoke((MethodInvoker)delegate
+                {
+                    UpdateIpAddress();
+                });
+            }
+            private void UpdateIpAddress()
+            {
+                IPAddress[] IpAddress = Dns.GetHostAddresses(Dns.GetHostName());
+                for(int i=0;i<IpAddress.Length;i++)
+                {
+                    if(i>1)
+                    {
+                        Main.LblIP_Value.Text = IpAddress[i].ToString() + "(*)";
+                        Main.LblIP_Value.Click -= new EventHandler(LblIP_Value_Click);
+                        Main.LblIP_Value.Click += new EventHandler(LblIP_Value_Click);
+                        Main.LblIP_Value.Cursor = System.Windows.Forms.Cursors.Hand;
+                    }
+                    else
+                    {
+                        Main.LblIP_Value.Click -= new EventHandler(LblIP_Value_Click);
+                        Main.LblIP_Value.Cursor = System.Windows.Forms.Cursors.Default;
+                    }
+                }
+            }
+            void LblIP_Value_Click(object sender,EventArgs e)
+            {
+                IPAddress[] IPAddress = Dns.GetHostAddresses(Dns.GetHostName());
+                string IPs = "";
+                for (int i = 0; i < IPAddress.Length; i++)
+                    IPs += String.Format("IP: {0}: {1}\r\n", i, IPAddress[i].ToString());
+                MetroSet_UI.Forms.MetroSetMessageBox.Show((MetroSet_UI.Forms.MetroSetForm)Main.ActiveForm, IPs);
+            }
+            void UpdateServerTime()
+            {
+                TimeSpan T = TimeSpan.FromSeconds(System.Environment.TickCount / 1000);
+                Main.lblUptime_Value.Text = string.Format("{0:D4}h:{1:D2}m:{2:D2}s", T.Hours, T.Minutes, T.Seconds);
+                PerformanceCounter PC = new PerformanceCounter("System", "System Up Time");
+                PC.NextValue();
+                TimeSpan TS = TimeSpan.FromSeconds(PC.NextValue());
+                Main.lblUptime_Value.Text = TS.Days + " dd " + TS.Hours + "h " + TS.Minutes + "min " + TS.Seconds + "s";
+            }
+            void UpdateCPU()
+            {
+                float NextValue = CpuCounter.NextValue();
+                Main.PB_CPUUsage.Text = NextValue + "%";
+                Main.PB_CPUUsage.Value = Convert.ToInt32(NextValue);
+            }
+            void UpdateMemory()
+            {
+                float NextValue = RamCounter.NextValue();
+                Main.PB_Ram.Text = (Main.PB_Ram.Maximum - NextValue) + "MB";
+                Main.PB_Ram.Value = Convert.ToInt32(Main.PB_Ram.Maximum - NextValue);
+            }
+        }
+        public class PLC_Utility
+        { 
+            public static bool HasICMPConnectivity(string IP)
+            {
+                Ping Ping = new Ping();
+                PingOptions Options = new PingOptions();
+                Options.DontFragment = true;
+                byte[] Buffer = null;
+                PingReply Reply = Ping.Send(IP, 500, Buffer, Options);
+                return Reply.Status == IPStatus.Success;
             }
         }
     }
