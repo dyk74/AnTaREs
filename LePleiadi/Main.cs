@@ -18,13 +18,21 @@ namespace LePleiadi
 {
     public partial class Main : MetroSetForm
     {
-        private bool Connected = false;
+        private static bool Connected;
         private System.Timers.Timer UpdateTimer;
         private DateTime DateTime;
         public Main()
         {
-            Main.btnUPS = new MetroSet_UI.Controls.MetroSetButton();
-            Main.lblUPS = new MetroSet_UI.Controls.MetroSetLabel();
+            // DA METTERE IN CONFIG FILE
+            VPN.VPN_Server = "vpn.lepleiadi.ch";
+            VPN.VPN_Protocol = "L2TP";
+            VPN.VPN_AdapterName = "Le Pleiadi";
+            VPN.VPN_Username = "pleiadi";
+            VPN.VPN_Password = "le12$pleiadi99";
+            VPN.VPN_PreSharedKey = "le12$pleiadi99";
+            //
+            Main.Connected = false;
+
             Main.RoofOpenClose = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.RoofLeft = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.RoofRight = new MetroSet_UI.Controls.MetroSetEllipse();
@@ -55,9 +63,8 @@ namespace LePleiadi
             Main.txtIP = new System.Windows.Forms.MaskedTextBox();
             Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
             Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
+            
             InitializeComponent();
-            BtnUPS_Initialize();
-            LblUPS_Initialize();
             RoofOpenClose_Initialize();
             PLCLabel_Initialize();
             PLCFastChange_initialize();
@@ -70,6 +77,17 @@ namespace LePleiadi
             ConnectivityStatus_Initialize();
             StartUpdateTimer();
 
+        }
+        private void UPS_Initialize()
+        {
+            this.grpUPS.Controls.Add(Main.AlarmUPS1);
+            AlarmUPS1.AlarmName = "ECO-MODE";
+            AlarmUPS1.Cursor = System.Windows.Forms.Cursors.Hand;
+            AlarmUPS1.Location = new System.Drawing.Point(10, 10);
+            AlarmUPS1.Name = "AlarmUPS1";
+            AlarmUPS1.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
+            AlarmUPS1.ResetAvailable = false;
+            AlarmUPS1.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void StartUpdateTimer()
         {
@@ -306,7 +324,6 @@ namespace LePleiadi
             Pb_Loading.Style = MetroSet_UI.Enums.Style.Light;
             Pb_Loading.StyleManager = null;
             Pb_Loading.TabIndex = 0;
-            Pb_Loading.Click += Pb_Loading_Click;
             Pb_Loading.ThemeAuthor = "Narwin";
             Pb_Loading.ThemeName = "MetroLite";
             Pb_Loading.Value = 0;
@@ -321,10 +338,7 @@ namespace LePleiadi
             Lbl_Loading.ThemeAuthor = "Narwin";
             Lbl_Loading.ThemeName = "MetroLite";
         }
-        private void Pb_Loading_Click(object sender, EventArgs e)
-        {
-            PLC.PLC_Loading.Pb_Loading_Click(sender, e);
-        }
+
         private void PLCChainElement_Initialize()
         {
             this.grpSecurityChain.Controls.Add(Main.lblSecurityChain);
@@ -376,12 +390,8 @@ namespace LePleiadi
             chkToogle.Text = "-";
             chkToogle.ThemeAuthor = null;
             chkToogle.ThemeName = null;
-            chkToogle.CheckedChanged += ChkToogle_CheckedChanged; 
         }
-        private void ChkToogle_CheckedChanged(object sender)
-        {
-            PLC.PLC_Toogle.ChkToogle_CheckedChanged(sender);
-        }
+ 
         private void PLCChange_Initialize()
         {
             this.grpToogle.Controls.Add(Main.lblChange);
@@ -396,7 +406,6 @@ namespace LePleiadi
             btnChange.Text = "Event";
             btnChange.ThemeAuthor = "Narwin";
             btnChange.ThemeName = "MetroLite";
-            btnChange.Click += BtnChange_Click;
             lblChange.IsDerivedStyle = true;
             lblChange.Location = new System.Drawing.Point(136, 25);
             lblChange.Name = "lblChange";
@@ -452,7 +461,6 @@ namespace LePleiadi
             btnEvent.Text = "Event";
             btnEvent.ThemeAuthor = "Narwin";
             btnEvent.ThemeName = "MetroLite";
-            btnEvent.Click += BtnEvent_Click;
             lblValueDirection.IsDerivedStyle = true;
             lblValueDirection.Location = new System.Drawing.Point(136, 47);
             lblValueDirection.Name = "lblValueDirection";
@@ -479,15 +487,8 @@ namespace LePleiadi
         {
 
         }
-        private void BtnEvent_Click(object sender, EventArgs e)
-        {
-            PLC.PLC_ChangeValue.BtnEvent_Click(sender, e);
-        }
-        private void BtnChange_Click(object sender, EventArgs e)
-        {
-            PLC.PLC_Value.BtnChange_Click(sender, e);
-        }
-        private void PLCLabel_Initialize()
+  
+         private void PLCLabel_Initialize()
         {
             this.grpPLC.Controls.Add(Main.LblPLCVariableValue);
             this.grpPLC.Controls.Add(Main.LblPLCVariableName);
@@ -514,44 +515,7 @@ namespace LePleiadi
             LblPLCVariableValue.ThemeAuthor = "Narwin";
             LblPLCVariableValue.ThemeName = "MetroLite";
         }
-        private void BtnUPS_Initialize()
-        {
-            btnUPS.IsDerivedStyle = true;
-            btnUPS.Location = new System.Drawing.Point(10, 25);
-            btnUPS.Name = "btnUPS";
-            btnUPS.Size = new System.Drawing.Size(130, 60);
-            btnUPS.Style = MetroSet_UI.Enums.Style.Light;
-            btnUPS.StyleManager = null;
-            btnUPS.TabIndex = 1;
-            btnUPS.Text = "UPS";
-            btnUPS.ThemeAuthor = "Narwin";
-            btnUPS.ThemeName = "MetroLite";
-            this.metroAllarmi.Controls.Add(Main.btnUPS);
-
-            btnUPS.HoverTextColor = Color.FromArgb(255, 255, 255);
-            btnUPS.NormalTextColor = Color.FromArgb(255, 255, 255);
-            btnUPS.PressTextColor = Color.FromArgb(255, 255, 255);
-            btnUPS.DisabledBorderColor = Color.FromArgb(192, 192, 192);
-            btnUPS.DisabledForeColor = Color.FromArgb(255, 255, 255);
-            btnUPS.DisabledBackColor = Color.FromArgb(192, 192, 192);
-            btnUPS.Click += new System.EventHandler(BtnUPS_Click);
-            btnUPS.Enabled = false;
-        }
-        private void LblUPS_Initialize()
-        {
-            this.metroAllarmi.Controls.Add(Main.lblUPS);
-            lblUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            lblUPS.IsDerivedStyle = true;
-            lblUPS.Location = new System.Drawing.Point(10, 100);
-            lblUPS.Name = "lblUPS";
-            lblUPS.Size = new System.Drawing.Size(100, 23);
-            lblUPS.Style = MetroSet_UI.Enums.Style.Light;
-            lblUPS.StyleManager = null;
-            lblUPS.TabIndex = 0;
-            lblUPS.Text = "";
-            lblUPS.ThemeAuthor = "Narwin";
-            lblUPS.ThemeName = "MetroLite";
-        }
+ 
         private void RoofOpenClose_Initialize()
         {
             this.grpRoof.Controls.Add(Main.RoofOpenClose);
@@ -585,19 +549,13 @@ namespace LePleiadi
         }
         private void SwConnect_SwitchedChanged(object sender)
         {
-            // DA METTERE IN CONFIG FILE
-            VPN.VPN_Server = "vpn.lepleiadi.ch";
-            VPN.VPN_Protocol = "L2TP";
-            VPN.VPN_AdapterName = "LePleiadi";
-            VPN.VPN_Username = "pleiadi";
-            VPN.VPN_Password = "le12$pleiadi99";
-            VPN.VPN_PreSharedKey = "le12$pleiadi99";
-            //
+
            
             MetroSetSwitch swC = sender as MetroSetSwitch;
             if (swC.CheckState==MetroSet_UI.Enums.CheckState.Checked)
             {
                 VPN.Disconnect();
+                Main.Connected = false;
                 swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
                 btnControlStatus.DisabledBorderColor = Color.FromArgb(192, 0, 0);
                 btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
@@ -611,6 +569,13 @@ namespace LePleiadi
                     try
                     {
                         VPN.Connect();
+                        swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
+                        Main.Connected = true;
+                        btnControlStatus.DisabledBorderColor = Color.FromArgb(0, 192, 0);
+                        btnControlStatus.DisabledForeColor = Color.FromArgb(0, 192, 0);
+                        btnControlStatus.DisabledBackColor = Color.FromArgb(0, 192, 0);
+                        Main.AlarmUPS1 = new PLC.PLC_UPSAlarm();
+                        UPS_Initialize();
                     }
                     finally
                     {
@@ -619,20 +584,13 @@ namespace LePleiadi
                         btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
                         btnControlStatus.DisabledBackColor = Color.FromArgb(192, 0, 0);
                     }
-                    swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
-                    btnControlStatus.DisabledBorderColor = Color.FromArgb(0, 192, 0);
-                    btnControlStatus.DisabledForeColor = Color.FromArgb(0, 192, 0);
-                    btnControlStatus.DisabledBackColor = Color.FromArgb(0, 192, 0);
+
                 }
                 
                
             }
         }
-        private void BtnUPS_Click(object sender,EventArgs e)
-        {
-            PLC.Alarm_UPS.LO_Handle.Write(false);
-            PLC.Alarm_UPS.SetResetAvailable();
-        }
+ 
 
     }
 }

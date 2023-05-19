@@ -51,10 +51,12 @@ namespace LePleiadi
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
+            this.grpUPS = new System.Windows.Forms.GroupBox();
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
             this.grpRoof.SuspendLayout();
+            this.metroAllarmi.SuspendLayout();
             this.SuspendLayout();
             // 
             // Stile
@@ -79,7 +81,7 @@ namespace LePleiadi
             this.TabConnection.ItemSize = new System.Drawing.Size(100, 38);
             this.TabConnection.Location = new System.Drawing.Point(2, 73);
             this.TabConnection.Name = "TabConnection";
-            this.TabConnection.SelectedIndex = 1;
+            this.TabConnection.SelectedIndex = 2;
             this.TabConnection.SelectedTextColor = System.Drawing.Color.White;
             this.TabConnection.Size = new System.Drawing.Size(1090, 600);
             this.TabConnection.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
@@ -340,6 +342,7 @@ namespace LePleiadi
             // metroAllarmi
             // 
             this.metroAllarmi.BaseColor = System.Drawing.Color.White;
+            this.metroAllarmi.Controls.Add(this.grpUPS);
             this.metroAllarmi.Font = null;
             this.metroAllarmi.ImageIndex = 0;
             this.metroAllarmi.ImageKey = null;
@@ -413,6 +416,17 @@ namespace LePleiadi
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
             // 
+            // grpUPS
+            // 
+            this.grpUPS.BackColor = System.Drawing.SystemColors.Window;
+            this.grpUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpUPS.Location = new System.Drawing.Point(10, 4);
+            this.grpUPS.Name = "grpUPS";
+            this.grpUPS.Size = new System.Drawing.Size(432, 237);
+            this.grpUPS.TabIndex = 0;
+            this.grpUPS.TabStop = false;
+            this.grpUPS.Text = "UPS";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -430,6 +444,7 @@ namespace LePleiadi
             this.metroControllo.ResumeLayout(false);
             this.metroPLC.ResumeLayout(false);
             this.grpRoof.ResumeLayout(false);
+            this.metroAllarmi.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -457,9 +472,9 @@ namespace LePleiadi
         private System.Windows.Forms.GroupBox grpLoading;
         private System.Windows.Forms.GroupBox grp_KeepAlive;
         private System.Windows.Forms.GroupBox grpConnectivity;
+        private System.Windows.Forms.GroupBox grpUPS;
+        
 
-        public static MetroSet_UI.Controls.MetroSetButton btnUPS;
-        public static MetroSet_UI.Controls.MetroSetLabel lblUPS;
         public static MetroSet_UI.Controls.MetroSetEllipse RoofOpenClose;
         public static MetroSet_UI.Controls.MetroSetEllipse RoofRight;
         public static MetroSet_UI.Controls.MetroSetEllipse RoofLeft;
@@ -491,7 +506,10 @@ namespace LePleiadi
         public static System.Windows.Forms.MaskedTextBox txtIP;
         public static MetroSet_UI.Controls.MetroSetLabel LblIP_Value;
         public static MetroSet_UI.Controls.MetroSetLabel lblIP;
+        public static PLC.PLC_UPSAlarm AlarmUPS1;
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
+        
+
     }
 }
 

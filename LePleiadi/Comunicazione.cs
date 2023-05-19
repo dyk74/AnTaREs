@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace LePleiadi
 {
-    class Comunicazione
+    public class Comunicazione
     {
         public class VariableHandle:Variabili
         {

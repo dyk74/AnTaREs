@@ -25,7 +25,7 @@ namespace LePleiadi
             _dialer = new RasDialer();
             using(RasPhoneBook PhoneBook =new RasPhoneBook())
             {
-                PhoneBook.Open(RasPhoneBook.GetPhoneBookPath(RasPhoneBookType.AllUsers));
+                PhoneBook.Open(RasPhoneBook.GetPhoneBookPath(RasPhoneBookType.User));
                 RasEntry Entry;
                 if (PhoneBook.Entries.Contains(VPN_AdapterName))
                     PhoneBook.Entries.Remove(VPN_AdapterName);
@@ -45,9 +45,10 @@ namespace LePleiadi
                     Entry.Update();
                 }
                 _dialer.EntryName = VPN_AdapterName;
-                _dialer.PhoneBookPath = RasPhoneBook.GetPhoneBookPath(RasPhoneBookType.AllUsers);
+                _dialer.PhoneBookPath = RasPhoneBook.GetPhoneBookPath(RasPhoneBookType.User);
                 _dialer.Credentials = new NetworkCredential(VPN_Username, VPN_Password);
             }
+            _handle = _dialer.Dial();
         }
         public static void Disconnect()
         {
