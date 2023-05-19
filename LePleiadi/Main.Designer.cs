@@ -50,6 +50,7 @@ namespace LePleiadi
             this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
+            this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
@@ -399,11 +400,25 @@ namespace LePleiadi
             this._metroSetControlBox1.ThemeAuthor = null;
             this._metroSetControlBox1.ThemeName = null;
             // 
+            // lblDateTime
+            // 
+            this.lblDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblDateTime.IsDerivedStyle = true;
+            this.lblDateTime.Location = new System.Drawing.Point(366, 18);
+            this.lblDateTime.Name = "lblDateTime";
+            this.lblDateTime.Size = new System.Drawing.Size(187, 23);
+            this.lblDateTime.Style = MetroSet_UI.Enums.Style.Light;
+            this.lblDateTime.StyleManager = this.Stile;
+            this.lblDateTime.TabIndex = 3;
+            this.lblDateTime.ThemeAuthor = null;
+            this.lblDateTime.ThemeName = null;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 683);
+            this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this._metroSetControlBox1);
             this.Controls.Add(this.TabConnection);
             this.Name = "Main";
@@ -476,6 +491,7 @@ namespace LePleiadi
         public static System.Windows.Forms.MaskedTextBox txtIP;
         public static MetroSet_UI.Controls.MetroSetLabel LblIP_Value;
         public static MetroSet_UI.Controls.MetroSetLabel lblIP;
+        private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
     }
 }
 

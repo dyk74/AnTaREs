@@ -11,12 +11,15 @@ using MetroSet_UI.Forms;
 using MetroSet_UI.Enums;
 using MetroSet_UI.Controls;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace LePleiadi
 {
     public partial class Main : MetroSetForm
     {
-        
+        private bool Connected = false;
+        private System.Timers.Timer UpdateTimer;
+        private DateTime DateTime;
         public Main()
         {
             Main.btnUPS = new MetroSet_UI.Controls.MetroSetButton();
@@ -45,7 +48,6 @@ namespace LePleiadi
             Main.lblUptime = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblUptime_Value = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblCPUUsage = new MetroSet_UI.Controls.MetroSetLabel();
-          
             Main.lbl_RamUsage = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblIP = new MetroSet_UI.Controls.MetroSetLabel();
             Main.LblIP_Value = new MetroSet_UI.Controls.MetroSetLabel();
@@ -65,6 +67,49 @@ namespace LePleiadi
             Loading_Initialize();
             KeepAlive_Initialize();
             ConnectivityStatus_Initialize();
+            StartUpdateTimer();
+
+        }
+        public void StartUpdateTimer()
+        {
+            UpdateTimer = new System.Timers.Timer();
+            UpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(UpdateTimerExpired);
+            UpdateTimer.Interval = 1000;
+            UpdateTimer.Start();
+        }
+        public void StopUpdateTimer()
+        {
+            UpdateTimer.Stop();
+            UpdateTimer = null;
+        }
+        delegate void UpdateTimerExpiredCallback(object source, ElapsedEventArgs e);
+        public void UpdateTimerExpired(object source,ElapsedEventArgs e)
+        {
+           if(this.lblDateTime.InvokeRequired)
+            {
+                UpdateTimerExpiredCallback UpadateCallback = new UpdateTimerExpiredCallback(UpdateTimerExpired);
+                this.Invoke(UpadateCallback, new object[] { source, e });
+            }
+           else
+           { 
+                if(DateTime==DateTime.MinValue)
+                {
+                    try
+                    {
+                        DateTime = PLC.PLC_Utility.NtpClient.GetNetworkTime();
+                        lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime);
+                    }
+                    catch(Exception ex)
+                    {
+                    lblDateTime.Text = "Error on NTP Server";
+                    }
+                }
+                else
+                {
+                    DateTime = DateTime.AddSeconds(1.0);
+                    lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime);
+                }
+           }
         }
         private void ConnectivityStatus_Initialize()
         {
@@ -214,12 +259,10 @@ namespace LePleiadi
             btnIPStatus.ThemeAuthor = "Narwin";
             btnIPStatus.ThemeName = "MetroLite";
         }
-
         private void Btn_Ping_Click(object sender, EventArgs e)
         {
             PLC.PLC_CheckConnectivity.Btn_Ping_Click(sender, e);
         }
-
         private void KeepAlive_Initialize()
         {
             this.grp_KeepAlive.Controls.Add(Main.btn_KeepAlive);
