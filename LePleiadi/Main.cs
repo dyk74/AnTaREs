@@ -12,6 +12,7 @@ using MetroSet_UI.Enums;
 using MetroSet_UI.Controls;
 using System.Windows.Forms;
 using System.Timers;
+using static LePleiadi.VPN ;
 
 namespace LePleiadi
 {
@@ -101,7 +102,7 @@ namespace LePleiadi
                     }
                     catch(Exception ex)
                     {
-                    lblDateTime.Text = "Error on NTP Server";
+                    lblDateTime.Text = "Error on NTP Server: "+ex;
                     }
                 }
                 else
@@ -584,10 +585,19 @@ namespace LePleiadi
         }
         private void SwConnect_SwitchedChanged(object sender)
         {
-
+            // DA METTERE IN CONFIG FILE
+            VPN.VPN_Server = "vpn.lepleiadi.ch";
+            VPN.VPN_Protocol = "L2TP";
+            VPN.VPN_AdapterName = "LePleiadi";
+            VPN.VPN_Username = "pleiadi";
+            VPN.VPN_Password = "le12$pleiadi99";
+            VPN.VPN_PreSharedKey = "le12$pleiadi99";
+            //
+           
             MetroSetSwitch swC = sender as MetroSetSwitch;
             if (swC.CheckState==MetroSet_UI.Enums.CheckState.Checked)
             {
+                VPN.Disconnect();
                 swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
                 btnControlStatus.DisabledBorderColor = Color.FromArgb(192, 0, 0);
                 btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
@@ -595,11 +605,27 @@ namespace LePleiadi
             }
             else if(swC.CheckState==MetroSet_UI.Enums.CheckState.Unchecked)
             {
-                swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
-                btnControlStatus.DisabledBorderColor = Color.FromArgb(0, 192, 0);
-                btnControlStatus.DisabledForeColor = Color.FromArgb(0, 192, 0);
-                btnControlStatus.DisabledBackColor = Color.FromArgb(0, 192, 0);
-               // MetroSetMessageBox.Show(this, "connesso");
+                DialogResult YESNO = MetroSetMessageBox.Show(this, "Vuoi veramente connetterti a "+VPN_AdapterName, "Connessione", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (YESNO==DialogResult.Yes)
+                {
+                    try
+                    {
+                        VPN.Connect();
+                    }
+                    finally
+                    {
+                        swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
+                        btnControlStatus.DisabledBorderColor = Color.FromArgb(192, 0, 0);
+                        btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
+                        btnControlStatus.DisabledBackColor = Color.FromArgb(192, 0, 0);
+                    }
+                    swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
+                    btnControlStatus.DisabledBorderColor = Color.FromArgb(0, 192, 0);
+                    btnControlStatus.DisabledForeColor = Color.FromArgb(0, 192, 0);
+                    btnControlStatus.DisabledBackColor = Color.FromArgb(0, 192, 0);
+                }
+                
+               
             }
         }
         private void BtnUPS_Click(object sender,EventArgs e)
