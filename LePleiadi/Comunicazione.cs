@@ -115,7 +115,7 @@ namespace LePleiadi
                 {
                     if(instance==null)
                     {
-                        instance = new Comunicazione("Kepware.KEPServerEX.V5", "Group", 1000);
+                        instance = new Comunicazioni("Kepware.KEPServerEX.V5", "Group", 1000);
                         instance.Connect();
                     }
                     return instance;
@@ -132,6 +132,7 @@ namespace LePleiadi
                 }
                 catch(Exception ex)
                 {
+                    VPN.Disconnect();
                     throw new Exception("Comunication Error: " + ex.Message);
                 }
             }
@@ -173,6 +174,7 @@ namespace LePleiadi
                 }
                 catch (Exception ex)
                 {
+                    VPN.Disconnect();
                     throw new Exception("Connection Error: " + ex.Message);
                 }
             }
@@ -187,11 +189,11 @@ namespace LePleiadi
                     Group.OPCItems.Remove(NoItem,ref  PLCHandleServer,out ErrorArray);
                 return true;
             }
-            public bool RegisterValue(VariableHandle Variable)
+            public bool RegisterVariable(VariableHandle Variable)
             {
                 OPCItem Item = Group.OPCItems.AddItem(Variable.VariablePath, HandleCreated);
                 Variable.VariableHandle = HandleCreated;
-                Variable.VariableOPCItem = Item;
+                Variable.Variable_OPCItem = Item;
                 Variable.VariableHandleServer = Item.ServerHandle;
                 HandleCreated += 1;
                 return Item.IsActive;
@@ -283,7 +285,7 @@ namespace LePleiadi
                     int i;
                     for(i=1;i<=ClientHandles.Length;i++)
                     {
-                        OnPLCWriteComplete(this, Convert.ToInt32(ClientHandles.GetValue(i)), TransactionID);
+                        WriteComplete(this, Convert.ToInt32(ClientHandles.GetValue(i)), TransactionID);
                     }
                 }
                 catch (Exception ex)
@@ -298,7 +300,7 @@ namespace LePleiadi
                 {
                     for(i=1;i<=ClientHandles.Length; i++)
                     {
-                        OnPLCValueChange(this, Convert.ToInt32(ClientHandles.GetValue(i)), ItemValues.GetValue(i));
+                        ValueChange(this, Convert.ToInt32(ClientHandles.GetValue(i)), ItemValues.GetValue(i));
                     }
                 }
                 catch (Exception ex)
@@ -314,7 +316,79 @@ namespace LePleiadi
             public delegate void OnVariableWriteComplete(object sender);
             public event OnVariableValueChange OnValueChange;
             public event OnVariableWriteComplete OnWriteComplete;
-            public VariableHandle()
+            public VariableHandle(Comunicazioni C_Com, string C_Path,int C_Variable,bool C_Modifiable)
+            {
+                Com = C_Com;
+                Variable_Path = C_Path;
+                Variable_Handle = C_Variable;
+                Variable_ActualValue = null;
+                Variable_Modifiable = C_Modifiable;
+                Variable_VariableType = VarEnum.VT_UNKNOWN;
+                Com.ValueChange += new Comunicazioni.OnPLCValueChange(Com_OnValueChange);
+                Com.WriteComplete += new Comunicazioni.OnPLCWriteComplete(Com_OnWriteComplete);
+            }
+            public VariableHandle(Comunicazioni C_Com,string C_Path, int C_Variable,bool C_Modifiable,VarEnum C_VarType)
+            {
+                Com = C_Com;
+                Variable_Path = C_Path;
+                Variable_Handle = C_Variable;
+                Variable_ActualValue = null;
+                Variable_Modifiable = C_Modifiable;
+                Variable_VariableType = C_VarType;
+                Com.ValueChange += new Comunicazioni.OnPLCValueChange(Com_OnValueChange);
+                Com.WriteComplete += new Comunicazioni.OnPLCWriteComplete(Com_OnWriteComplete);
+            }
+            void Com_OnWriteComplete(object C_sender, int C_ClientHandle,int C_TransactionID)
+            {
+                if (C_ClientHandle != this.Variable_Handle)
+                    return;
+                else
+                {
+                    this.WritePending = false;
+                    OnWriteComplete?.Invoke(this);
+                }
+
+            }
+            void Com_OnValueChange(object C_sender,Int32 C_ClientHandle, object C_NewValue)
+            {
+                try
+                {
+                    if (C_ClientHandle != this.Variable_Handle)
+                        return;
+                    else
+                    {
+                        Variable_ActualValue = C_NewValue;
+                        OnValueChange?.Invoke(this);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Value Change Error: " + ex.Message);
+                }
+            }
+            public bool Write(object C_Res)
+            {
+                return Com.SyncWrite(this, C_Res, typeof(bool));
+            }
+            public bool Deregister()
+            {
+                return Com.RemoveVariable(this);
+            }
+            public OPCAutomation.OPCItem Variable_OPCItem
+            {
+                get;
+                set;
+            }
+            public bool WritePending
+            {
+                get;
+                set;
+            }
+            public int WriteTransactionID
+            {
+                get;
+                set;
+            }
         }
     }
 }

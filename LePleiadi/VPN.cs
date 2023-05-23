@@ -17,7 +17,7 @@ namespace LePleiadi
         public static string VPN_Password = string.Empty;
         public static string VPN_PreSharedKey = string.Empty;
         private static RasDialer _dialer;
-        private static RasHandle _handle;
+        public static RasHandle _handle;
 
         
         public static void Connect()

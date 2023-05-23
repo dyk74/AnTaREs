@@ -29,6 +29,7 @@ namespace LePleiadi
         /// </summary>
         private void InitializeComponent()
         {
+            
             this.Stile = new MetroSet_UI.Components.StyleManager();
             this.TabConnection = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
@@ -48,10 +49,10 @@ namespace LePleiadi
             this.LblTetto = new MetroSet_UI.Controls.MetroSetLabel();
             this.grpFastChange = new System.Windows.Forms.GroupBox();
             this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.grpUPS = new System.Windows.Forms.GroupBox();
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
-            this.grpUPS = new System.Windows.Forms.GroupBox();
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
@@ -76,12 +77,12 @@ namespace LePleiadi
             this.TabConnection.Controls.Add(this.metroPLC);
             this.TabConnection.Controls.Add(this.metroAllarmi);
             this.TabConnection.Controls.Add(this.metroTetto);
-            this.TabConnection.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TabConnection.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TabConnection.IsDerivedStyle = true;
             this.TabConnection.ItemSize = new System.Drawing.Size(100, 38);
             this.TabConnection.Location = new System.Drawing.Point(2, 73);
             this.TabConnection.Name = "TabConnection";
-            this.TabConnection.SelectedIndex = 2;
+            this.TabConnection.SelectedIndex = 0;
             this.TabConnection.SelectedTextColor = System.Drawing.Color.White;
             this.TabConnection.Size = new System.Drawing.Size(1090, 600);
             this.TabConnection.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
@@ -358,6 +359,17 @@ namespace LePleiadi
             this.metroAllarmi.ThemeName = "MetroLite";
             this.metroAllarmi.ToolTipText = null;
             // 
+            // grpUPS
+            // 
+            this.grpUPS.BackColor = System.Drawing.SystemColors.Window;
+            this.grpUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpUPS.Location = new System.Drawing.Point(10, 4);
+            this.grpUPS.Name = "grpUPS";
+            this.grpUPS.Size = new System.Drawing.Size(432, 237);
+            this.grpUPS.TabIndex = 0;
+            this.grpUPS.TabStop = false;
+            this.grpUPS.Text = "UPS";
+            // 
             // metroTetto
             // 
             this.metroTetto.BaseColor = System.Drawing.Color.White;
@@ -415,17 +427,6 @@ namespace LePleiadi
             this.lblDateTime.TabIndex = 3;
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
-            // 
-            // grpUPS
-            // 
-            this.grpUPS.BackColor = System.Drawing.SystemColors.Window;
-            this.grpUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpUPS.Location = new System.Drawing.Point(10, 4);
-            this.grpUPS.Name = "grpUPS";
-            this.grpUPS.Size = new System.Drawing.Size(432, 237);
-            this.grpUPS.TabIndex = 0;
-            this.grpUPS.TabStop = false;
-            this.grpUPS.Text = "UPS";
             // 
             // Main
             // 
@@ -506,7 +507,7 @@ namespace LePleiadi
         public static System.Windows.Forms.MaskedTextBox txtIP;
         public static MetroSet_UI.Controls.MetroSetLabel LblIP_Value;
         public static MetroSet_UI.Controls.MetroSetLabel lblIP;
-        public static PLC.PLC_UPSAlarm AlarmUPS1;
+        public static UPS_Alarm UPS_Alarm1;
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         
 

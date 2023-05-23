@@ -63,8 +63,10 @@ namespace LePleiadi
             Main.txtIP = new System.Windows.Forms.MaskedTextBox();
             Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
             Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
-            
+            Main.UPS_Alarm1 = new UPS_Alarm();
+
             InitializeComponent();
+            InitializeUPS();
             RoofOpenClose_Initialize();
             PLCLabel_Initialize();
             PLCFastChange_initialize();
@@ -78,16 +80,18 @@ namespace LePleiadi
             StartUpdateTimer();
 
         }
-        private void UPS_Initialize()
+        public void InitializeUPS()
         {
-            this.grpUPS.Controls.Add(Main.AlarmUPS1);
-            AlarmUPS1.AlarmName = "ECO-MODE";
-            AlarmUPS1.Cursor = System.Windows.Forms.Cursors.Hand;
-            AlarmUPS1.Location = new System.Drawing.Point(10, 10);
-            AlarmUPS1.Name = "AlarmUPS1";
-            AlarmUPS1.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
-            AlarmUPS1.ResetAvailable = false;
-            AlarmUPS1.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_Alarm1.TopLevel = false;
+            this.grpUPS.Controls.Add(UPS_Alarm1);
+            UPS_Alarm1.Show();
+            UPS_Alarm1.PLCAlarmName = "ECO-MODE";
+            UPS_Alarm1.Cursor = System.Windows.Forms.Cursors.Hand;
+            UPS_Alarm1.Location = new System.Drawing.Point(20, 20);
+            UPS_Alarm1.Name = "UPS_Alarm1";
+            UPS_Alarm1.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
+            UPS_Alarm1.ResetAvailable = false;
+            UPS_Alarm1.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void StartUpdateTimer()
         {
@@ -338,7 +342,6 @@ namespace LePleiadi
             Lbl_Loading.ThemeAuthor = "Narwin";
             Lbl_Loading.ThemeName = "MetroLite";
         }
-
         private void PLCChainElement_Initialize()
         {
             this.grpSecurityChain.Controls.Add(Main.lblSecurityChain);
@@ -391,7 +394,6 @@ namespace LePleiadi
             chkToogle.ThemeAuthor = null;
             chkToogle.ThemeName = null;
         }
- 
         private void PLCChange_Initialize()
         {
             this.grpToogle.Controls.Add(Main.lblChange);
@@ -487,7 +489,6 @@ namespace LePleiadi
         {
 
         }
-  
          private void PLCLabel_Initialize()
         {
             this.grpPLC.Controls.Add(Main.LblPLCVariableValue);
@@ -515,7 +516,6 @@ namespace LePleiadi
             LblPLCVariableValue.ThemeAuthor = "Narwin";
             LblPLCVariableValue.ThemeName = "MetroLite";
         }
- 
         private void RoofOpenClose_Initialize()
         {
             this.grpRoof.Controls.Add(Main.RoofOpenClose);
@@ -548,9 +548,7 @@ namespace LePleiadi
             RoofOpenClose.ThemeName = "MetroLite";
         }
         private void SwConnect_SwitchedChanged(object sender)
-        {
-
-           
+        {   
             MetroSetSwitch swC = sender as MetroSetSwitch;
             if (swC.CheckState==MetroSet_UI.Enums.CheckState.Checked)
             {
@@ -568,29 +566,35 @@ namespace LePleiadi
                 {
                     try
                     {
-                        VPN.Connect();
                         swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
                         Main.Connected = true;
-                        btnControlStatus.DisabledBorderColor = Color.FromArgb(0, 192, 0);
-                        btnControlStatus.DisabledForeColor = Color.FromArgb(0, 192, 0);
-                        btnControlStatus.DisabledBackColor = Color.FromArgb(0, 192, 0);
-                        Main.AlarmUPS1 = new PLC.PLC_UPSAlarm();
-                        UPS_Initialize();
-                    }
-                    finally
-                    {
-                        swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-                        btnControlStatus.DisabledBorderColor = Color.FromArgb(192, 0, 0);
-                        btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
-                        btnControlStatus.DisabledBackColor = Color.FromArgb(192, 0, 0);
-                    }
+                        VPN.Connect();
+                        if (VPN._handle != null)
+                        {
+                           // swC.Switched = true;
+                            btnControlStatus.DisabledBorderColor = Color.Green;
+                            btnControlStatus.DisabledForeColor = Color.Green;
+                            btnControlStatus.DisabledBackColor = Color.Green;
+                        }
+                        else
+                            swC.Switched = false;
 
+                    }
+                    catch(Exception ex)
+                    {
+                        VPN.Disconnect();
+                        swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
+                        btnControlStatus.DisabledBorderColor = Color.Red;
+                        btnControlStatus.DisabledForeColor = Color.Red;
+                        btnControlStatus.DisabledBackColor = Color.Red;
+                        throw new Exception("Connection Error: " + ex.Message);
+                    }
                 }
-                
-               
+                else if(YESNO==DialogResult.No)
+                {
+                    swC.Switched = false;
+                }
             }
         }
- 
-
     }
 }

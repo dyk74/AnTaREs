@@ -196,11 +196,11 @@ namespace LePleiadi
                 if(value)
                 {
                     LO_Com.RegisterVariable(LO_Handle);
-                    LO_Handle.OnValueChange += new VariableHandle.OnVarValueChange(LO_Handle_OnValueChange);
+                    LO_Handle.OnValueChange += new VariableHandle.OnVariableValueChange(LO_Handle_OnValueChange);
                 }
                 else
                 {
-                    LO_Handle.OnValueChange -= new VariableHandle.OnVarValueChange(LO_Handle_OnValueChange);
+                    LO_Handle.OnValueChange -= new VariableHandle.OnVariableValueChange(LO_Handle_OnValueChange);
                     LO_Com.RemoveVariable(LO_Handle);
                     ResetDefault();
                 }
@@ -252,8 +252,7 @@ namespace LePleiadi
                         if ((M_RangeStartValue[counter] <= M_Value) && (M_Value <= M_RangeEndValue[counter]) && (M_RangeEnabled[counter]))
                         {
                             if (!M_ValueIsInRange[counter])
-                                if (ValueInRangeChanged != null)
-                                    ValueInRangeChanged(this, new ValueInRangeChangedEventArgs(counter));
+                                ValueInRangeChanged?.Invoke(this, new ValueInRangeChangedEventArgs(counter));
                         }
 
                         else

@@ -20,178 +20,6 @@ namespace LePleiadi
 {
     public class PLC
     {
-       public partial class PLC_UPSAlarm:MetroSet_UI.Forms.MetroSetForm
-        {
-            private VariableHandle PLC_Handle;
-            private string PLC_VariablePath;
-            private VarEnum PLC_VariableType;
-            private Comunicazioni PLC_Com;
-            private bool Reset_Available = false;
-            private MetroSet_UI.Controls.MetroSetEllipse UPS_AlarmStatus;
-            private MetroSet_UI.Controls.MetroSetDefaultButton Btn_ResetAlarm;
-            private MetroSet_UI.Controls.MetroSetLabel Lbl_UPSAlarm;
-            public PLC_UPSAlarm()
-            {
-                Initialize_UPSAlarm();
-                PLC_Handle = null;
-                PLC_VariablePath = "";
-                PLC_VariableType = VarEnum.VT_UNKNOWN;
-                PLC_Com = Comunicazioni.Instance;
-                UPS_AlarmStatus.NormalColor = Color.Gray;
-                Btn_ResetAlarm.Enabled = false;
-                ResetDefault();
-            }
-            public PLC_UPSAlarm(VariableHandle OVariable)
-            {
-                Initialize_UPSAlarm();
-                PLC_Handle = null;
-                PLC_Handle = OVariable;
-                PLC_Com = Comunicazioni.Instance;
-                UPS_AlarmStatus.NormalColor = Color.Gray;
-                Btn_ResetAlarm.Enabled = false;
-                ResetDefault();
-            }
-            private void SetResetAvailable()
-            {
-                if(!ResetAvailable)
-                {
-                    Btn_ResetAlarm.Enabled = false;
-                    Btn_ResetAlarm.Visible = false;
-                }
-                else
-                {
-                    Btn_ResetAlarm.Visible = true;
-                    Btn_ResetAlarm.Enabled = true;
-                }
-            }
-            public void ResetDefault()
-            {
-                UPS_AlarmStatus.NormalColor = Color.Gray;
-                Btn_ResetAlarm.Enabled = false;
-                Lbl_UPSAlarm.BackColor = Color.Transparent;
-            }
-            public bool Online(bool value)
-            {
-                bool ReturnValue = false;
-                if(!PLC_VariablePath.Equals("")&&(PLC_VariableType!=VarEnum.VT_UNKNOWN))
-                {
-                    Lbl_UPSAlarm.BackColor = Color.Transparent;
-                    if (PLC_Handle == null)
-                        PLC_Handle = new VariableHandle(PLC_Com, PLC_VariablePath, -1, true);
-                    if(value)
-                    {
-                        PLC_Com.RegisterVariable(PLC_Handle);
-                        PLC_Handle.OnValueChange += new VariableHandle.OnVarValueChange(Handle_OnValueChange);
-                    }
-                    else
-                    {
-                        PLC_Handle.OnValueChange -= new VariableHandle.OnVarValueChange(Handle_OnValueChange);
-                        PLC_Com.RemoveVariable(PLC_Handle);
-                        ResetDefault();
-                    }
-                }
-                return ReturnValue;
-            }
-            void Handle_OnValueChange(object sender)
-            {
-                UPS_AlarmStatus.Invoke((MethodInvoker)delegate
-                {
-                    DisplayAlarm();
-                });
-            }
-            protected void DisplayAlarm()
-            {
-                if((PLC_Handle!=null)&&(PLC_Handle.ActualValue!=null))
-                {
-                    bool NewValue = Convert.ToBoolean(PLC_Handle.ActualValue);
-                    if(NewValue)
-                    {
-                        UPS_AlarmStatus.NormalColor = Color.Red;
-                        Btn_ResetAlarm.Enabled = true;
-                    }
-                    else
-                    {
-                        UPS_AlarmStatus.NormalColor = Color.Green;
-                        Btn_ResetAlarm.Enabled = false;
-                    }
-                }
-            }
-            [Browsable(true),Description("PLC Path"),Category("PLC")]
-            public string PLCVariablePath
-            {
-                get
-                {
-                    return PLC_VariablePath;
-                }
-                set
-                {
-                    PLC_VariablePath = value;
-                }
-            }
-            [Browsable(true),Description("PLC Type"),Category("PLC")]
-            public VarEnum PLCVariableType
-            {
-                get
-                {
-                    return PLC_VariableType;
-                }
-                set
-                {
-                    PLC_VariableType = value;
-                }
-            }
-            [Browsable(true),Description("PLC Alarm Name"),Category("PLC")]
-            public string AlarmName
-            {
-                get
-                {
-                    return Lbl_UPSAlarm.Text;
-                }
-                set
-                {
-                    Lbl_UPSAlarm.Text = value;
-                }
-            }
-            [Browsable(true),Description("PLC Reset Available"),Category("PLC")]
-            public bool ResetAvailable
-            {
-                get
-                {
-                    return Reset_Available;
-                }
-                set
-                {
-                    Reset_Available = value;
-                    SetResetAvailable();
-                }
-            }
-            
-            private void Initialize_UPSAlarm()
-            {
-                UPS_AlarmStatus = new MetroSet_UI.Controls.MetroSetEllipse();
-                Btn_ResetAlarm = new MetroSet_UI.Controls.MetroSetDefaultButton();
-                Lbl_UPSAlarm = new MetroSet_UI.Controls.MetroSetLabel();
-                SuspendLayout();
-                UPS_AlarmStatus.Size= new System.Drawing.Size(25, 25);
-                UPS_AlarmStatus.Location= new System.Drawing.Point(10, 10);
-                Lbl_UPSAlarm.Name = "LblUPSAlarm";
-                Btn_ResetAlarm.Name = "Btn_ResetAlarm";
-                Btn_ResetAlarm.ControlAdded += Btn_ResetAlarm_ControlAdded;
-                Btn_ResetAlarm.Click += Btn_ResetAlarm_Click;
-                UPS_AlarmStatus.Name = "UPS_AlarmStatus";
-
-            }
-
-            private void Btn_ResetAlarm_Click(object sender, EventArgs e)
-            {
-                PLC_Handle.Write(false);
-            }
-
-            private void Btn_ResetAlarm_ControlAdded(object sender, ControlEventArgs e)
-            {
-                SetResetAvailable();
-            }
-        }
  // VERIFICARE DA QUI LE CLASSI
         public class PLC_KeepAlive
         {
@@ -315,10 +143,12 @@ namespace LePleiadi
             System.Timers.Timer MyTimer;
             public PLC_SystemInformation()
             {
-                CpuCounter = new PerformanceCounter();
-                CpuCounter.CategoryName = "Processor";
-                CpuCounter.CounterName = "% Processor Time";
-                CpuCounter.InstanceName = "_Total";
+                CpuCounter = new PerformanceCounter
+                {
+                    CategoryName = "Processor",
+                    CounterName = "% Processor Time",
+                    InstanceName = "_Total"
+                };
                 RamCounter = new PerformanceCounter("Memory", "Available MBytes");
                 Main.PB_Ram.Maximum = Convert.ToInt32(GetTotalMemoryInKByte() / 1048576);
                 Main.PB_CPUUsage.Maximum = 100;
@@ -469,8 +299,10 @@ namespace LePleiadi
             public static bool HasICMPConnectivity(string IP)
             {
                 Ping Ping = new Ping();
-                PingOptions Options = new PingOptions();
-                Options.DontFragment = true;
+                PingOptions Options = new PingOptions
+                {
+                    DontFragment = true
+                };
                 byte[] Buffer = null;
                 PingReply Reply = Ping.Send(IP, 500, Buffer, Options);
                 return Reply.Status == IPStatus.Success;
