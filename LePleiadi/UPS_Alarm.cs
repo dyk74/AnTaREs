@@ -93,12 +93,14 @@ namespace LePleiadi
             {
                 Ecl_Alarm.NormalColor = Color.Red;
                 Btn_Reset.Enabled = true;
+                Lbl_Alarm.BackColor = Color.Yellow;
                 Btn_Reset.NormalColor = Color.FromArgb(65, 177, 255);
             }
             else
             {
                 Ecl_Alarm.NormalColor = Color.Green;
                 Btn_Reset.Enabled = false;
+                Lbl_Alarm.BackColor = Color.Transparent;
                 Btn_Reset.NormalColor = Color.Gray;
             }
         }

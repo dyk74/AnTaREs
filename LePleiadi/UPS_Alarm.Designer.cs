@@ -37,7 +37,7 @@ namespace LePleiadi
             // Ecl_Alarm
             // 
             this.Ecl_Alarm.BorderThickness = 0;
-            this.Ecl_Alarm.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.Ecl_Alarm.DisabledBackColor = System.Drawing.Color.Gray;
             this.Ecl_Alarm.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
             this.Ecl_Alarm.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.Ecl_Alarm.Enabled = false;
@@ -51,7 +51,7 @@ namespace LePleiadi
             this.Ecl_Alarm.Location = new System.Drawing.Point(0, 0);
             this.Ecl_Alarm.Name = "Ecl_Alarm";
             this.Ecl_Alarm.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.Ecl_Alarm.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.Ecl_Alarm.NormalColor = System.Drawing.Color.Gray;
             this.Ecl_Alarm.NormalTextColor = System.Drawing.Color.Black;
             this.Ecl_Alarm.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.Ecl_Alarm.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -116,6 +116,7 @@ namespace LePleiadi
             this.Controls.Add(this.Btn_Reset);
             this.Controls.Add(this.Ecl_Alarm);
             this.HeaderHeight = 1;
+            this.Moveable = false;
             this.Name = "UPS_Alarm";
             this.ShowIcon = false;
             this.SmallRectThickness = 1;

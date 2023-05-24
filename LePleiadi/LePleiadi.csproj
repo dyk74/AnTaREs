@@ -119,6 +119,18 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="PLC.cs" />
+    <Compile Include="PLC_Label.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC_Label.Designer.cs">
+      <DependentUpon>PLC_Label.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PLC_ProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC_ProgressBar.Designer.cs">
+      <DependentUpon>PLC_ProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UPS_Alarm.cs">
@@ -133,6 +145,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PLC_Label.resx">
+      <DependentUpon>PLC_Label.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PLC_ProgressBar.resx">
+      <DependentUpon>PLC_ProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -18,9 +18,11 @@ namespace LePleiadi
 {
     public partial class Main : MetroSetForm
     {
-        private static bool Connected;
         private System.Timers.Timer UpdateTimer;
         private DateTime DateTime;
+
+        public static bool Connected1 { get; set; }
+
         public Main()
         {
             // DA METTERE IN CONFIG FILE
@@ -31,13 +33,7 @@ namespace LePleiadi
             VPN.VPN_Password = "le12$pleiadi99";
             VPN.VPN_PreSharedKey = "le12$pleiadi99";
             //
-            Main.Connected = false;
-
-            Main.RoofOpenClose = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.RoofLeft = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.RoofRight = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.LblPLCVariableName = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.LblPLCVariableValue = new MetroSet_UI.Controls.MetroSetLabel();
+            Main.Connected1 = false;
             Main.btnEvent = new MetroSet_UI.Controls.MetroSetButton();
             Main.lblValueDirection = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblValueRun = new MetroSet_UI.Controls.MetroSetLabel();
@@ -50,10 +46,7 @@ namespace LePleiadi
             Main.lblSecurityChain = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblKeepAlive = new MetroSet_UI.Controls.MetroSetLabel();
             Main.btn_KeepAlive = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.Pb_Loading = new MetroSet_UI.Controls.MetroSetProgressBar();
             Main.Lbl_Loading = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.PB_CPUUsage = new MetroSet_UI.Controls.MetroSetProgressBar();
-            Main.PB_Ram = new MetroSet_UI.Controls.MetroSetProgressBar();
             Main.lblUptime = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblUptime_Value = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblCPUUsage = new MetroSet_UI.Controls.MetroSetLabel();
@@ -63,35 +56,176 @@ namespace LePleiadi
             Main.txtIP = new System.Windows.Forms.MaskedTextBox();
             Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
             Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.UPS_Alarm1 = new UPS_Alarm();
 
+            Main.UPS_EchoMode = new UPS_Alarm();
+            Main.UPS_BatteryLow = new UPS_Alarm();
+            Main.UPS_LDInverter = new UPS_Alarm();
+            Main.UPS_Alarm = new UPS_Alarm();
+            Main.UPS_ConnectionFailure = new UPS_Alarm();
+            Main.UPS_MainFailure = new UPS_Alarm();
+
+            Main.PLC_FineCorsaAperturaSX = new PLC_Label();
+            Main.PLC_FineCorsaChiusuraSX = new PLC_Label();
+            Main.PLC_FineCorsaAperturaDX = new PLC_Label();
+            Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
+            //DA CAMBIARE CON UNO SWITCH
+            Main.PLC_ApriFaldaSX = new PLC_Label();
+            Main.PLC_ApriFaldaDX = new PLC_Label();
+            Main.PLC_ChiudiFaldaSX = new PLC_Label();
+            Main.PLC_ChiudiFaldaDX = new PLC_Label();
+            //FINE CAMBIARE CON UNO SWITCH
+        
             InitializeComponent();
             InitializeUPS();
-            RoofOpenClose_Initialize();
-            PLCLabel_Initialize();
+            InitializeRoof();
             PLCFastChange_initialize();
             PLCChange_Initialize();
             PLCCPU_Initialize();
             PLCToogle_Initialize();
             PLCChainElement_Initialize();
-            Loading_Initialize();
             KeepAlive_Initialize();
-            ConnectivityStatus_Initialize();
             StartUpdateTimer();
-
+            lbl_Osservatorio.Text = VPN_AdapterName;
+        }
+        public void InitializeRoof()
+        {
+            PLC_ApriFaldaSX.TopLevel = false;
+            PLC_ApriFaldaDX.TopLevel = false;
+            PLC_ChiudiFaldaSX.TopLevel = false;
+            PLC_ChiudiFaldaDX.TopLevel = false;
+            PLC_FineCorsaAperturaSX.TopLevel = false;
+            PLC_FineCorsaChiusuraSX.TopLevel = false;
+            PLC_FineCorsaAperturaDX.TopLevel = false;
+            PLC_FineCorsaChiusuraDX.TopLevel = false;
+            this.grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
+            this.grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
+            this.grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
+            this.grp_faldaDX.Controls.Add(PLC_ChiudiFaldaDX);
+            this.grp_FaldaSX.Controls.Add(PLC_FineCorsaAperturaSX);
+            this.grp_FaldaSX.Controls.Add(PLC_FineCorsaChiusuraSX);
+            this.grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
+            this.grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
+            PLC_ApriFaldaSX.Show();
+            PLC_ApriFaldaDX.Show();
+            PLC_ChiudiFaldaDX.Show();
+            PLC_ChiudiFaldaSX.Show();
+            PLC_FineCorsaAperturaSX.Show();
+            PLC_FineCorsaChiusuraSX.Show();
+            PLC_FineCorsaAperturaDX.Show();
+            PLC_FineCorsaChiusuraDX.Show();
+            PLC_ApriFaldaSX.PLCVariableName = "Apri Falda Sinistra";
+            PLC_ApriFaldaDX.PLCVariableName = "Apri Falda Destra";
+            PLC_FineCorsaAperturaSX.PLCVariableName = "Finecorsa Apertura Sinistra";
+            PLC_FineCorsaChiusuraSX.PLCVariableName = "Finecorsa Chiusura Sinistra";
+            PLC_ChiudiFaldaSX.PLCVariableName = "Chiudi Falda Sinistra";
+            PLC_ChiudiFaldaDX.PLCVariableName = "Chiudi Falda Destra";
+            PLC_FineCorsaAperturaDX.PLCVariableName = "Finecorsa Apertura Destra";
+            PLC_FineCorsaChiusuraDX.PLCVariableName = "Finecorsa Chiusura Destra";
+            PLC_ApriFaldaSX.Location = new System.Drawing.Point(20, 20);
+            PLC_FineCorsaAperturaSX.Location = new System.Drawing.Point(20, 80);
+            PLC_FineCorsaAperturaDX.Location = new System.Drawing.Point(20, 80);
+            PLC_FineCorsaChiusuraSX.Location = new System.Drawing.Point(200, 80);
+            PLC_FineCorsaChiusuraDX.Location = new System.Drawing.Point(200, 80);
+            PLC_ApriFaldaDX.Location = new System.Drawing.Point(20, 20);
+            PLC_ChiudiFaldaSX.Location = new System.Drawing.Point(200, 20);
+            PLC_ChiudiFaldaDX.Location = new System.Drawing.Point(200, 20);
+            PLC_ApriFaldaSX.Size = new System.Drawing.Size(180, 42);
+            PLC_ApriFaldaDX.Size = new System.Drawing.Size(180, 42);
+            PLC_ChiudiFaldaSX.Size = new System.Drawing.Size(180, 42);
+            PLC_ChiudiFaldaDX.Size = new System.Drawing.Size(180, 42);
+            PLC_FineCorsaChiusuraSX.Size = new System.Drawing.Size(180, 42);
+            PLC_FineCorsaAperturaSX.Size = new System.Drawing.Size(180, 42);
+            PLC_FineCorsaAperturaDX.Size = new System.Drawing.Size(180, 42);
+            PLC_FineCorsaChiusuraDX.Size = new System.Drawing.Size(180, 42);
+            PLC_ApriFaldaSX.Name = "PLC_ApriFaldaSX";
+            PLC_ApriFaldaDX.Name = "PLC_ApriFaldaDX";
+            PLC_ChiudiFaldaSX.Name = "PLC_ChiudiFaldaSX";
+            PLC_ChiudiFaldaDX.Name = "PLC_ChiudiFaldaDX";
+            PLC_FineCorsaAperturaSX.Name = "PLC_FineCorsaAperturaSX";
+            PLC_FineCorsaChiusuraSX.Name = "PLC_FineCorsaChiusuraSX";
+            PLC_FineCorsaAperturaDX.Name = "PLC_FineCorsaAperturaDX";
+            PLC_FineCorsaChiusuraDX.Name = "PLC_FineCorsaChiusuraDX";
+            PLC_ApriFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ApriFaldaSX";
+            PLC_ApriFaldaDX.PLCVariablePath = "TCPIP.S7.200.Roof.ApriFaldaDX";
+            PLC_ChiudiFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiFaldaSX";
+            PLC_ChiudiFaldaDX.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiFaldaDX";
+            PLC_FineCorsaAperturaSX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaSXApertura";
+            PLC_FineCorsaChiusuraSX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaSXChiusura";
+            PLC_FineCorsaAperturaDX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaDXApertura";
+            PLC_FineCorsaChiusuraDX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaDXChiusura";
+            PLC_ApriFaldaSX.RedOnValue = true;
+            PLC_ChiudiFaldaSX.RedOnValue = true;
+            PLC_ApriFaldaDX.RedOnValue = true;
+            PLC_ChiudiFaldaDX.RedOnValue = true;
+            PLC_FineCorsaAperturaSX.RedOnValue = true;
+            PLC_FineCorsaChiusuraSX.RedOnValue = true;
+            PLC_FineCorsaAperturaDX.RedOnValue = true;
+            PLC_FineCorsaChiusuraDX.RedOnValue = true;
+            PLC_ApriFaldaSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ApriFaldaDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ChiudiFaldaSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ChiudiFaldaDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FineCorsaAperturaSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FineCorsaChiusuraSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FineCorsaAperturaDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FineCorsaChiusuraDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void InitializeUPS()
         {
-            UPS_Alarm1.TopLevel = false;
-            this.grpUPS.Controls.Add(UPS_Alarm1);
-            UPS_Alarm1.Show();
-            UPS_Alarm1.PLCAlarmName = "ECO-MODE";
-            UPS_Alarm1.Cursor = System.Windows.Forms.Cursors.Hand;
-            UPS_Alarm1.Location = new System.Drawing.Point(20, 20);
-            UPS_Alarm1.Name = "UPS_Alarm1";
-            UPS_Alarm1.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
-            UPS_Alarm1.ResetAvailable = false;
-            UPS_Alarm1.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_EchoMode.TopLevel = false;
+            UPS_BatteryLow.TopLevel = false;
+            UPS_LDInverter.TopLevel = false;
+            UPS_Alarm.TopLevel = false;
+            UPS_ConnectionFailure.TopLevel = false;
+            UPS_MainFailure.TopLevel = false;
+            this.grpUPS.Controls.Add(UPS_EchoMode);
+            this.grpUPS.Controls.Add(UPS_BatteryLow);
+            this.grpUPS.Controls.Add(UPS_LDInverter);
+            this.grpUPS.Controls.Add(UPS_Alarm);
+            this.grpUPS.Controls.Add(UPS_ConnectionFailure);
+            this.grpUPS.Controls.Add(UPS_MainFailure);
+            UPS_EchoMode.Show();
+            UPS_BatteryLow.Show();
+            UPS_LDInverter.Show();
+            UPS_Alarm.Show();
+            UPS_ConnectionFailure.Show();
+            UPS_MainFailure.Show();
+            UPS_EchoMode.PLCAlarmName = "Eco Mode Active";
+            UPS_BatteryLow.PLCAlarmName = "Battery Low";
+            UPS_LDInverter.PLCAlarmName = "Inverter Alarm";
+            UPS_Alarm.PLCAlarmName = "General Alarm";
+            UPS_ConnectionFailure.PLCAlarmName = "Connection Failure";
+            UPS_MainFailure.PLCAlarmName = "Main Failure";
+            UPS_EchoMode.Location = new System.Drawing.Point(20, 20);
+            UPS_BatteryLow.Location = new System.Drawing.Point(20, 70);
+            UPS_LDInverter.Location = new System.Drawing.Point(20, 120);
+            UPS_Alarm.Location = new System.Drawing.Point(20, 170);
+            UPS_ConnectionFailure.Location = new System.Drawing.Point(340, 20);
+            UPS_MainFailure.Location = new System.Drawing.Point(340, 70);
+            UPS_EchoMode.Name = "UPS_EchoMode";
+            UPS_BatteryLow.Name = "UPS_BatteryLow";
+            UPS_LDInverter.Name = "UPS_LDInverter";
+            UPS_Alarm.Name = "UPS_Alarm";
+            UPS_MainFailure.Name = "UPS_MainFailure";
+            UPS_ConnectionFailure.Name = "UPS_ConnectionFailure";
+            UPS_EchoMode.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
+            UPS_BatteryLow.PLCVariablePath = "TCPIP.S7-200.UPS.I_BATTLOW";
+            UPS_LDInverter.PLCVariablePath = "TCPIP.S7-200.UPS.I_LDINV";
+            UPS_Alarm.PLCVariablePath = "TCPIP.S7-200.UPS.I_ALARM";
+            UPS_ConnectionFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmLinkFailure";
+            UPS_MainFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmMainsFailure";
+            UPS_EchoMode.ResetAvailable = false;
+            UPS_BatteryLow.ResetAvailable = false;
+            UPS_LDInverter.ResetAvailable = false;
+            UPS_Alarm.ResetAvailable = false;
+            UPS_ConnectionFailure.ResetAvailable = false;
+            UPS_MainFailure.ResetAvailable = false;
+            UPS_EchoMode.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_BatteryLow.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_LDInverter.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_Alarm.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_ConnectionFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_MainFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void StartUpdateTimer()
         {
@@ -120,7 +254,7 @@ namespace LePleiadi
                     try
                     {
                         DateTime = PLC.PLC_Utility.NtpClient.GetNetworkTime();
-                        lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime);
+                        lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
                     }
                     catch(Exception ex)
                     {
@@ -130,157 +264,9 @@ namespace LePleiadi
                 else
                 {
                     DateTime = DateTime.AddSeconds(1.0);
-                    lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime);
+                    lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
                 }
            }
-        }
-        private void ConnectivityStatus_Initialize()
-        {
-            this.grpConnectivity.Controls.Add(Main.btnIPStatus);
-            this.grpConnectivity.Controls.Add(Main.btn_Ping);
-            this.grpConnectivity.Controls.Add(Main.txtIP);
-            this.grpConnectivity.Controls.Add(Main.LblIP_Value);
-            this.grpConnectivity.Controls.Add(Main.lblIP);
-            this.grpConnectivity.Controls.Add(Main.lbl_RamUsage);
-            this.grpConnectivity.Controls.Add(Main.lblCPUUsage);
-            this.grpConnectivity.Controls.Add(Main.lblUptime_Value);
-            this.grpConnectivity.Controls.Add(Main.lblUptime);
-            this.grpConnectivity.Controls.Add(Main.PB_Ram);
-            this.grpConnectivity.Controls.Add(Main.PB_CPUUsage);
-            PB_CPUUsage.IsDerivedStyle = true;
-            PB_CPUUsage.Location = new System.Drawing.Point(90, 20);
-            PB_CPUUsage.Maximum = 100;
-            PB_CPUUsage.Minimum = 0;
-            PB_CPUUsage.Name = "PB_CPUUsage";
-            PB_CPUUsage.Orientation = MetroSet_UI.Enums.ProgressOrientation.Horizontal;
-            PB_CPUUsage.Size = new System.Drawing.Size(230, 25);
-            PB_CPUUsage.Style = MetroSet_UI.Enums.Style.Light;
-            PB_CPUUsage.StyleManager = null;
-            PB_CPUUsage.TabIndex = 0;
-            PB_CPUUsage.Text = "0%";
-            PB_CPUUsage.ThemeAuthor = "Narwin";
-            PB_CPUUsage.ThemeName = "MetroLite";
-            PB_CPUUsage.Value = 0;
-            PB_Ram.IsDerivedStyle = true;
-            PB_Ram.Location = new System.Drawing.Point(90, 50);
-            PB_Ram.Maximum = 100;
-            PB_Ram.Minimum = 0;
-            PB_Ram.Name = "PB_Ram";
-            PB_Ram.Orientation = MetroSet_UI.Enums.ProgressOrientation.Horizontal;
-            PB_Ram.Size = new System.Drawing.Size(230, 25);
-            PB_Ram.Style = MetroSet_UI.Enums.Style.Light;
-            PB_Ram.StyleManager = null;
-            PB_Ram.TabIndex = 1;
-            PB_Ram.Text = "0 MB";
-            PB_Ram.ThemeAuthor = "Narwin";
-            PB_Ram.ThemeName = "MetroLite";
-            PB_Ram.Value = 0;
-            lblUptime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblUptime.IsDerivedStyle = true;
-            lblUptime.Location = new System.Drawing.Point(7, 80);
-            lblUptime.Name = "lblUptime";
-            lblUptime.Size = new System.Drawing.Size(56, 25);
-            lblUptime.Style = MetroSet_UI.Enums.Style.Light;
-            lblUptime.StyleManager = null;
-            lblUptime.TabIndex = 2;
-            lblUptime.Text = "Uptime";
-            lblUptime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lblUptime.ThemeAuthor = "Narwin";
-            lblUptime.ThemeName = "MetroLite";
-            lblUptime_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblUptime_Value.IsDerivedStyle = true;
-            lblUptime_Value.Location = new System.Drawing.Point(58, 80);
-            lblUptime_Value.Name = "lblUptime_Value";
-            lblUptime_Value.Size = new System.Drawing.Size(83, 25);
-            lblUptime_Value.Style = MetroSet_UI.Enums.Style.Light;
-            lblUptime_Value.StyleManager = null;
-            lblUptime_Value.TabIndex = 3;
-            lblUptime_Value.Text = "0";
-            lblUptime_Value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lblUptime_Value.ThemeAuthor = "Narwin";
-            lblUptime_Value.ThemeName = "MetroLite";
-            lblCPUUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblCPUUsage.IsDerivedStyle = true;
-            lblCPUUsage.Location = new System.Drawing.Point(7, 20);
-            lblCPUUsage.Name = "lblCPUUsage";
-            lblCPUUsage.Size = new System.Drawing.Size(77, 25);
-            lblCPUUsage.Style = MetroSet_UI.Enums.Style.Light;
-            lblCPUUsage.StyleManager = null;
-            lblCPUUsage.TabIndex = 4;
-            lblCPUUsage.Text = "CPU Usage";
-            lblCPUUsage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lblCPUUsage.ThemeAuthor = "Narwin";
-            lblCPUUsage.ThemeName = "MetroLite";
-            lbl_RamUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lbl_RamUsage.IsDerivedStyle = true;
-            lbl_RamUsage.Location = new System.Drawing.Point(7, 49);
-            lbl_RamUsage.Name = "lbl_RamUsage";
-            lbl_RamUsage.Size = new System.Drawing.Size(77, 25);
-            lbl_RamUsage.Style = MetroSet_UI.Enums.Style.Light;
-            lbl_RamUsage.StyleManager = null;
-            lbl_RamUsage.TabIndex = 5;
-            lbl_RamUsage.Text = "RAM Usage";
-            lbl_RamUsage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lbl_RamUsage.ThemeAuthor = "Narwin";
-            lbl_RamUsage.ThemeName = "MetroLite";
-            lblIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblIP.IsDerivedStyle = true;
-            lblIP.Location = new System.Drawing.Point(162, 79);
-            lblIP.Name = "lblIP";
-            lblIP.Size = new System.Drawing.Size(78, 25);
-            lblIP.Style = MetroSet_UI.Enums.Style.Light;
-            lblIP.StyleManager = null;
-            lblIP.TabIndex = 6;
-            lblIP.Text = "IP Address";
-            lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lblIP.ThemeAuthor = "Narwin";
-            lblIP.ThemeName = "MetroLite";
-            LblIP_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            LblIP_Value.IsDerivedStyle = true;
-            LblIP_Value.Location = new System.Drawing.Point(235, 79);
-            LblIP_Value.Name = "LblIP_Value";
-            LblIP_Value.Size = new System.Drawing.Size(100, 25);
-            LblIP_Value.Style = MetroSet_UI.Enums.Style.Light;
-            LblIP_Value.StyleManager = null;
-            LblIP_Value.TabIndex = 7;
-            LblIP_Value.Text = "255.255.255.255";
-            LblIP_Value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            LblIP_Value.ThemeAuthor = "Narwin";
-            LblIP_Value.ThemeName = "MetroLite";
-            txtIP.Location = new System.Drawing.Point(7, 117);
-            txtIP.Mask = "###.###.###.###";
-            txtIP.Name = "txtIP";
-            txtIP.Size = new System.Drawing.Size(100, 20);
-            txtIP.TabIndex = 8;
-            btn_Ping.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            btn_Ping.IsDerivedStyle = true;
-            btn_Ping.Location = new System.Drawing.Point(162, 117);
-            btn_Ping.Name = "btn_Ping";
-            btn_Ping.Size = new System.Drawing.Size(75, 20);
-            btn_Ping.Click += Btn_Ping_Click;
-            btn_Ping.StyleManager = null;
-            btn_Ping.TabIndex = 9;
-            btn_Ping.Text = "Ping";
-            btn_Ping.ThemeAuthor = "Narwin";
-            btn_Ping.ThemeName = "MetroLite";
-            btnIPStatus.BorderThickness = 0;
-            btnIPStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            btnIPStatus.Image = null;
-            btnIPStatus.IsDerivedStyle = true;
-            btnIPStatus.Location = new System.Drawing.Point(300, 117);
-            btnIPStatus.Name = "btnIPStatus";
-            btnIPStatus.NormalBorderColor = System.Drawing.Color.Gray;
-            btnIPStatus.NormalColor = System.Drawing.Color.Gray;
-            btnIPStatus.NormalTextColor = System.Drawing.Color.Black;
-            btnIPStatus.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            btnIPStatus.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            btnIPStatus.PressTextColor = System.Drawing.Color.White;
-            btnIPStatus.Size = new System.Drawing.Size(20, 20);
-            btnIPStatus.Style = MetroSet_UI.Enums.Style.Light;
-            btnIPStatus.StyleManager = null;
-            btnIPStatus.TabIndex = 10;
-            btnIPStatus.ThemeAuthor = "Narwin";
-            btnIPStatus.ThemeName = "MetroLite";
         }
         private void Btn_Ping_Click(object sender, EventArgs e)
         {
@@ -312,35 +298,6 @@ namespace LePleiadi
             btn_KeepAlive.TabIndex = 1;
             btn_KeepAlive.ThemeAuthor = "Narwin";
             btn_KeepAlive.ThemeName = "MetroLite";
-        }
-        private void Loading_Initialize()
-        {
-            this.grpLoading.Controls.Add(Main.Lbl_Loading);
-            this.grpLoading.Controls.Add(Main.Pb_Loading);
-            Pb_Loading.IsDerivedStyle = true;
-            Pb_Loading.Location = new System.Drawing.Point(263, 19);
-            Pb_Loading.Maximum = 100;
-            Pb_Loading.Minimum = 0;
-            Pb_Loading.Name = "Pb_Loading";
-            Pb_Loading.Orientation = MetroSet_UI.Enums.ProgressOrientation.Horizontal;
-            Pb_Loading.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            Pb_Loading.Size = new System.Drawing.Size(490, 20);
-            Pb_Loading.Style = MetroSet_UI.Enums.Style.Light;
-            Pb_Loading.StyleManager = null;
-            Pb_Loading.TabIndex = 0;
-            Pb_Loading.ThemeAuthor = "Narwin";
-            Pb_Loading.ThemeName = "MetroLite";
-            Pb_Loading.Value = 0;
-            Lbl_Loading.IsDerivedStyle = true;
-            Lbl_Loading.Location = new System.Drawing.Point(12, 15);
-            Lbl_Loading.Name = "Lbl_Loading";
-            Lbl_Loading.Size = new System.Drawing.Size(245, 23);
-            Lbl_Loading.Style = MetroSet_UI.Enums.Style.Light;
-            Lbl_Loading.StyleManager = null;
-            Lbl_Loading.TabIndex = 1;
-            Lbl_Loading.Text = ".";
-            Lbl_Loading.ThemeAuthor = "Narwin";
-            Lbl_Loading.ThemeName = "MetroLite";
         }
         private void PLCChainElement_Initialize()
         {
@@ -489,75 +446,17 @@ namespace LePleiadi
         {
 
         }
-         private void PLCLabel_Initialize()
-        {
-            this.grpPLC.Controls.Add(Main.LblPLCVariableValue);
-            this.grpPLC.Controls.Add(Main.LblPLCVariableName);
-            LblPLCVariableName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            LblPLCVariableName.IsDerivedStyle = true;
-            LblPLCVariableName.Location = new System.Drawing.Point(6, 25);
-            LblPLCVariableName.Name = "LblPLCVariableName";
-            LblPLCVariableName.Size = new System.Drawing.Size(100, 23);
-            LblPLCVariableName.Style = MetroSet_UI.Enums.Style.Light;
-            LblPLCVariableName.StyleManager = null;
-            LblPLCVariableName.TabIndex = 0;
-            LblPLCVariableName.Text = "Variable";
-            LblPLCVariableName.ThemeAuthor = "Narwin";
-            LblPLCVariableName.ThemeName = "MetroLite";
-            LblPLCVariableValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            LblPLCVariableValue.IsDerivedStyle = true;
-            LblPLCVariableValue.Location = new System.Drawing.Point(70, 25);
-            LblPLCVariableValue.Name = "LblPLCVariableValue";
-            LblPLCVariableValue.Size = new System.Drawing.Size(100, 23);
-            LblPLCVariableValue.Style = MetroSet_UI.Enums.Style.Light;
-            LblPLCVariableValue.StyleManager = null;
-            LblPLCVariableValue.TabIndex = 1;
-            LblPLCVariableValue.Text = "0";
-            LblPLCVariableValue.ThemeAuthor = "Narwin";
-            LblPLCVariableValue.ThemeName = "MetroLite";
-        }
-        private void RoofOpenClose_Initialize()
-        {
-            this.grpRoof.Controls.Add(Main.RoofOpenClose);
-            this.grpRoof.Controls.Add(Main.RoofRight);
-            this.grpRoof.Controls.Add(Main.RoofLeft);
-            RoofOpenClose.BorderThickness = 0;
-            RoofLeft.BorderThickness = 5;
-            RoofLeft.DisabledBorderColor = System.Drawing.Color.FromArgb(0, 192, 0);
-            RoofRight.BorderThickness = 5;
-            RoofRight.DisabledBorderColor = System.Drawing.Color.FromArgb(0, 192, 0);
-            RoofOpenClose.Enabled = false;
-            RoofRight.Enabled = false;
-            RoofLeft.Enabled = false;
-            RoofOpenClose.DisabledBackColor = System.Drawing.Color.FromArgb(192,192,192);
-            RoofRight.DisabledBackColor = System.Drawing.Color.FromArgb(192, 192, 192);
-            RoofLeft.DisabledBackColor = System.Drawing.Color.FromArgb(192, 192, 192);
-            RoofOpenClose.ImageSize = new System.Drawing.Size(64, 64);
-            RoofLeft.ImageSize = new System.Drawing.Size(32, 32);
-            RoofRight.ImageSize = new System.Drawing.Size(32, 32);
-            RoofOpenClose.Location = new System.Drawing.Point(64, 12);
-            RoofLeft.Location = new System.Drawing.Point(150, 33);
-            RoofRight.Location = new System.Drawing.Point(190, 33);
-            RoofOpenClose.Name = "RoofOpenClose";
-            RoofOpenClose.Size = new System.Drawing.Size(76, 76);
-            RoofLeft.Size = new System.Drawing.Size(38, 38);
-            RoofRight.Size = new System.Drawing.Size(38, 38);
-            RoofOpenClose.Style = MetroSet_UI.Enums.Style.Light;
-            RoofOpenClose.StyleManager = this.Stile;
-            RoofOpenClose.ThemeAuthor = "Narwin";
-            RoofOpenClose.ThemeName = "MetroLite";
-        }
         private void SwConnect_SwitchedChanged(object sender)
         {   
             MetroSetSwitch swC = sender as MetroSetSwitch;
             if (swC.CheckState==MetroSet_UI.Enums.CheckState.Checked)
             {
                 VPN.Disconnect();
-                Main.Connected = false;
+                Main.Connected1 = false;
                 swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-                btnControlStatus.DisabledBorderColor = Color.FromArgb(192, 0, 0);
-                btnControlStatus.DisabledForeColor = Color.FromArgb(192, 0, 0);
-                btnControlStatus.DisabledBackColor = Color.FromArgb(192, 0, 0);
+                btnControlStatus.DisabledBorderColor = Color.Red;
+                btnControlStatus.DisabledForeColor = Color.Red;
+                btnControlStatus.DisabledBackColor = Color.Red;
             }
             else if(swC.CheckState==MetroSet_UI.Enums.CheckState.Unchecked)
             {
@@ -567,18 +466,19 @@ namespace LePleiadi
                     try
                     {
                         swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
-                        Main.Connected = true;
                         VPN.Connect();
                         if (VPN._handle != null)
                         {
-                           // swC.Switched = true;
+                            Main.Connected1 = true;
                             btnControlStatus.DisabledBorderColor = Color.Green;
                             btnControlStatus.DisabledForeColor = Color.Green;
                             btnControlStatus.DisabledBackColor = Color.Green;
                         }
                         else
+                        {
                             swC.Switched = false;
-
+                            Main.Connected1 = false;
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -596,5 +496,6 @@ namespace LePleiadi
                 }
             }
         }
+
     }
 }

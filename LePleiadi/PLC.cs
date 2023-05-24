@@ -138,27 +138,10 @@ namespace LePleiadi
         }
         public class PLC_SystemInformation
         {
-            PerformanceCounter CpuCounter;
-            PerformanceCounter RamCounter;
             System.Timers.Timer MyTimer;
-            public PLC_SystemInformation()
-            {
-                CpuCounter = new PerformanceCounter
-                {
-                    CategoryName = "Processor",
-                    CounterName = "% Processor Time",
-                    InstanceName = "_Total"
-                };
-                RamCounter = new PerformanceCounter("Memory", "Available MBytes");
-                Main.PB_Ram.Maximum = Convert.ToInt32(GetTotalMemoryInKByte() / 1048576);
-                Main.PB_CPUUsage.Maximum = 100;
-                Main.PB_CPUUsage.Style = (MetroSet_UI.Enums.Style)ProgressBarStyle.Continuous;
-                Main.PB_Ram.Style = (MetroSet_UI.Enums.Style)ProgressBarStyle.Continuous;
-            }
             public void Start()
             {
                 MyTimer = new System.Timers.Timer();
-                MyTimer.Elapsed += new ElapsedEventHandler(UpdateIndicators);
                 MyTimer.Interval = 1000;
                 MyTimer.Start();
             }
@@ -184,25 +167,6 @@ namespace LePleiadi
                     Free_Virtual_Memory= (ulong)managementObject["FreeVirtualMemory"];
                 }
                 return Total_Visible_Memory;
-            }
-            public void UpdateIndicators(object source,ElapsedEventArgs e)
-            {
-                Main.PB_CPUUsage.Invoke((MethodInvoker)delegate
-                {
-                    UpdateCPU();
-                });
-                Main.PB_Ram.Invoke((MethodInvoker)delegate
-                {
-                    UpdateMemory();
-                });
-                Main.lblUptime_Value.Invoke((MethodInvoker)delegate
-                {
-                    UpdateServerTime();
-                });
-                Main.LblIP_Value.Invoke((MethodInvoker)delegate
-                {
-                    UpdateIpAddress();
-                });
             }
             private void UpdateIpAddress()
             {
@@ -239,18 +203,6 @@ namespace LePleiadi
                 PC.NextValue();
                 TimeSpan TS = TimeSpan.FromSeconds(PC.NextValue());
                 Main.lblUptime_Value.Text = TS.Days + " dd " + TS.Hours + "h " + TS.Minutes + "min " + TS.Seconds + "s";
-            }
-            void UpdateCPU()
-            {
-                float NextValue = CpuCounter.NextValue();
-                Main.PB_CPUUsage.Text = NextValue + "%";
-                Main.PB_CPUUsage.Value = Convert.ToInt32(NextValue);
-            }
-            void UpdateMemory()
-            {
-                float NextValue = RamCounter.NextValue();
-                Main.PB_Ram.Text = (Main.PB_Ram.Maximum - NextValue) + "MB";
-                Main.PB_Ram.Value = Convert.ToInt32(Main.PB_Ram.Maximum - NextValue);
             }
         }
         public class PLC_Utility
@@ -293,7 +245,9 @@ namespace LePleiadi
                     DateTime += TimeSpan;
                     TimeSpan OffsetAmount = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime);
                     DateTime NetworkDateTime = (DateTime + OffsetAmount);
-                    return NetworkDateTime;
+                    DateTime UTCDateTime = NetworkDateTime.ToUniversalTime();
+                    return UTCDateTime;
+                    //return NetworkDateTime;
                 }
             }
             public static bool HasICMPConnectivity(string IP)

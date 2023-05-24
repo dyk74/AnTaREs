@@ -29,12 +29,12 @@ namespace LePleiadi
         /// </summary>
         private void InitializeComponent()
         {
-            
             this.Stile = new MetroSet_UI.Components.StyleManager();
             this.TabConnection = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.lbl_Osservatorio = new MetroSet_UI.Controls.MetroSetLabel();
             this.btnControlStatus = new MetroSet_UI.Controls.MetroSetEllipse();
-            this.metroSetLabel1 = new MetroSet_UI.Controls.MetroSetLabel();
+            this.lbl_Connection = new MetroSet_UI.Controls.MetroSetLabel();
             this.swConnect = new MetroSet_UI.Controls.MetroSetSwitch();
             this.metroPLC = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.grpConnectivity = new System.Windows.Forms.GroupBox();
@@ -49,6 +49,9 @@ namespace LePleiadi
             this.LblTetto = new MetroSet_UI.Controls.MetroSetLabel();
             this.grpFastChange = new System.Windows.Forms.GroupBox();
             this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.grpTetto = new System.Windows.Forms.GroupBox();
+            this.grp_FaldaSX = new System.Windows.Forms.GroupBox();
+            this.grp_faldaDX = new System.Windows.Forms.GroupBox();
             this.grpUPS = new System.Windows.Forms.GroupBox();
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
@@ -58,6 +61,7 @@ namespace LePleiadi
             this.metroPLC.SuspendLayout();
             this.grpRoof.SuspendLayout();
             this.metroAllarmi.SuspendLayout();
+            this.grpTetto.SuspendLayout();
             this.SuspendLayout();
             // 
             // Stile
@@ -77,14 +81,15 @@ namespace LePleiadi
             this.TabConnection.Controls.Add(this.metroPLC);
             this.TabConnection.Controls.Add(this.metroAllarmi);
             this.TabConnection.Controls.Add(this.metroTetto);
-            this.TabConnection.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TabConnection.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TabConnection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabConnection.IsDerivedStyle = true;
             this.TabConnection.ItemSize = new System.Drawing.Size(100, 38);
-            this.TabConnection.Location = new System.Drawing.Point(2, 73);
+            this.TabConnection.Location = new System.Drawing.Point(12, 90);
             this.TabConnection.Name = "TabConnection";
-            this.TabConnection.SelectedIndex = 0;
+            this.TabConnection.SelectedIndex = 2;
             this.TabConnection.SelectedTextColor = System.Drawing.Color.White;
-            this.TabConnection.Size = new System.Drawing.Size(1090, 600);
+            this.TabConnection.Size = new System.Drawing.Size(1706, 581);
             this.TabConnection.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.TabConnection.Speed = 100;
             this.TabConnection.Style = MetroSet_UI.Enums.Style.Light;
@@ -98,8 +103,9 @@ namespace LePleiadi
             // metroControllo
             // 
             this.metroControllo.BaseColor = System.Drawing.Color.White;
+            this.metroControllo.Controls.Add(this.lbl_Osservatorio);
             this.metroControllo.Controls.Add(this.btnControlStatus);
-            this.metroControllo.Controls.Add(this.metroSetLabel1);
+            this.metroControllo.Controls.Add(this.lbl_Connection);
             this.metroControllo.Controls.Add(this.swConnect);
             this.metroControllo.Font = null;
             this.metroControllo.ImageIndex = 0;
@@ -107,7 +113,7 @@ namespace LePleiadi
             this.metroControllo.IsDerivedStyle = true;
             this.metroControllo.Location = new System.Drawing.Point(4, 42);
             this.metroControllo.Name = "metroControllo";
-            this.metroControllo.Size = new System.Drawing.Size(1082, 554);
+            this.metroControllo.Size = new System.Drawing.Size(1252, 535);
             this.metroControllo.Style = MetroSet_UI.Enums.Style.Light;
             this.metroControllo.StyleManager = null;
             this.metroControllo.TabIndex = 0;
@@ -115,6 +121,21 @@ namespace LePleiadi
             this.metroControllo.ThemeAuthor = "Narwin";
             this.metroControllo.ThemeName = "MetroLite";
             this.metroControllo.ToolTipText = null;
+            // 
+            // lbl_Osservatorio
+            // 
+            this.lbl_Osservatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Osservatorio.IsDerivedStyle = true;
+            this.lbl_Osservatorio.Location = new System.Drawing.Point(242, 40);
+            this.lbl_Osservatorio.Name = "lbl_Osservatorio";
+            this.lbl_Osservatorio.Size = new System.Drawing.Size(162, 23);
+            this.lbl_Osservatorio.Style = MetroSet_UI.Enums.Style.Light;
+            this.lbl_Osservatorio.StyleManager = null;
+            this.lbl_Osservatorio.TabIndex = 3;
+            this.lbl_Osservatorio.Text = "-";
+            this.lbl_Osservatorio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_Osservatorio.ThemeAuthor = "Narwin";
+            this.lbl_Osservatorio.ThemeName = "MetroLite";
             // 
             // btnControlStatus
             // 
@@ -130,7 +151,7 @@ namespace LePleiadi
             this.btnControlStatus.Image = null;
             this.btnControlStatus.ImageSize = new System.Drawing.Size(32, 32);
             this.btnControlStatus.IsDerivedStyle = true;
-            this.btnControlStatus.Location = new System.Drawing.Point(570, 3);
+            this.btnControlStatus.Location = new System.Drawing.Point(565, 3);
             this.btnControlStatus.Name = "btnControlStatus";
             this.btnControlStatus.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.btnControlStatus.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
@@ -138,26 +159,27 @@ namespace LePleiadi
             this.btnControlStatus.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.btnControlStatus.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.btnControlStatus.PressTextColor = System.Drawing.Color.White;
-            this.btnControlStatus.Size = new System.Drawing.Size(93, 88);
+            this.btnControlStatus.Size = new System.Drawing.Size(80, 80);
             this.btnControlStatus.Style = MetroSet_UI.Enums.Style.Light;
             this.btnControlStatus.StyleManager = null;
             this.btnControlStatus.TabIndex = 2;
             this.btnControlStatus.ThemeAuthor = "Narwin";
             this.btnControlStatus.ThemeName = "MetroLite";
             // 
-            // metroSetLabel1
+            // lbl_Connection
             // 
-            this.metroSetLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.metroSetLabel1.IsDerivedStyle = true;
-            this.metroSetLabel1.Location = new System.Drawing.Point(157, 38);
-            this.metroSetLabel1.Name = "metroSetLabel1";
-            this.metroSetLabel1.Size = new System.Drawing.Size(185, 23);
-            this.metroSetLabel1.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroSetLabel1.StyleManager = null;
-            this.metroSetLabel1.TabIndex = 1;
-            this.metroSetLabel1.Text = "Connessione Osservatorio";
-            this.metroSetLabel1.ThemeAuthor = "Narwin";
-            this.metroSetLabel1.ThemeName = "MetroLite";
+            this.lbl_Connection.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbl_Connection.IsDerivedStyle = true;
+            this.lbl_Connection.Location = new System.Drawing.Point(50, 40);
+            this.lbl_Connection.Name = "lbl_Connection";
+            this.lbl_Connection.Size = new System.Drawing.Size(185, 23);
+            this.lbl_Connection.Style = MetroSet_UI.Enums.Style.Light;
+            this.lbl_Connection.StyleManager = null;
+            this.lbl_Connection.TabIndex = 1;
+            this.lbl_Connection.Text = "Connessione Osservatorio";
+            this.lbl_Connection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_Connection.ThemeAuthor = "Narwin";
+            this.lbl_Connection.ThemeName = "MetroLite";
             // 
             // swConnect
             // 
@@ -171,7 +193,7 @@ namespace LePleiadi
             this.swConnect.DisabledCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.swConnect.DisabledUnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
             this.swConnect.IsDerivedStyle = true;
-            this.swConnect.Location = new System.Drawing.Point(398, 39);
+            this.swConnect.Location = new System.Drawing.Point(430, 40);
             this.swConnect.Name = "swConnect";
             this.swConnect.Size = new System.Drawing.Size(58, 22);
             this.swConnect.Style = MetroSet_UI.Enums.Style.Light;
@@ -204,7 +226,7 @@ namespace LePleiadi
             this.metroPLC.IsDerivedStyle = true;
             this.metroPLC.Location = new System.Drawing.Point(4, 42);
             this.metroPLC.Name = "metroPLC";
-            this.metroPLC.Size = new System.Drawing.Size(1082, 554);
+            this.metroPLC.Size = new System.Drawing.Size(1252, 535);
             this.metroPLC.Style = MetroSet_UI.Enums.Style.Light;
             this.metroPLC.StyleManager = null;
             this.metroPLC.TabIndex = 1;
@@ -343,6 +365,7 @@ namespace LePleiadi
             // metroAllarmi
             // 
             this.metroAllarmi.BaseColor = System.Drawing.Color.White;
+            this.metroAllarmi.Controls.Add(this.grpTetto);
             this.metroAllarmi.Controls.Add(this.grpUPS);
             this.metroAllarmi.Font = null;
             this.metroAllarmi.ImageIndex = 0;
@@ -350,7 +373,7 @@ namespace LePleiadi
             this.metroAllarmi.IsDerivedStyle = true;
             this.metroAllarmi.Location = new System.Drawing.Point(4, 42);
             this.metroAllarmi.Name = "metroAllarmi";
-            this.metroAllarmi.Size = new System.Drawing.Size(1082, 554);
+            this.metroAllarmi.Size = new System.Drawing.Size(1698, 535);
             this.metroAllarmi.Style = MetroSet_UI.Enums.Style.Light;
             this.metroAllarmi.StyleManager = null;
             this.metroAllarmi.TabIndex = 2;
@@ -359,13 +382,44 @@ namespace LePleiadi
             this.metroAllarmi.ThemeName = "MetroLite";
             this.metroAllarmi.ToolTipText = null;
             // 
+            // grpTetto
+            // 
+            this.grpTetto.BackColor = System.Drawing.SystemColors.Window;
+            this.grpTetto.Controls.Add(this.grp_FaldaSX);
+            this.grpTetto.Controls.Add(this.grp_faldaDX);
+            this.grpTetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpTetto.Location = new System.Drawing.Point(702, 0);
+            this.grpTetto.Name = "grpTetto";
+            this.grpTetto.Size = new System.Drawing.Size(831, 237);
+            this.grpTetto.TabIndex = 1;
+            this.grpTetto.TabStop = false;
+            this.grpTetto.Text = "Tetto";
+            // 
+            // grp_FaldaSX
+            // 
+            this.grp_FaldaSX.Location = new System.Drawing.Point(6, 19);
+            this.grp_FaldaSX.Name = "grp_FaldaSX";
+            this.grp_FaldaSX.Size = new System.Drawing.Size(400, 212);
+            this.grp_FaldaSX.TabIndex = 1;
+            this.grp_FaldaSX.TabStop = false;
+            this.grp_FaldaSX.Text = "falda sinistra";
+            // 
+            // grp_faldaDX
+            // 
+            this.grp_faldaDX.Location = new System.Drawing.Point(412, 19);
+            this.grp_faldaDX.Name = "grp_faldaDX";
+            this.grp_faldaDX.Size = new System.Drawing.Size(400, 212);
+            this.grp_faldaDX.TabIndex = 0;
+            this.grp_faldaDX.TabStop = false;
+            this.grp_faldaDX.Text = "falda destra";
+            // 
             // grpUPS
             // 
             this.grpUPS.BackColor = System.Drawing.SystemColors.Window;
             this.grpUPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpUPS.Location = new System.Drawing.Point(10, 4);
+            this.grpUPS.Location = new System.Drawing.Point(10, 0);
             this.grpUPS.Name = "grpUPS";
-            this.grpUPS.Size = new System.Drawing.Size(432, 237);
+            this.grpUPS.Size = new System.Drawing.Size(686, 237);
             this.grpUPS.TabIndex = 0;
             this.grpUPS.TabStop = false;
             this.grpUPS.Text = "UPS";
@@ -379,7 +433,7 @@ namespace LePleiadi
             this.metroTetto.IsDerivedStyle = true;
             this.metroTetto.Location = new System.Drawing.Point(4, 42);
             this.metroTetto.Name = "metroTetto";
-            this.metroTetto.Size = new System.Drawing.Size(1082, 554);
+            this.metroTetto.Size = new System.Drawing.Size(1252, 535);
             this.metroTetto.Style = MetroSet_UI.Enums.Style.Light;
             this.metroTetto.StyleManager = null;
             this.metroTetto.TabIndex = 3;
@@ -397,7 +451,7 @@ namespace LePleiadi
             this._metroSetControlBox1.CloseNormalForeColor = System.Drawing.Color.Gray;
             this._metroSetControlBox1.DisabledForeColor = System.Drawing.Color.DimGray;
             this._metroSetControlBox1.IsDerivedStyle = true;
-            this._metroSetControlBox1.Location = new System.Drawing.Point(985, 18);
+            this._metroSetControlBox1.Location = new System.Drawing.Point(1615, 18);
             this._metroSetControlBox1.MaximizeBox = true;
             this._metroSetControlBox1.MaximizeHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this._metroSetControlBox1.MaximizeHoverForeColor = System.Drawing.Color.Gray;
@@ -432,7 +486,7 @@ namespace LePleiadi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 683);
+            this.ClientSize = new System.Drawing.Size(1730, 683);
             this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this._metroSetControlBox1);
             this.Controls.Add(this.TabConnection);
@@ -441,11 +495,13 @@ namespace LePleiadi
             this.StyleManager = this.Stile;
             this.TextColor = System.Drawing.Color.White;
             this.ThemeName = "MetroLight";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.TabConnection.ResumeLayout(false);
             this.metroControllo.ResumeLayout(false);
             this.metroPLC.ResumeLayout(false);
             this.grpRoof.ResumeLayout(false);
             this.metroAllarmi.ResumeLayout(false);
+            this.grpTetto.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -456,7 +512,7 @@ namespace LePleiadi
         private MetroSet_UI.Controls.MetroSetTabControl TabConnection;
         private MetroSet_UI.Child.MetroSetSetTabPage metroControllo;
         private MetroSet_UI.Controls.MetroSetEllipse btnControlStatus;
-        private MetroSet_UI.Controls.MetroSetLabel metroSetLabel1;
+        private MetroSet_UI.Controls.MetroSetLabel lbl_Connection;
         private MetroSet_UI.Controls.MetroSetSwitch swConnect;
         private MetroSet_UI.Child.MetroSetSetTabPage metroPLC;
         private MetroSet_UI.Child.MetroSetSetTabPage metroAllarmi;
@@ -476,11 +532,6 @@ namespace LePleiadi
         private System.Windows.Forms.GroupBox grpUPS;
         
 
-        public static MetroSet_UI.Controls.MetroSetEllipse RoofOpenClose;
-        public static MetroSet_UI.Controls.MetroSetEllipse RoofRight;
-        public static MetroSet_UI.Controls.MetroSetEllipse RoofLeft;
-        public static MetroSet_UI.Controls.MetroSetLabel LblPLCVariableValue;
-        public static MetroSet_UI.Controls.MetroSetLabel LblPLCVariableName;
         public static MetroSet_UI.Controls.MetroSetLabel lblValueRun;
         public static MetroSet_UI.Controls.MetroSetLabel lblValueDirection;
         public static MetroSet_UI.Controls.MetroSetButton btnEvent;
@@ -495,22 +546,42 @@ namespace LePleiadi
         public static MetroSet_UI.Controls.MetroSetEllipse eclSecurityChain;
         public static System.Windows.Forms.ToolTip PLC_Tooltip;
         public static MetroSet_UI.Controls.MetroSetLabel Lbl_Loading;
-        public static MetroSet_UI.Controls.MetroSetProgressBar Pb_Loading;
         public static MetroSet_UI.Controls.MetroSetLabel lbl_RamUsage;
         public static MetroSet_UI.Controls.MetroSetLabel lblCPUUsage;
         public static MetroSet_UI.Controls.MetroSetLabel lblUptime_Value;
         public static MetroSet_UI.Controls.MetroSetLabel lblUptime;
-        public static MetroSet_UI.Controls.MetroSetProgressBar PB_Ram;
-        public static MetroSet_UI.Controls.MetroSetProgressBar PB_CPUUsage;
         public static MetroSet_UI.Controls.MetroSetEllipse btnIPStatus;
         public static MetroSet_UI.Controls.MetroSetButton btn_Ping;
         public static System.Windows.Forms.MaskedTextBox txtIP;
         public static MetroSet_UI.Controls.MetroSetLabel LblIP_Value;
         public static MetroSet_UI.Controls.MetroSetLabel lblIP;
-        public static UPS_Alarm UPS_Alarm1;
-        private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
-        
 
+        //UPS
+        public static UPS_Alarm UPS_EchoMode;
+        public static UPS_Alarm UPS_BatteryLow;
+        public static UPS_Alarm UPS_LDInverter;
+        public static UPS_Alarm UPS_Alarm;
+        public static UPS_Alarm UPS_ConnectionFailure;
+        public static UPS_Alarm UPS_MainFailure;
+        //UPS
+
+        // DA CAMBIARE CON UNO SWITCH
+        public static PLC_Label PLC_ApriFaldaSX;
+        public static PLC_Label PLC_ApriFaldaDX;
+        public static PLC_Label PLC_ChiudiFaldaSX;
+        public static PLC_Label PLC_ChiudiFaldaDX;
+        // FINE DA CAMBIARE CON UNO SWITCH
+
+        public static PLC_Label PLC_FineCorsaAperturaSX;
+        public static PLC_Label PLC_FineCorsaChiusuraSX;
+        public static PLC_Label PLC_FineCorsaAperturaDX;
+        public static PLC_Label PLC_FineCorsaChiusuraDX;
+
+        private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
+        private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;
+        private System.Windows.Forms.GroupBox grpTetto;
+        private System.Windows.Forms.GroupBox grp_faldaDX;
+        private System.Windows.Forms.GroupBox grp_FaldaSX;
     }
 }
 
