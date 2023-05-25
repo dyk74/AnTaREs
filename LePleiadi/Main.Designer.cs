@@ -514,7 +514,7 @@ namespace AnTaREs
         public static UPS_Alarm UPS_MainFailure;
         public static PLC_ProgressBar UPS_ChargeValue;
         //UPS
-
+        
         //SERVER
         public static PLC_KeepAlive Server_KeepAlive;
 
