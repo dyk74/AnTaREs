@@ -37,12 +37,10 @@ namespace AnTaREs
             this.lbl_Connection = new MetroSet_UI.Controls.MetroSetLabel();
             this.swConnect = new MetroSet_UI.Controls.MetroSetSwitch();
             this.metroPLC = new MetroSet_UI.Child.MetroSetSetTabPage();
-            this.grpConnectivity = new System.Windows.Forms.GroupBox();
             this.grpSecurityChain = new System.Windows.Forms.GroupBox();
             this.grpTooglePLC = new System.Windows.Forms.GroupBox();
             this.grpToogle = new System.Windows.Forms.GroupBox();
             this.grpCPU = new System.Windows.Forms.GroupBox();
-            this.grpPLC = new System.Windows.Forms.GroupBox();
             this.grpFastChange = new System.Windows.Forms.GroupBox();
             this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.grp_Server = new System.Windows.Forms.GroupBox();
@@ -53,6 +51,7 @@ namespace AnTaREs
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
+            this.grp_Vertigo = new System.Windows.Forms.GroupBox();
             this.TabConnection.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.metroPLC.SuspendLayout();
@@ -206,12 +205,10 @@ namespace AnTaREs
             // metroPLC
             // 
             this.metroPLC.BaseColor = System.Drawing.Color.White;
-            this.metroPLC.Controls.Add(this.grpConnectivity);
             this.metroPLC.Controls.Add(this.grpSecurityChain);
             this.metroPLC.Controls.Add(this.grpTooglePLC);
             this.metroPLC.Controls.Add(this.grpToogle);
             this.metroPLC.Controls.Add(this.grpCPU);
-            this.metroPLC.Controls.Add(this.grpPLC);
             this.metroPLC.Controls.Add(this.grpFastChange);
             this.metroPLC.Font = null;
             this.metroPLC.ImageIndex = 0;
@@ -227,17 +224,6 @@ namespace AnTaREs
             this.metroPLC.ThemeAuthor = "Narwin";
             this.metroPLC.ThemeName = "MetroLite";
             this.metroPLC.ToolTipText = null;
-            // 
-            // grpConnectivity
-            // 
-            this.grpConnectivity.BackColor = System.Drawing.SystemColors.Window;
-            this.grpConnectivity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpConnectivity.Location = new System.Drawing.Point(0, 320);
-            this.grpConnectivity.Name = "grpConnectivity";
-            this.grpConnectivity.Size = new System.Drawing.Size(340, 150);
-            this.grpConnectivity.TabIndex = 14;
-            this.grpConnectivity.TabStop = false;
-            this.grpConnectivity.Text = "Connectivity";
             // 
             // grpSecurityChain
             // 
@@ -283,17 +269,6 @@ namespace AnTaREs
             this.grpCPU.TabStop = false;
             this.grpCPU.Text = "CPU";
             // 
-            // grpPLC
-            // 
-            this.grpPLC.BackColor = System.Drawing.SystemColors.Window;
-            this.grpPLC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpPLC.Location = new System.Drawing.Point(360, 320);
-            this.grpPLC.Name = "grpPLC";
-            this.grpPLC.Size = new System.Drawing.Size(340, 150);
-            this.grpPLC.TabIndex = 7;
-            this.grpPLC.TabStop = false;
-            this.grpPLC.Text = "PLC Label";
-            // 
             // grpFastChange
             // 
             this.grpFastChange.BackColor = System.Drawing.SystemColors.Window;
@@ -309,6 +284,7 @@ namespace AnTaREs
             // metroAllarmi
             // 
             this.metroAllarmi.BaseColor = System.Drawing.Color.White;
+            this.metroAllarmi.Controls.Add(this.grp_Vertigo);
             this.metroAllarmi.Controls.Add(this.grp_Server);
             this.metroAllarmi.Controls.Add(this.grpTetto);
             this.metroAllarmi.Controls.Add(this.grpUPS);
@@ -333,7 +309,7 @@ namespace AnTaREs
             this.grp_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grp_Server.Location = new System.Drawing.Point(10, 346);
             this.grp_Server.Name = "grp_Server";
-            this.grp_Server.Size = new System.Drawing.Size(686, 100);
+            this.grp_Server.Size = new System.Drawing.Size(686, 186);
             this.grp_Server.TabIndex = 2;
             this.grp_Server.TabStop = false;
             this.grp_Server.Text = "Server";
@@ -353,7 +329,7 @@ namespace AnTaREs
             // 
             // grp_FaldaSX
             // 
-            this.grp_FaldaSX.Location = new System.Drawing.Point(6, 19);
+            this.grp_FaldaSX.Location = new System.Drawing.Point(6, 122);
             this.grp_FaldaSX.Name = "grp_FaldaSX";
             this.grp_FaldaSX.Size = new System.Drawing.Size(400, 212);
             this.grp_FaldaSX.TabIndex = 1;
@@ -362,7 +338,7 @@ namespace AnTaREs
             // 
             // grp_faldaDX
             // 
-            this.grp_faldaDX.Location = new System.Drawing.Point(412, 19);
+            this.grp_faldaDX.Location = new System.Drawing.Point(412, 122);
             this.grp_faldaDX.Name = "grp_faldaDX";
             this.grp_faldaDX.Size = new System.Drawing.Size(400, 212);
             this.grp_faldaDX.TabIndex = 0;
@@ -438,6 +414,17 @@ namespace AnTaREs
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
             // 
+            // grp_Vertigo
+            // 
+            this.grp_Vertigo.BackColor = System.Drawing.Color.White;
+            this.grp_Vertigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grp_Vertigo.Location = new System.Drawing.Point(702, 346);
+            this.grp_Vertigo.Name = "grp_Vertigo";
+            this.grp_Vertigo.Size = new System.Drawing.Size(831, 186);
+            this.grp_Vertigo.TabIndex = 3;
+            this.grp_Vertigo.TabStop = false;
+            this.grp_Vertigo.Text = "Vertigo";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -473,13 +460,11 @@ namespace AnTaREs
         private MetroSet_UI.Child.MetroSetSetTabPage metroAllarmi;
         private MetroSet_UI.Child.MetroSetSetTabPage metroTetto;
         private System.Windows.Forms.GroupBox grpFastChange;
-        private System.Windows.Forms.GroupBox grpPLC;
         private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
         private System.Windows.Forms.GroupBox grpCPU;
         private System.Windows.Forms.GroupBox grpToogle;
         private System.Windows.Forms.GroupBox grpTooglePLC;
         private System.Windows.Forms.GroupBox grpSecurityChain;
-        private System.Windows.Forms.GroupBox grpConnectivity;
         private System.Windows.Forms.GroupBox grpUPS;
         
 
@@ -525,10 +510,19 @@ namespace AnTaREs
         public static PLC_Label PLC_ChiudiFaldaDX;
         // FINE DA CAMBIARE CON UNO SWITCH
 
+        //ROOF
         public static PLC_Label PLC_FineCorsaAperturaSX;
         public static PLC_Label PLC_FineCorsaChiusuraSX;
         public static PLC_Label PLC_FineCorsaAperturaDX;
         public static PLC_Label PLC_FineCorsaChiusuraDX;
+        public static PLC_Label PLC_ChiudiTetto;
+        public static PLC_Label PLC_ApriTetto;
+        public static PLC_Label PLC_NoResetTermici;
+        public static PLC_Label PLC_Cicalini;
+
+        //VERTIGO
+        private static PLC_Label PLC_VertigoTettoChiuso;
+        private static PLC_Label PLC_VertigoTettoAperto;
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;
@@ -536,6 +530,7 @@ namespace AnTaREs
         private System.Windows.Forms.GroupBox grp_faldaDX;
         private System.Windows.Forms.GroupBox grp_FaldaSX;
         private System.Windows.Forms.GroupBox grp_Server;
+        private System.Windows.Forms.GroupBox grp_Vertigo;
     }
 }
 

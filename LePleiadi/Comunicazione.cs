@@ -207,8 +207,6 @@ namespace AnTaREs
                 Array SyncItemServerHandle = new int[2];
                 Array SyncItemValues = new Object[2];
                 Array SyncItemServerErrors = new int[1];
-                Object Quality;
-                Object Timestamp;
                 int ItemCount = 1;
                 short Source = 2;
                 string ReturnValue = "";
@@ -216,7 +214,7 @@ namespace AnTaREs
                 SyncItemServerHandle.SetValue(Item.VariableHandleServer, 1);
                 try
                 {
-                    Group.SyncRead(Source, ItemCount, ref SyncItemServerHandle, out SyncItemValues, out SyncItemServerErrors, out Quality, out Timestamp);
+                    Group.SyncRead(Source, ItemCount, ref SyncItemServerHandle, out SyncItemValues, out SyncItemServerErrors, out object Quality, out object Timestamp);
                 }
                 catch (Exception ex)
                 {
@@ -276,7 +274,6 @@ namespace AnTaREs
                 {
                     throw new Exception("Error Async Write: " + ex.Message);
                 }
-
             }
             void Group_AsyncWriteComplete(int TransactionID,int NumItems,ref Array ClientHandles, ref Array Errors)
             {

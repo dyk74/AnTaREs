@@ -55,8 +55,6 @@ namespace AnTaREs
             Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
             Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
 
-           
-
             Main.UPS_EchoMode = new UPS_Alarm();
             Main.UPS_BatteryLow = new UPS_Alarm();
             Main.UPS_LDInverter = new UPS_Alarm();
@@ -69,17 +67,24 @@ namespace AnTaREs
             Main.PLC_FineCorsaChiusuraSX = new PLC_Label();
             Main.PLC_FineCorsaAperturaDX = new PLC_Label();
             Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
+            Main.PLC_NoResetTermici = new PLC_Label();
+            Main.PLC_Cicalini = new PLC_Label();
 
             Main.Server_KeepAlive = new PLC_KeepAlive();
 
+            Main.PLC_VertigoTettoChiuso = new PLC_Label();
+            Main.PLC_VertigoTettoAperto = new PLC_Label();
             //DA CAMBIARE CON UNO SWITCH
             Main.PLC_ApriFaldaSX = new PLC_Label();
             Main.PLC_ApriFaldaDX = new PLC_Label();
             Main.PLC_ChiudiFaldaSX = new PLC_Label();
             Main.PLC_ChiudiFaldaDX = new PLC_Label();
+            Main.PLC_ChiudiTetto = new PLC_Label();
+            Main.PLC_ApriTetto = new PLC_Label();
             //FINE CAMBIARE CON UNO SWITCH
         
             InitializeComponent();
+            InitializeVertigoStatus();
             InitializeUPS();
             InitializeRoof();
             InitializeServerStatus();
@@ -90,6 +95,27 @@ namespace AnTaREs
             PLCChainElement_Initialize();
             StartUpdateTimer();
             lbl_Osservatorio.Text = VPN_AdapterName;
+        }
+        public void InitializeVertigoStatus()
+        {
+            PLC_VertigoTettoChiuso.TopLevel = false;
+            PLC_VertigoTettoAperto.TopLevel = false;
+            this.grp_Vertigo.Controls.Add(PLC_VertigoTettoChiuso);
+            this.grp_Vertigo.Controls.Add(PLC_VertigoTettoAperto);
+            PLC_VertigoTettoChiuso.Show();
+            PLC_VertigoTettoAperto.Show();
+            PLC_VertigoTettoChiuso.Location = new System.Drawing.Point(20, 20);
+            PLC_VertigoTettoAperto.Location = new System.Drawing.Point(20, 200);
+            PLC_VertigoTettoChiuso.PLCVariableName = "Segnale Tetto Chiuso";
+            PLC_VertigoTettoAperto.PLCVariableName = "Segnale Tetto Aperto";
+            PLC_VertigoTettoChiuso.Name = "PLC_VertigoTettoChiuso";
+            PLC_VertigoTettoAperto.Name = "PLC_VertigoTettoAperto";
+            PLC_VertigoTettoChiuso.PLCVariablePath = "TCPIP.S7-200.Vertigo.RoofIsClosedVertigo";
+            PLC_VertigoTettoAperto.PLCVariablePath = "TCPIP.S7-200.Vertigo.RoofIsOpenVertigo";
+            PLC_VertigoTettoChiuso.RedOnValue = false;
+            PLC_VertigoTettoAperto.RedOnValue = true;
+            PLC_VertigoTettoChiuso.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_VertigoTettoAperto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void InitializeServerStatus()
         {
@@ -111,6 +137,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.TopLevel = false;
             PLC_FineCorsaAperturaDX.TopLevel = false;
             PLC_FineCorsaChiusuraDX.TopLevel = false;
+            PLC_NoResetTermici.TopLevel = false;
+            PLC_Cicalini.TopLevel = false;
+            PLC_ChiudiTetto.TopLevel = false;
+            PLC_ApriTetto.TopLevel = false;
             this.grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
             this.grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
             this.grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
@@ -119,6 +149,10 @@ namespace AnTaREs
             this.grp_FaldaSX.Controls.Add(PLC_FineCorsaChiusuraSX);
             this.grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
             this.grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
+            this.grpTetto.Controls.Add(PLC_NoResetTermici);
+            this.grpTetto.Controls.Add(PLC_Cicalini);
+            this.grpTetto.Controls.Add(PLC_ChiudiTetto);
+            this.grpTetto.Controls.Add(PLC_ApriTetto);
             PLC_ApriFaldaSX.Show();
             PLC_ApriFaldaDX.Show();
             PLC_ChiudiFaldaDX.Show();
@@ -127,6 +161,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.Show();
             PLC_FineCorsaAperturaDX.Show();
             PLC_FineCorsaChiusuraDX.Show();
+            PLC_NoResetTermici.Show();
+            PLC_Cicalini.Show();
+            PLC_ChiudiTetto.Show();
+            PLC_ApriTetto.Show();
             PLC_ApriFaldaSX.PLCVariableName = "Apri Falda Sinistra";
             PLC_ApriFaldaDX.PLCVariableName = "Apri Falda Destra";
             PLC_FineCorsaAperturaSX.PLCVariableName = "Finecorsa Apertura Sinistra";
@@ -135,6 +173,10 @@ namespace AnTaREs
             PLC_ChiudiFaldaDX.PLCVariableName = "Chiudi Falda Destra";
             PLC_FineCorsaAperturaDX.PLCVariableName = "Finecorsa Apertura Destra";
             PLC_FineCorsaChiusuraDX.PLCVariableName = "Finecorsa Chiusura Destra";
+            PLC_NoResetTermici.PLCVariableName = "Numero Reset Termici";
+            PLC_ChiudiTetto.PLCVariableName = "Chiudi Tetto";
+            PLC_ApriTetto.PLCVariableName = "Apri Tetto";
+            PLC_Cicalini.PLCVariableName = "Cicalini";
             PLC_ApriFaldaSX.Location = new System.Drawing.Point(20, 20);
             PLC_FineCorsaAperturaSX.Location = new System.Drawing.Point(20, 80);
             PLC_FineCorsaAperturaDX.Location = new System.Drawing.Point(20, 80);
@@ -143,14 +185,11 @@ namespace AnTaREs
             PLC_ApriFaldaDX.Location = new System.Drawing.Point(20, 20);
             PLC_ChiudiFaldaSX.Location = new System.Drawing.Point(200, 20);
             PLC_ChiudiFaldaDX.Location = new System.Drawing.Point(200, 20);
-            PLC_ApriFaldaSX.Size = new System.Drawing.Size(180, 42);
-            PLC_ApriFaldaDX.Size = new System.Drawing.Size(180, 42);
-            PLC_ChiudiFaldaSX.Size = new System.Drawing.Size(180, 42);
-            PLC_ChiudiFaldaDX.Size = new System.Drawing.Size(180, 42);
-            PLC_FineCorsaChiusuraSX.Size = new System.Drawing.Size(180, 42);
-            PLC_FineCorsaAperturaSX.Size = new System.Drawing.Size(180, 42);
-            PLC_FineCorsaAperturaDX.Size = new System.Drawing.Size(180, 42);
-            PLC_FineCorsaChiusuraDX.Size = new System.Drawing.Size(180, 42);
+            PLC_NoResetTermici.Location = new System.Drawing.Point(20, 20);
+            PLC_Cicalini.Location = new System.Drawing.Point(20, 80);
+            PLC_ApriTetto.Location = new System.Drawing.Point(300, 20);
+            PLC_ChiudiTetto.Location = new System.Drawing.Point(500, 20);
+
             PLC_ApriFaldaSX.Name = "PLC_ApriFaldaSX";
             PLC_ApriFaldaDX.Name = "PLC_ApriFaldaDX";
             PLC_ChiudiFaldaSX.Name = "PLC_ChiudiFaldaSX";
@@ -159,6 +198,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.Name = "PLC_FineCorsaChiusuraSX";
             PLC_FineCorsaAperturaDX.Name = "PLC_FineCorsaAperturaDX";
             PLC_FineCorsaChiusuraDX.Name = "PLC_FineCorsaChiusuraDX";
+            PLC_NoResetTermici.Name = "PLC_NoResetTermici";
+            PLC_Cicalini.Name = "PLC_Cicalini";
+            PLC_ChiudiTetto.Name = "PLC_ChiudiTetto";
+            PLC_ApriTetto.Name = "PLC_ApriTetto";
             PLC_ApriFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ApriFaldaSX";
             PLC_ApriFaldaDX.PLCVariablePath = "TCPIP.S7.200.Roof.ApriFaldaDX";
             PLC_ChiudiFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiFaldaSX";
@@ -167,6 +210,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaSXChiusura";
             PLC_FineCorsaAperturaDX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaDXApertura";
             PLC_FineCorsaChiusuraDX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaDXChiusura";
+            PLC_NoResetTermici.PLCVariablePath = "TCPIP.S7-200.Roof.ContantoreAlmTermici";
+            PLC_Cicalini.PLCVariablePath = "TCPIP.S7-200.Roof.Cicalini";
+            PLC_ChiudiTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiTetto";
+            PLC_ApriTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ApriTetto";
             PLC_ApriFaldaSX.RedOnValue = true;
             PLC_ChiudiFaldaSX.RedOnValue = true;
             PLC_ApriFaldaDX.RedOnValue = true;
@@ -175,6 +222,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.RedOnValue = true;
             PLC_FineCorsaAperturaDX.RedOnValue = true;
             PLC_FineCorsaChiusuraDX.RedOnValue = true;
+            PLC_NoResetTermici.RedOnValue = true;
+            PLC_Cicalini.RedOnValue = true;
+            PLC_ChiudiTetto.RedOnValue = true;
+            PLC_ApriTetto.RedOnValue = true;
             PLC_ApriFaldaSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_ApriFaldaDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_ChiudiFaldaSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
@@ -183,6 +234,10 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraSX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FineCorsaAperturaDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FineCorsaChiusuraDX.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Cicalini.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ChiudiTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ApriTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_NoResetTermici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
         }
         public void InitializeUPS()
         {

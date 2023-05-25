@@ -97,7 +97,7 @@ namespace AnTaREs
                     }
                 }
                 else
-                    lbl_ValueDescription.Text = PLC_VariableHandle.ActualValue.ToString();
+                    ecl_ValueStatus.Text = PLC_VariableHandle.ActualValue.ToString();
             }
         }
         [Browsable(true),Description("Variable Path"),Category("PLC")]

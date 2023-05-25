@@ -35,6 +35,9 @@ namespace AnTaREs
             // 
             // ecl_ValueStatus
             // 
+            this.ecl_ValueStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ecl_ValueStatus.BorderThickness = 1;
             this.ecl_ValueStatus.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.ecl_ValueStatus.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
@@ -54,7 +57,7 @@ namespace AnTaREs
             this.ecl_ValueStatus.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.ecl_ValueStatus.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.ecl_ValueStatus.PressTextColor = System.Drawing.Color.White;
-            this.ecl_ValueStatus.Size = new System.Drawing.Size(40, 40);
+            this.ecl_ValueStatus.Size = new System.Drawing.Size(42, 42);
             this.ecl_ValueStatus.Style = MetroSet_UI.Enums.Style.Light;
             this.ecl_ValueStatus.StyleManager = null;
             this.ecl_ValueStatus.TabIndex = 0;
@@ -64,11 +67,13 @@ namespace AnTaREs
             // 
             // lbl_ValueDescription
             // 
+            this.lbl_ValueDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_ValueDescription.AutoSize = true;
             this.lbl_ValueDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ValueDescription.IsDerivedStyle = true;
-            this.lbl_ValueDescription.Location = new System.Drawing.Point(47, 0);
+            this.lbl_ValueDescription.Location = new System.Drawing.Point(48, 17);
             this.lbl_ValueDescription.Name = "lbl_ValueDescription";
-            this.lbl_ValueDescription.Size = new System.Drawing.Size(150, 42);
+            this.lbl_ValueDescription.Size = new System.Drawing.Size(10, 13);
             this.lbl_ValueDescription.Style = MetroSet_UI.Enums.Style.Light;
             this.lbl_ValueDescription.StyleManager = null;
             this.lbl_ValueDescription.TabIndex = 1;
@@ -81,11 +86,12 @@ namespace AnTaREs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(215, 42);
+            this.ClientSize = new System.Drawing.Size(180, 42);
             this.Controls.Add(this.lbl_ValueDescription);
             this.Controls.Add(this.ecl_ValueStatus);
             this.Name = "PLC_Label";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
