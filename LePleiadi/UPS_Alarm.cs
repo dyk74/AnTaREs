@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LePleiadi.Comunicazione;
+using static AnTaREs.Comunicazione;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public partial class UPS_Alarm : MetroSet_UI.Forms.MetroSetForm
     {

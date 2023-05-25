@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroSet_UI.Forms;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public partial class InputForm : MetroSetForm
     {

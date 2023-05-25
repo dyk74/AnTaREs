@@ -6,15 +6,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static LePleiadi.Comunicazione;
+using static AnTaREs.Comunicazione;
 using MetroSet_UI.Forms;
 using MetroSet_UI.Enums;
 using MetroSet_UI.Controls;
 using System.Windows.Forms;
 using System.Timers;
-using static LePleiadi.VPN ;
+using static AnTaREs.VPN ;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public partial class Main : MetroSetForm
     {
@@ -44,8 +44,6 @@ namespace LePleiadi
             Main.chkToogle = new MetroSet_UI.Controls.MetroSetCheckBox();
             Main.eclSecurityChain = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.lblSecurityChain = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblKeepAlive = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.btn_KeepAlive = new MetroSet_UI.Controls.MetroSetEllipse();
             Main.Lbl_Loading = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblUptime = new MetroSet_UI.Controls.MetroSetLabel();
             Main.lblUptime_Value = new MetroSet_UI.Controls.MetroSetLabel();
@@ -57,17 +55,23 @@ namespace LePleiadi
             Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
             Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
 
+           
+
             Main.UPS_EchoMode = new UPS_Alarm();
             Main.UPS_BatteryLow = new UPS_Alarm();
             Main.UPS_LDInverter = new UPS_Alarm();
             Main.UPS_Alarm = new UPS_Alarm();
             Main.UPS_ConnectionFailure = new UPS_Alarm();
             Main.UPS_MainFailure = new UPS_Alarm();
+            Main.UPS_ChargeValue = new PLC_ProgressBar();
 
             Main.PLC_FineCorsaAperturaSX = new PLC_Label();
             Main.PLC_FineCorsaChiusuraSX = new PLC_Label();
             Main.PLC_FineCorsaAperturaDX = new PLC_Label();
             Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
+
+            Main.Server_KeepAlive = new PLC_KeepAlive();
+
             //DA CAMBIARE CON UNO SWITCH
             Main.PLC_ApriFaldaSX = new PLC_Label();
             Main.PLC_ApriFaldaDX = new PLC_Label();
@@ -78,14 +82,24 @@ namespace LePleiadi
             InitializeComponent();
             InitializeUPS();
             InitializeRoof();
+            InitializeServerStatus();
             PLCFastChange_initialize();
             PLCChange_Initialize();
             PLCCPU_Initialize();
             PLCToogle_Initialize();
             PLCChainElement_Initialize();
-            KeepAlive_Initialize();
             StartUpdateTimer();
             lbl_Osservatorio.Text = VPN_AdapterName;
+        }
+        public void InitializeServerStatus()
+        {
+            Server_KeepAlive.TopLevel = false;
+            this.grp_Server.Controls.Add(Server_KeepAlive);
+            Server_KeepAlive.Show();
+            Server_KeepAlive.Location = new System.Drawing.Point(20, 20);
+            Server_KeepAlive.Name = "Server_KeepAlive";
+            Server_KeepAlive.PLCVariablePath="TCPIP.S7-200.Server.KeepaliveValue";
+            Server_KeepAlive.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_UI8;
         }
         public void InitializeRoof()
         {
@@ -178,42 +192,51 @@ namespace LePleiadi
             UPS_Alarm.TopLevel = false;
             UPS_ConnectionFailure.TopLevel = false;
             UPS_MainFailure.TopLevel = false;
+            UPS_ChargeValue.TopLevel = false;
             this.grpUPS.Controls.Add(UPS_EchoMode);
             this.grpUPS.Controls.Add(UPS_BatteryLow);
             this.grpUPS.Controls.Add(UPS_LDInverter);
             this.grpUPS.Controls.Add(UPS_Alarm);
             this.grpUPS.Controls.Add(UPS_ConnectionFailure);
             this.grpUPS.Controls.Add(UPS_MainFailure);
+            this.grpUPS.Controls.Add(UPS_ChargeValue);
             UPS_EchoMode.Show();
             UPS_BatteryLow.Show();
             UPS_LDInverter.Show();
             UPS_Alarm.Show();
             UPS_ConnectionFailure.Show();
             UPS_MainFailure.Show();
+            UPS_ChargeValue.Show();
             UPS_EchoMode.PLCAlarmName = "Eco Mode Active";
             UPS_BatteryLow.PLCAlarmName = "Battery Low";
             UPS_LDInverter.PLCAlarmName = "Inverter Alarm";
             UPS_Alarm.PLCAlarmName = "General Alarm";
             UPS_ConnectionFailure.PLCAlarmName = "Connection Failure";
             UPS_MainFailure.PLCAlarmName = "Main Failure";
+            UPS_ChargeValue.PLCVariableName = "UPS Charge";
+            UPS_ChargeValue.MaxValue = 100;
+            UPS_ChargeValue.MinValue = 0;
             UPS_EchoMode.Location = new System.Drawing.Point(20, 20);
             UPS_BatteryLow.Location = new System.Drawing.Point(20, 70);
             UPS_LDInverter.Location = new System.Drawing.Point(20, 120);
             UPS_Alarm.Location = new System.Drawing.Point(20, 170);
             UPS_ConnectionFailure.Location = new System.Drawing.Point(340, 20);
             UPS_MainFailure.Location = new System.Drawing.Point(340, 70);
+            UPS_ChargeValue.Location = new System.Drawing.Point(340, 120);
             UPS_EchoMode.Name = "UPS_EchoMode";
             UPS_BatteryLow.Name = "UPS_BatteryLow";
             UPS_LDInverter.Name = "UPS_LDInverter";
             UPS_Alarm.Name = "UPS_Alarm";
             UPS_MainFailure.Name = "UPS_MainFailure";
             UPS_ConnectionFailure.Name = "UPS_ConnectionFailure";
+            UPS_ChargeValue.Name = "UPS_ChargeValue";
             UPS_EchoMode.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
             UPS_BatteryLow.PLCVariablePath = "TCPIP.S7-200.UPS.I_BATTLOW";
             UPS_LDInverter.PLCVariablePath = "TCPIP.S7-200.UPS.I_LDINV";
             UPS_Alarm.PLCVariablePath = "TCPIP.S7-200.UPS.I_ALARM";
             UPS_ConnectionFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmLinkFailure";
             UPS_MainFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmMainsFailure";
+            UPS_ChargeValue.PLCVariablePath = "TCPIP.S7-200.UPS.RemainingCapacity";
             UPS_EchoMode.ResetAvailable = false;
             UPS_BatteryLow.ResetAvailable = false;
             UPS_LDInverter.ResetAvailable = false;
@@ -226,6 +249,7 @@ namespace LePleiadi
             UPS_Alarm.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             UPS_ConnectionFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             UPS_MainFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            UPS_ChargeValue.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_UINT;
         }
         public void StartUpdateTimer()
         {
@@ -271,33 +295,6 @@ namespace LePleiadi
         private void Btn_Ping_Click(object sender, EventArgs e)
         {
             PLC.PLC_CheckConnectivity.Btn_Ping_Click(sender, e);
-        }
-        private void KeepAlive_Initialize()
-        {
-            this.grp_KeepAlive.Controls.Add(Main.btn_KeepAlive);
-            this.grp_KeepAlive.Controls.Add(Main.lblKeepAlive);
-            lblKeepAlive.IsDerivedStyle = true;
-            lblKeepAlive.Location = new System.Drawing.Point(7, 51);
-            lblKeepAlive.Name = "lblKeepAlive";
-            lblKeepAlive.Size = new System.Drawing.Size(77, 23);
-            lblKeepAlive.Style = MetroSet_UI.Enums.Style.Light;
-            lblKeepAlive.Text = "Server";
-            lblKeepAlive.ThemeAuthor = "Narwin";
-            lblKeepAlive.ThemeName = "MetroLite";
-            btn_KeepAlive.BorderThickness = 0;
-            btn_KeepAlive.Enabled = false;
-            btn_KeepAlive.Image = null;
-            btn_KeepAlive.ImageSize = new System.Drawing.Size(64, 64);
-            btn_KeepAlive.IsDerivedStyle = true;
-            btn_KeepAlive.Location = new System.Drawing.Point(90, 34);
-            btn_KeepAlive.Name = "btn_KeepAlive";
-            btn_KeepAlive.NormalColor = System.Drawing.Color.Red;
-            btn_KeepAlive.Size = new System.Drawing.Size(55, 55);
-            btn_KeepAlive.Style = MetroSet_UI.Enums.Style.Light;
-            btn_KeepAlive.StyleManager = null;
-            btn_KeepAlive.TabIndex = 1;
-            btn_KeepAlive.ThemeAuthor = "Narwin";
-            btn_KeepAlive.ThemeName = "MetroLite";
         }
         private void PLCChainElement_Initialize()
         {

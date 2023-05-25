@@ -8,7 +8,7 @@ using OPC.Data;
 using System.Runtime.InteropServices;
 
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public class Comunicazione
     {

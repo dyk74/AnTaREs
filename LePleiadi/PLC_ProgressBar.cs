@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LePleiadi.Comunicazione;
+using static AnTaREs.Comunicazione;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public partial class PLC_ProgressBar : MetroSet_UI.Forms.MetroSetForm
     {
@@ -88,8 +88,7 @@ namespace LePleiadi
                 ResultString = C_Form.Input.Text;
             else
                 return;
-            C_Form = null;
-            if(PLC_Handle.VariableType==VarEnum.VT_UINT)
+            if (PLC_Handle.VariableType==VarEnum.VT_UINT)
             {
                 int Result = Convert.ToInt16(ResultString);
                 if (Result >= 0)

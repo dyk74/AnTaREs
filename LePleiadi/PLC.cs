@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using static LePleiadi.Comunicazione;
+using static AnTaREs.Comunicazione;
 using System.Windows.Forms;
 using System.Timers;
 using System.Net.NetworkInformation;
@@ -16,98 +16,11 @@ using MetroSet_UI;
 using System.Net.Sockets;
 using System.ComponentModel;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public class PLC
     {
  // VERIFICARE DA QUI LE CLASSI
-        public class PLC_KeepAlive
-        {
-            private VariableHandle LO_Handle;
-            private string LS_PathVarPLC;
-            private VarEnum LO_TypeVarPLC;
-            private Comunicazioni LO_Com;
-            static byte counter = 0;
-            static System.Timers.Timer timer;
-            public PLC_KeepAlive()
-            {
-                LO_Handle = null;
-                LS_PathVarPLC = "";
-                LO_TypeVarPLC = VarEnum.VT_UNKNOWN;
-                LO_Com = Comunicazioni.Instance;
-                RegisterTimer();
-            }
-            public PLC_KeepAlive(VariableHandle OVariable)
-            {
-                LO_Handle = null;
-                LO_Handle = OVariable;
-                LO_Com = Comunicazioni.Instance;
-                RegisterTimer();
-            }
-            public bool Online(bool value)
-            {
-                bool retVal = false;
-                if(LS_PathVarPLC.Equals("") &&(LO_TypeVarPLC!=VarEnum.VT_UNKNOWN))
-                {
-                    if (LO_Handle == null)
-                        LO_Handle = new VariableHandle(LO_Com, LS_PathVarPLC, -1, true);
-                    if(value)
-                    {
-                        LO_Com.RegisterVariable(LO_Handle);
-                        timer.Start();
-                    }
-                    else
-                    {
-                        LO_Com.RemoveVariable(LO_Handle);
-                        timer.Stop();
-                    }
-                }
-                return retVal;
-            }
-            private void RegisterTimer()
-            {
-                timer = new System.Timers.Timer(500);
-                timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
-            }
-            void Timer_Elapsed(object sender,ElapsedEventArgs e)
-            {
-                LO_Com.SyncWrite(LO_Handle, counter, typeof(byte));
-                counter++;
-                Main.btn_KeepAlive.Invoke((MethodInvoker)delegate
-                    {
-                    ChangeVisibility();
-                });
-            }
-            void ChangeVisibility()
-            {
-                if (Main.btn_KeepAlive.NormalColor == Color.Red)
-                    Main.btn_KeepAlive.NormalColor = Color.White;
-                else if (Main.btn_KeepAlive.NormalColor == Color.White)
-                    Main.btn_KeepAlive.NormalColor = Color.Red;
-            }
-            public string PathVarPLC
-            {
-                get
-                {
-                    return LS_PathVarPLC;
-                }
-                set
-                {
-                    LS_PathVarPLC = value;
-                }
-            }
-            public VarEnum Type
-            {
-                get
-                {
-                    return LO_TypeVarPLC;
-                }
-                set
-                {
-                    LO_TypeVarPLC = value;
-                }
-            }
-        }
         public class PLC_CheckConnectivity
         {
             public string DestinationIP
@@ -141,8 +54,10 @@ namespace LePleiadi
             System.Timers.Timer MyTimer;
             public void Start()
             {
-                MyTimer = new System.Timers.Timer();
-                MyTimer.Interval = 1000;
+                MyTimer = new System.Timers.Timer
+                {
+                    Interval = 1000
+                };
                 MyTimer.Start();
             }
             public void Stop()

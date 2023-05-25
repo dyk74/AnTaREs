@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using DotRas;
 
-namespace LePleiadi
+namespace AnTaREs
 {
     public class VPN
     {

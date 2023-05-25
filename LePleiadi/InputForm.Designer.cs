@@ -1,5 +1,5 @@
 ﻿
-namespace LePleiadi
+namespace AnTaREs
 {
     partial class InputForm
     {
