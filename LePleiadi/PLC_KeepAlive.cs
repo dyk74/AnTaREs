@@ -18,7 +18,7 @@ namespace AnTaREs
         private VariableHandle PLC_Handle;
         private string PLC_VariablePath;
         private VarEnum PLC_VariableType;
-        private Comunicazioni Com;
+        private readonly Comunicazioni Com;
         static byte Counter = 0;
         static System.Timers.Timer Timer;
         public PLC_KeepAlive()

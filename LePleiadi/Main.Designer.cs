@@ -569,9 +569,11 @@ namespace AnTaREs
         public static PLC_Label PLC_FineCorsaChiusuraDX;
         public static PLC_Label PLC_ChiudiTetto;
         public static PLC_Label PLC_ApriTetto;
-        public static PLC_Label PLC_NoResetTermici;
         private static PLC_Label PLC_Cicalini;
+        public static PLC_Label PLC_NoResetTermici;
+        private static PLC_Toggle PLC_Reset_Termici;
         private static PLC_Toggle PLC_CicaliniMute;
+        private static PLC_Toggle PLC_Reset_Counter_Termici;
 
         //VERTIGO
         private static PLC_Label PLC_VertigoTettoChiuso;
@@ -589,6 +591,19 @@ namespace AnTaREs
         private static PLC_Label PLC_AR_Direction;
         private static PLC_Label PLC_DEC_Error;
         private static PLC_Label PLC_AR_Error;
+        private static PLC_Toggle PLC_DEC_Run;
+        private static PLC_Toggle PLC_AR_Run;
+        private static PLC_Toggle PLC_Decelerated_DEC_Stop;
+        private static PLC_Toggle PLC_Decelerated_AR_Stop;
+        private static PLC_Toggle PLC_Immediate_DEC_Stop;
+        private static PLC_Toggle PLC_Immediate_AR_Stop;
+        private static PLC_Toggle PLC_Emergency_Stop;
+
+        //AUTOGUIDA
+        private static PLC_Label PLC_Autoguide_Closed;
+        private static PLC_Label PLC_Autoguide_Opened;
+        private static PLC_Label PLC_Telescope_Closed;
+        private static PLC_Label PLC_Telescope_Opened;
 
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;

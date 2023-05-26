@@ -48,8 +48,10 @@ namespace AnTaREs
             Main.PLC_FineCorsaAperturaDX = new PLC_Label();
             Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
             Main.PLC_NoResetTermici = new PLC_Label();
+            Main.PLC_Reset_Termici = new PLC_Toggle();
             Main.PLC_Cicalini = new PLC_Label();
             Main.PLC_CicaliniMute = new PLC_Toggle();
+            Main.PLC_Reset_Counter_Termici = new PLC_Toggle();
 
             Main.Server_KeepAlive = new PLC_KeepAlive();
 
@@ -66,6 +68,18 @@ namespace AnTaREs
             Main.PLC_AR_Direction = new PLC_Label();
             Main.PLC_DEC_Error = new PLC_Label();
             Main.PLC_AR_Error = new PLC_Label();
+            Main.PLC_DEC_Run = new PLC_Toggle();
+            Main.PLC_AR_Run = new PLC_Toggle();
+            Main.PLC_Decelerated_DEC_Stop = new PLC_Toggle();
+            Main.PLC_Decelerated_AR_Stop = new PLC_Toggle();
+            Main.PLC_Immediate_DEC_Stop = new PLC_Toggle();
+            Main.PLC_Immediate_AR_Stop = new PLC_Toggle();
+            Main.PLC_Emergency_Stop = new PLC_Toggle();
+
+            Main.PLC_Autoguide_Closed = new PLC_Label();
+            Main.PLC_Autoguide_Opened = new PLC_Label();
+            Main.PLC_Telescope_Closed = new PLC_Label();
+            Main.PLC_Telescope_Opened = new PLC_Label();
 
             //DA CAMBIARE CON UNO SWITCH
             Main.PLC_ApriFaldaSX = new PLC_Label();
@@ -77,6 +91,7 @@ namespace AnTaREs
             //FINE CAMBIARE CON UNO SWITCH
 
             InitializeComponent();
+            InitializeTelescopeStatus();
             InitializeMotorsStatus();
             InitializeParkingStatus();
             InitializeVertigoStatus();
@@ -86,24 +101,100 @@ namespace AnTaREs
             StartUpdateTimer();
             lbl_Osservatorio.Text = VPN_AdapterName;
         }
-        public void InitializeMotorsStatus()
+        private void InitializeTelescopeStatus()
+        {
+            PLC_Autoguide_Closed.TopLevel = false;
+            PLC_Autoguide_Opened.TopLevel = false;
+            PLC_Telescope_Closed.TopLevel = false;
+            PLC_Telescope_Opened.TopLevel = false;
+            this.Grp_Autoguida.Controls.Add(PLC_Autoguide_Closed);
+            this.Grp_Autoguida.Controls.Add(PLC_Autoguide_Opened);
+            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Closed);
+            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Opened);
+            PLC_Autoguide_Closed.Show();
+            PLC_Autoguide_Opened.Show();
+            PLC_Telescope_Closed.Show();
+            PLC_Telescope_Opened.Show();
+            PLC_Autoguide_Closed.Location = new System.Drawing.Point(20, 20);
+            PLC_Autoguide_Opened.Location = new System.Drawing.Point(300, 20);
+            PLC_Telescope_Closed.Location = new System.Drawing.Point(20, 20);
+            PLC_Telescope_Opened.Location = new System.Drawing.Point(300, 20);
+            PLC_Autoguide_Closed.Name = "PLC_Autoguide_Closed";
+            PLC_Autoguide_Opened.Name = "PLC_Autoguide_Opened";
+            PLC_Telescope_Closed.Name = "PLC_Telescope_Closed";
+            PLC_Telescope_Opened.Name = "PLC_Telescope_Opened";
+            PLC_Autoguide_Closed.PLCVariableName = "Autoguide Closed";
+            PLC_Autoguide_Opened.PLCVariableName = "Autoguide Opened";
+            PLC_Telescope_Closed.PLCVariableName = "Telescope Closed";
+            PLC_Telescope_Opened.PLCVariableName = "Telescope Opened";
+            PLC_Autoguide_Closed.PLCVariablePath = "TCPIP.S7-200.TelescopeCap.IAutoguideCapClosed";
+            PLC_Autoguide_Opened.PLCVariablePath = "TCPIP.S7-200.TelescopeCap.IAutoguideCapOpen";
+            PLC_Telescope_Closed.PLCVariablePath = "TCP.S7-200.TelescopeCap.ITelescopeCapClosed";
+            PLC_Telescope_Opened.PLCVariablePath = "TCPIP.S7-200.TelescopeCap.ITelescopeCapOpen";
+            PLC_Autoguide_Closed.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Autoguide_Opened.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Telescope_Closed.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Telescope_Opened.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Autoguide_Closed.RedOnValue = true;
+            PLC_Autoguide_Opened.RedOnValue = true;
+            PLC_Telescope_Closed.RedOnValue = true;
+            PLC_Telescope_Opened.RedOnValue = true;
+            PLC_Autoguide_Closed.Modifiable = false;
+            PLC_Autoguide_Opened.Modifiable = false;
+            PLC_Telescope_Closed.Modifiable = false;
+            PLC_Telescope_Opened.Modifiable = false;
+        }
+        private void InitializeMotorsStatus()
         {
             PLC_DEC_Direction.TopLevel = false;
             PLC_AR_Direction.TopLevel = false;
             PLC_DEC_Error.TopLevel = false;
             PLC_AR_Error.TopLevel = false;
+            PLC_DEC_Run.TopLevel = false;
+            PLC_AR_Run.TopLevel = false;
+            PLC_Decelerated_DEC_Stop.TopLevel = false;
+            PLC_Decelerated_AR_Stop.TopLevel = false;
+            PLC_Immediate_DEC_Stop.TopLevel = false;
+            PLC_Immediate_AR_Stop.TopLevel = false;
+            PLC_Emergency_Stop.TopLevel = false;
             this.Grp_Motori.Controls.Add(PLC_DEC_Direction);
             this.Grp_Motori.Controls.Add(PLC_AR_Direction);
             this.Grp_Motori.Controls.Add(PLC_DEC_Error);
             this.Grp_Motori.Controls.Add(PLC_AR_Error);
+            this.Grp_Motori.Controls.Add(PLC_DEC_Run);
+            this.Grp_Motori.Controls.Add(PLC_AR_Run);
+            this.Grp_Motori.Controls.Add(PLC_Decelerated_DEC_Stop);
+            this.Grp_Motori.Controls.Add(PLC_Decelerated_AR_Stop);
+            this.Grp_Motori.Controls.Add(PLC_Immediate_DEC_Stop);
+            this.Grp_Motori.Controls.Add(PLC_Immediate_AR_Stop);
+            this.Grp_Motori.Controls.Add(PLC_Emergency_Stop);
             PLC_DEC_Direction.Show();
             PLC_AR_Direction.Show();
             PLC_DEC_Error.Show();
             PLC_AR_Error.Show();
-            PLC_DEC_Direction.Location = new System.Drawing.Point(20, 20);
-            PLC_AR_Direction.Location = new System.Drawing.Point(300, 20);
-            PLC_DEC_Error.Location = new System.Drawing.Point(20, 80);
-            PLC_AR_Error.Location = new System.Drawing.Point(300, 80);
+            PLC_DEC_Run.Show();
+            PLC_AR_Run.Show();
+            PLC_Decelerated_DEC_Stop.Show();
+            PLC_Decelerated_AR_Stop.Show();
+            PLC_Immediate_DEC_Stop.Show();
+            PLC_Immediate_AR_Stop.Show();
+            PLC_Emergency_Stop.Show();
+           // PLC_Emergency_Stop.Font= new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            PLC_Emergency_Stop.ForeColor = Color.Red;
+            PLC_Emergency_Stop.BackColor = Color.Red;
+            PLC_Emergency_Stop.BackgroundColor = Color.Red;
+            PLC_Emergency_Stop.Font = new System.Drawing.Font("Arial", 20F, FontStyle.Bold, GraphicsUnit.Pixel, (byte)0);
+            PLC_DEC_Direction.Location = new System.Drawing.Point(50, 50);
+            PLC_AR_Direction.Location = new System.Drawing.Point(300, 50);
+            PLC_DEC_Error.Location = new System.Drawing.Point(50, 100);
+            PLC_AR_Error.Location = new System.Drawing.Point(300, 100);
+            PLC_DEC_Run.Location = new System.Drawing.Point(550, 50);
+            PLC_AR_Run.Location = new System.Drawing.Point(550, 100);
+            PLC_Decelerated_DEC_Stop.Location = new System.Drawing.Point(800, 50);
+            PLC_Immediate_DEC_Stop.Location = new System.Drawing.Point(800, 100);
+            PLC_Decelerated_AR_Stop.Location = new System.Drawing.Point(1050, 50);
+            PLC_Immediate_AR_Stop.Location = new System.Drawing.Point(1050,100);
+            PLC_Emergency_Stop.Location = new System.Drawing.Point(1300, 50);
             PLC_DEC_Direction.Modifiable = true;
             PLC_AR_Direction.Modifiable = true;
             PLC_DEC_Error.Modifiable = false;
@@ -112,14 +203,34 @@ namespace AnTaREs
             PLC_AR_Direction.Name = "PLC_AR_Direction";
             PLC_DEC_Error.Name = "PLC_DEC_Error";
             PLC_AR_Error.Name = "PLC_AR_Error";
+            PLC_DEC_Run.Name = "PLC_DEC_Run";
+            PLC_Immediate_DEC_Stop.Name = "PLC_Immediate_DEC_Stop";
+            PLC_Immediate_AR_Stop.Name = "PLC_Immediate_AR_Stop";
+            PLC_Decelerated_AR_Stop.Name = "PLC_Decelerated_AR_Stop";
+            PLC_Decelerated_DEC_Stop.Name = "PLC_Decelerated_DEC_Stop";
+            PLC_Emergency_Stop.Name = "PLC_Emercency_Stop";
             PLC_DEC_Direction.PLCVariableName = "DEC Direction";
             PLC_AR_Direction.PLCVariableName = "AR Direction";
             PLC_DEC_Error.PLCVariableName = "DEC Error";
             PLC_AR_Error.PLCVariableName = "AR Error";
+            PLC_DEC_Run.PLCVariableName = "Declination Run";
+            PLC_AR_Run.PLCVariableName = "Right Ascension Run";
+            PLC_Decelerated_DEC_Stop.PLCVariableName = "DEC Decelerated Stop";
+            PLC_Immediate_DEC_Stop.PLCVariableName = "DEC Immediate Stop";
+            PLC_Immediate_AR_Stop.PLCVariableName = "AR Immediate Stop";
+            PLC_Decelerated_AR_Stop.PLCVariableName = "AR Decelerated Stop";
+            PLC_Emergency_Stop.PLCVariableName = "EMERCENCY STOP";
             PLC_DEC_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDecParkDirection";
             PLC_AR_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRAParkDirection";
             PLC_DEC_Error.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECError";
             PLC_AR_Error.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRAError";
+            PLC_DEC_Run.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECRun";
+            PLC_AR_Run.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRARun";
+            PLC_Decelerated_DEC_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECDStop";
+            PLC_Immediate_DEC_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECIStop";
+            PLC_Decelerated_AR_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRADDStop";
+            PLC_Immediate_AR_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.Motor.RAIStop";
+            PLC_Emergency_Stop.PLCVariablePath = "TCPIP.S7-200.SecurityChain.InhibitPLC";
             PLC_DEC_Direction.RedOnValue = true;
             PLC_DEC_Error.RedOnValue = true;
             PLC_AR_Direction.RedOnValue = true;
@@ -128,8 +239,15 @@ namespace AnTaREs
             PLC_DEC_Error.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
             PLC_AR_Error.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
             PLC_AR_Direction.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_DEC_Run.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Decelerated_DEC_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Immediate_DEC_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_AR_Run.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Decelerated_AR_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Immediate_AR_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Emergency_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
-        public void InitializeParkingStatus()
+        private void InitializeParkingStatus()
         {
             PLC_FineCorsa_AR_Parking.TopLevel = false;
             PLC_FineCorsa_DEC_Parking.TopLevel = false;
@@ -152,7 +270,7 @@ namespace AnTaREs
             PLC_FineCorsa_AR_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FineCorsa_DEC_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
-        public void InitializeVertigoStatus()
+        private void InitializeVertigoStatus()
         {
             PLC_VertigoTettoChiuso.TopLevel = false;
             PLC_VertigoTettoAperto.TopLevel = false;
@@ -200,7 +318,7 @@ namespace AnTaREs
             PLC_VertigoChiudiTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_VertigoApriTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
-        public void InitializeServerStatus()
+        private void InitializeServerStatus()
         {
             Server_KeepAlive.TopLevel = false;
             this.grp_Server.Controls.Add(Server_KeepAlive);
@@ -210,7 +328,7 @@ namespace AnTaREs
             Server_KeepAlive.PLCVariablePath="TCPIP.S7-200.Server.KeepaliveValue";
             Server_KeepAlive.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_UI8;
         }
-        public void InitializeRoof()
+        private void InitializeRoof()
         {
             PLC_ApriFaldaSX.TopLevel = false;
             PLC_ApriFaldaDX.TopLevel = false;
@@ -225,6 +343,8 @@ namespace AnTaREs
             PLC_ChiudiTetto.TopLevel = false;
             PLC_ApriTetto.TopLevel = false;
             PLC_CicaliniMute.TopLevel = false;
+            PLC_Reset_Termici.TopLevel = false;
+            PLC_Reset_Counter_Termici.TopLevel = false;
             this.Grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
             this.Grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
             this.Grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
@@ -234,10 +354,12 @@ namespace AnTaREs
             this.Grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
             this.Grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
             this.Grp_Tetto.Controls.Add(PLC_NoResetTermici);
+            this.Grp_Tetto.Controls.Add(PLC_Reset_Termici);
             this.Grp_Tetto.Controls.Add(PLC_Cicalini);
             this.Grp_Tetto.Controls.Add(PLC_CicaliniMute);
             this.Grp_Tetto.Controls.Add(PLC_ChiudiTetto);
             this.Grp_Tetto.Controls.Add(PLC_ApriTetto);
+            this.Grp_Tetto.Controls.Add(PLC_Reset_Counter_Termici);
             PLC_ApriFaldaSX.Show();
             PLC_ApriFaldaDX.Show();
             PLC_ChiudiFaldaDX.Show();
@@ -251,6 +373,8 @@ namespace AnTaREs
             PLC_CicaliniMute.Show();
             PLC_ChiudiTetto.Show();
             PLC_ApriTetto.Show();
+            PLC_Reset_Termici.Show();
+            PLC_Reset_Counter_Termici.Show();
             PLC_ApriFaldaSX.PLCVariableName = "Apri Falda Sinistra";
             PLC_ApriFaldaDX.PLCVariableName = "Apri Falda Destra";
             PLC_FineCorsaAperturaSX.PLCVariableName = "Finecorsa Apertura Sinistra";
@@ -264,19 +388,24 @@ namespace AnTaREs
             PLC_ApriTetto.PLCVariableName = "Apri Tetto";
             PLC_Cicalini.PLCVariableName = "Cicalini";
             PLC_CicaliniMute.PLCVariableName = "Mute";
+            PLC_Reset_Termici.PLCVariableName = "Reset Termico";
+            PLC_Reset_Counter_Termici.PLCVariableName = "Reset Contatore Termici";
             PLC_ApriFaldaSX.Location = new System.Drawing.Point(20, 20);
             PLC_FineCorsaAperturaSX.Location = new System.Drawing.Point(20, 80);
             PLC_FineCorsaAperturaDX.Location = new System.Drawing.Point(20, 80);
-            PLC_FineCorsaChiusuraSX.Location = new System.Drawing.Point(200, 80);
-            PLC_FineCorsaChiusuraDX.Location = new System.Drawing.Point(200, 80);
+            PLC_FineCorsaChiusuraSX.Location = new System.Drawing.Point(220, 80);
+            PLC_FineCorsaChiusuraDX.Location = new System.Drawing.Point(220, 80);
             PLC_ApriFaldaDX.Location = new System.Drawing.Point(20, 20);
-            PLC_ChiudiFaldaSX.Location = new System.Drawing.Point(200, 20);
-            PLC_ChiudiFaldaDX.Location = new System.Drawing.Point(200, 20);
+            PLC_ChiudiFaldaSX.Location = new System.Drawing.Point(220, 20);
+            PLC_ChiudiFaldaDX.Location = new System.Drawing.Point(220, 20);
+
             PLC_NoResetTermici.Location = new System.Drawing.Point(20, 20);
             PLC_Cicalini.Location = new System.Drawing.Point(20, 80);
-            PLC_ApriTetto.Location = new System.Drawing.Point(300, 20);
-            PLC_CicaliniMute.Location = new System.Drawing.Point(300, 80);
-            PLC_ChiudiTetto.Location = new System.Drawing.Point(500, 20);
+            PLC_ApriTetto.Location = new System.Drawing.Point(220, 20);
+            PLC_CicaliniMute.Location = new System.Drawing.Point(220, 80);
+            PLC_Reset_Termici.Location = new System.Drawing.Point(420, 80);
+            PLC_ChiudiTetto.Location = new System.Drawing.Point(420, 20);
+            PLC_Reset_Counter_Termici.Location = new System.Drawing.Point(620, 20);
 
             PLC_ApriFaldaSX.Name = "PLC_ApriFaldaSX";
             PLC_ApriFaldaDX.Name = "PLC_ApriFaldaDX";
@@ -291,6 +420,8 @@ namespace AnTaREs
             PLC_CicaliniMute.Name = "PLC_CicaliniMute";
             PLC_ChiudiTetto.Name = "PLC_ChiudiTetto";
             PLC_ApriTetto.Name = "PLC_ApriTetto";
+            PLC_Reset_Termici.Name = "PLC_Reset_Termici";
+            PLC_Reset_Counter_Termici.Name = "PLC_Reset_Counter_Termici";
             PLC_ApriFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ApriFaldaSX";
             PLC_ApriFaldaDX.PLCVariablePath = "TCPIP.S7.200.Roof.ApriFaldaDX";
             PLC_ChiudiFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiFaldaSX";
@@ -304,6 +435,8 @@ namespace AnTaREs
             PLC_CicaliniMute.PLCVariablePath = "TCPIP.S7-200.Roof.CicaliniMute";
             PLC_ChiudiTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiTetto";
             PLC_ApriTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ApriTetto";
+            PLC_Reset_Termici.PLCVariablePath = "TCPIP.S7-200.Roof.OResetTermico";
+            PLC_Reset_Counter_Termici.PLCVariablePath = "TCPIP.S7-200.Roof.ResetContTermico";
             PLC_ApriFaldaSX.RedOnValue = true;
             PLC_ChiudiFaldaSX.RedOnValue = true;
             PLC_ApriFaldaDX.RedOnValue = true;
@@ -328,9 +461,11 @@ namespace AnTaREs
             PLC_ChiudiTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_ApriTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_CicaliniMute.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Reset_Termici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Reset_Counter_Termici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_NoResetTermici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
         }
-        public void InitializeUPS()
+        private void InitializeUPS()
         {
             UPS_EchoMode.TopLevel = false;
             UPS_BatteryLow.TopLevel = false;
