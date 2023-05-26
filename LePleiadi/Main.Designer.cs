@@ -30,33 +30,41 @@ namespace AnTaREs
         private void InitializeComponent()
         {
             this.Stile = new MetroSet_UI.Components.StyleManager();
-            this.TabConnection = new MetroSet_UI.Controls.MetroSetTabControl();
+            this.SetTab_Control = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.lbl_Osservatorio = new MetroSet_UI.Controls.MetroSetLabel();
             this.btnControlStatus = new MetroSet_UI.Controls.MetroSetEllipse();
             this.lbl_Connection = new MetroSet_UI.Controls.MetroSetLabel();
             this.swConnect = new MetroSet_UI.Controls.MetroSetSwitch();
-            this.metroPLC = new MetroSet_UI.Child.MetroSetSetTabPage();
-            this.grpSecurityChain = new System.Windows.Forms.GroupBox();
-            this.grpTooglePLC = new System.Windows.Forms.GroupBox();
-            this.grpToogle = new System.Windows.Forms.GroupBox();
-            this.grpCPU = new System.Windows.Forms.GroupBox();
-            this.grpFastChange = new System.Windows.Forms.GroupBox();
-            this.metroAllarmi = new MetroSet_UI.Child.MetroSetSetTabPage();
-            this.grp_Server = new System.Windows.Forms.GroupBox();
-            this.grpTetto = new System.Windows.Forms.GroupBox();
-            this.grp_FaldaSX = new System.Windows.Forms.GroupBox();
-            this.grp_faldaDX = new System.Windows.Forms.GroupBox();
+            this.Tab_UPS = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.grpUPS = new System.Windows.Forms.GroupBox();
             this.metroTetto = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Tetto = new System.Windows.Forms.GroupBox();
+            this.Grp_FaldaSX = new System.Windows.Forms.GroupBox();
+            this.Grp_faldaDX = new System.Windows.Forms.GroupBox();
+            this.Tab_Parking = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Parking = new System.Windows.Forms.GroupBox();
+            this.Tab_Motori = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Motori = new System.Windows.Forms.GroupBox();
+            this.Tab_Server = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.grp_Server = new System.Windows.Forms.GroupBox();
+            this.Tab_Vertigo = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.grp_Vertigo = new System.Windows.Forms.GroupBox();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
-            this.grp_Vertigo = new System.Windows.Forms.GroupBox();
-            this.TabConnection.SuspendLayout();
+            this.Tab_Telescopio = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Autoguida = new System.Windows.Forms.GroupBox();
+            this.Grp_Telescopio = new System.Windows.Forms.GroupBox();
+            this.SetTab_Control.SuspendLayout();
             this.metroControllo.SuspendLayout();
-            this.metroPLC.SuspendLayout();
-            this.metroAllarmi.SuspendLayout();
-            this.grpTetto.SuspendLayout();
+            this.Tab_UPS.SuspendLayout();
+            this.metroTetto.SuspendLayout();
+            this.Grp_Tetto.SuspendLayout();
+            this.Tab_Parking.SuspendLayout();
+            this.Tab_Motori.SuspendLayout();
+            this.Tab_Server.SuspendLayout();
+            this.Tab_Vertigo.SuspendLayout();
+            this.Tab_Telescopio.SuspendLayout();
             this.SuspendLayout();
             // 
             // Stile
@@ -67,33 +75,37 @@ namespace AnTaREs
             this.Stile.ThemeAuthor = null;
             this.Stile.ThemeName = null;
             // 
-            // TabConnection
+            // SetTab_Control
             // 
-            this.TabConnection.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
-            this.TabConnection.AnimateTime = 200;
-            this.TabConnection.BackgroundColor = System.Drawing.Color.White;
-            this.TabConnection.Controls.Add(this.metroControllo);
-            this.TabConnection.Controls.Add(this.metroPLC);
-            this.TabConnection.Controls.Add(this.metroAllarmi);
-            this.TabConnection.Controls.Add(this.metroTetto);
-            this.TabConnection.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TabConnection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabConnection.IsDerivedStyle = true;
-            this.TabConnection.ItemSize = new System.Drawing.Size(100, 38);
-            this.TabConnection.Location = new System.Drawing.Point(12, 90);
-            this.TabConnection.Name = "TabConnection";
-            this.TabConnection.SelectedIndex = 2;
-            this.TabConnection.SelectedTextColor = System.Drawing.Color.White;
-            this.TabConnection.Size = new System.Drawing.Size(1706, 581);
-            this.TabConnection.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.TabConnection.Speed = 100;
-            this.TabConnection.Style = MetroSet_UI.Enums.Style.Light;
-            this.TabConnection.StyleManager = this.Stile;
-            this.TabConnection.TabIndex = 0;
-            this.TabConnection.ThemeAuthor = null;
-            this.TabConnection.ThemeName = null;
-            this.TabConnection.UnselectedTextColor = System.Drawing.Color.Gray;
-            this.TabConnection.UseAnimation = false;
+            this.SetTab_Control.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
+            this.SetTab_Control.AnimateTime = 200;
+            this.SetTab_Control.BackgroundColor = System.Drawing.Color.White;
+            this.SetTab_Control.Controls.Add(this.metroControllo);
+            this.SetTab_Control.Controls.Add(this.Tab_UPS);
+            this.SetTab_Control.Controls.Add(this.metroTetto);
+            this.SetTab_Control.Controls.Add(this.Tab_Parking);
+            this.SetTab_Control.Controls.Add(this.Tab_Motori);
+            this.SetTab_Control.Controls.Add(this.Tab_Server);
+            this.SetTab_Control.Controls.Add(this.Tab_Vertigo);
+            this.SetTab_Control.Controls.Add(this.Tab_Telescopio);
+            this.SetTab_Control.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SetTab_Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetTab_Control.IsDerivedStyle = true;
+            this.SetTab_Control.ItemSize = new System.Drawing.Size(100, 38);
+            this.SetTab_Control.Location = new System.Drawing.Point(12, 90);
+            this.SetTab_Control.Name = "SetTab_Control";
+            this.SetTab_Control.SelectedIndex = 7;
+            this.SetTab_Control.SelectedTextColor = System.Drawing.Color.White;
+            this.SetTab_Control.Size = new System.Drawing.Size(1706, 906);
+            this.SetTab_Control.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.SetTab_Control.Speed = 100;
+            this.SetTab_Control.Style = MetroSet_UI.Enums.Style.Light;
+            this.SetTab_Control.StyleManager = this.Stile;
+            this.SetTab_Control.TabIndex = 0;
+            this.SetTab_Control.ThemeAuthor = null;
+            this.SetTab_Control.ThemeName = null;
+            this.SetTab_Control.UnselectedTextColor = System.Drawing.Color.Gray;
+            this.SetTab_Control.UseAnimation = false;
             // 
             // metroControllo
             // 
@@ -108,11 +120,11 @@ namespace AnTaREs
             this.metroControllo.IsDerivedStyle = true;
             this.metroControllo.Location = new System.Drawing.Point(4, 42);
             this.metroControllo.Name = "metroControllo";
-            this.metroControllo.Size = new System.Drawing.Size(1698, 535);
+            this.metroControllo.Size = new System.Drawing.Size(1698, 860);
             this.metroControllo.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroControllo.StyleManager = null;
+            this.metroControllo.StyleManager = this.Stile;
             this.metroControllo.TabIndex = 0;
-            this.metroControllo.Text = "Controllo";
+            this.metroControllo.Text = "Connessione";
             this.metroControllo.ThemeAuthor = "Narwin";
             this.metroControllo.ThemeName = "MetroLite";
             this.metroControllo.ToolTipText = null;
@@ -125,12 +137,12 @@ namespace AnTaREs
             this.lbl_Osservatorio.Name = "lbl_Osservatorio";
             this.lbl_Osservatorio.Size = new System.Drawing.Size(162, 23);
             this.lbl_Osservatorio.Style = MetroSet_UI.Enums.Style.Light;
-            this.lbl_Osservatorio.StyleManager = null;
+            this.lbl_Osservatorio.StyleManager = this.Stile;
             this.lbl_Osservatorio.TabIndex = 3;
             this.lbl_Osservatorio.Text = "-";
             this.lbl_Osservatorio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_Osservatorio.ThemeAuthor = "Narwin";
-            this.lbl_Osservatorio.ThemeName = "MetroLite";
+            this.lbl_Osservatorio.ThemeAuthor = null;
+            this.lbl_Osservatorio.ThemeName = null;
             // 
             // btnControlStatus
             // 
@@ -156,10 +168,10 @@ namespace AnTaREs
             this.btnControlStatus.PressTextColor = System.Drawing.Color.White;
             this.btnControlStatus.Size = new System.Drawing.Size(80, 80);
             this.btnControlStatus.Style = MetroSet_UI.Enums.Style.Light;
-            this.btnControlStatus.StyleManager = null;
+            this.btnControlStatus.StyleManager = this.Stile;
             this.btnControlStatus.TabIndex = 2;
-            this.btnControlStatus.ThemeAuthor = "Narwin";
-            this.btnControlStatus.ThemeName = "MetroLite";
+            this.btnControlStatus.ThemeAuthor = null;
+            this.btnControlStatus.ThemeName = null;
             // 
             // lbl_Connection
             // 
@@ -169,12 +181,12 @@ namespace AnTaREs
             this.lbl_Connection.Name = "lbl_Connection";
             this.lbl_Connection.Size = new System.Drawing.Size(185, 23);
             this.lbl_Connection.Style = MetroSet_UI.Enums.Style.Light;
-            this.lbl_Connection.StyleManager = null;
+            this.lbl_Connection.StyleManager = this.Stile;
             this.lbl_Connection.TabIndex = 1;
             this.lbl_Connection.Text = "Connessione Osservatorio";
             this.lbl_Connection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_Connection.ThemeAuthor = "Narwin";
-            this.lbl_Connection.ThemeName = "MetroLite";
+            this.lbl_Connection.ThemeAuthor = null;
+            this.lbl_Connection.ThemeName = null;
             // 
             // swConnect
             // 
@@ -197,153 +209,29 @@ namespace AnTaREs
             this.swConnect.SymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(92)))), ((int)(((byte)(92)))));
             this.swConnect.TabIndex = 0;
             this.swConnect.Text = "metroSetSwitch1";
-            this.swConnect.ThemeAuthor = "Narwin";
-            this.swConnect.ThemeName = "MetroLite";
+            this.swConnect.ThemeAuthor = null;
+            this.swConnect.ThemeName = null;
             this.swConnect.UnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
             this.swConnect.SwitchedChanged += new MetroSet_UI.Controls.MetroSetSwitch.SwitchedChangedEventHandler(this.SwConnect_SwitchedChanged);
             // 
-            // metroPLC
+            // Tab_UPS
             // 
-            this.metroPLC.BaseColor = System.Drawing.Color.White;
-            this.metroPLC.Controls.Add(this.grpSecurityChain);
-            this.metroPLC.Controls.Add(this.grpTooglePLC);
-            this.metroPLC.Controls.Add(this.grpToogle);
-            this.metroPLC.Controls.Add(this.grpCPU);
-            this.metroPLC.Controls.Add(this.grpFastChange);
-            this.metroPLC.Font = null;
-            this.metroPLC.ImageIndex = 0;
-            this.metroPLC.ImageKey = null;
-            this.metroPLC.IsDerivedStyle = true;
-            this.metroPLC.Location = new System.Drawing.Point(4, 42);
-            this.metroPLC.Name = "metroPLC";
-            this.metroPLC.Size = new System.Drawing.Size(1698, 535);
-            this.metroPLC.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroPLC.StyleManager = null;
-            this.metroPLC.TabIndex = 1;
-            this.metroPLC.Text = "PLC";
-            this.metroPLC.ThemeAuthor = "Narwin";
-            this.metroPLC.ThemeName = "MetroLite";
-            this.metroPLC.ToolTipText = null;
-            // 
-            // grpSecurityChain
-            // 
-            this.grpSecurityChain.BackColor = System.Drawing.SystemColors.Window;
-            this.grpSecurityChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpSecurityChain.Location = new System.Drawing.Point(0, 0);
-            this.grpSecurityChain.Name = "grpSecurityChain";
-            this.grpSecurityChain.Size = new System.Drawing.Size(340, 150);
-            this.grpSecurityChain.TabIndex = 11;
-            this.grpSecurityChain.TabStop = false;
-            this.grpSecurityChain.Text = "Security Chain";
-            // 
-            // grpTooglePLC
-            // 
-            this.grpTooglePLC.BackColor = System.Drawing.SystemColors.Window;
-            this.grpTooglePLC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTooglePLC.Location = new System.Drawing.Point(720, 320);
-            this.grpTooglePLC.Name = "grpTooglePLC";
-            this.grpTooglePLC.Size = new System.Drawing.Size(340, 150);
-            this.grpTooglePLC.TabIndex = 10;
-            this.grpTooglePLC.TabStop = false;
-            this.grpTooglePLC.Text = "Toogle PLC";
-            // 
-            // grpToogle
-            // 
-            this.grpToogle.BackColor = System.Drawing.SystemColors.Window;
-            this.grpToogle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpToogle.Location = new System.Drawing.Point(720, 160);
-            this.grpToogle.Name = "grpToogle";
-            this.grpToogle.Size = new System.Drawing.Size(340, 150);
-            this.grpToogle.TabIndex = 9;
-            this.grpToogle.TabStop = false;
-            this.grpToogle.Text = "Change Event";
-            // 
-            // grpCPU
-            // 
-            this.grpCPU.BackColor = System.Drawing.SystemColors.Window;
-            this.grpCPU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCPU.Location = new System.Drawing.Point(360, 0);
-            this.grpCPU.Name = "grpCPU";
-            this.grpCPU.Size = new System.Drawing.Size(340, 150);
-            this.grpCPU.TabIndex = 8;
-            this.grpCPU.TabStop = false;
-            this.grpCPU.Text = "CPU";
-            // 
-            // grpFastChange
-            // 
-            this.grpFastChange.BackColor = System.Drawing.SystemColors.Window;
-            this.grpFastChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpFastChange.ForeColor = System.Drawing.Color.Black;
-            this.grpFastChange.Location = new System.Drawing.Point(720, 0);
-            this.grpFastChange.Name = "grpFastChange";
-            this.grpFastChange.Size = new System.Drawing.Size(340, 150);
-            this.grpFastChange.TabIndex = 5;
-            this.grpFastChange.TabStop = false;
-            this.grpFastChange.Text = "Fast Change Event";
-            // 
-            // metroAllarmi
-            // 
-            this.metroAllarmi.BaseColor = System.Drawing.Color.White;
-            this.metroAllarmi.Controls.Add(this.grp_Vertigo);
-            this.metroAllarmi.Controls.Add(this.grp_Server);
-            this.metroAllarmi.Controls.Add(this.grpTetto);
-            this.metroAllarmi.Controls.Add(this.grpUPS);
-            this.metroAllarmi.Font = null;
-            this.metroAllarmi.ImageIndex = 0;
-            this.metroAllarmi.ImageKey = null;
-            this.metroAllarmi.IsDerivedStyle = true;
-            this.metroAllarmi.Location = new System.Drawing.Point(4, 42);
-            this.metroAllarmi.Name = "metroAllarmi";
-            this.metroAllarmi.Size = new System.Drawing.Size(1698, 535);
-            this.metroAllarmi.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroAllarmi.StyleManager = null;
-            this.metroAllarmi.TabIndex = 2;
-            this.metroAllarmi.Text = "Allarmi";
-            this.metroAllarmi.ThemeAuthor = "Narwin";
-            this.metroAllarmi.ThemeName = "MetroLite";
-            this.metroAllarmi.ToolTipText = null;
-            // 
-            // grp_Server
-            // 
-            this.grp_Server.BackColor = System.Drawing.Color.White;
-            this.grp_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grp_Server.Location = new System.Drawing.Point(10, 346);
-            this.grp_Server.Name = "grp_Server";
-            this.grp_Server.Size = new System.Drawing.Size(686, 186);
-            this.grp_Server.TabIndex = 2;
-            this.grp_Server.TabStop = false;
-            this.grp_Server.Text = "Server";
-            // 
-            // grpTetto
-            // 
-            this.grpTetto.BackColor = System.Drawing.SystemColors.Window;
-            this.grpTetto.Controls.Add(this.grp_FaldaSX);
-            this.grpTetto.Controls.Add(this.grp_faldaDX);
-            this.grpTetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTetto.Location = new System.Drawing.Point(702, 0);
-            this.grpTetto.Name = "grpTetto";
-            this.grpTetto.Size = new System.Drawing.Size(831, 340);
-            this.grpTetto.TabIndex = 1;
-            this.grpTetto.TabStop = false;
-            this.grpTetto.Text = "Tetto";
-            // 
-            // grp_FaldaSX
-            // 
-            this.grp_FaldaSX.Location = new System.Drawing.Point(6, 122);
-            this.grp_FaldaSX.Name = "grp_FaldaSX";
-            this.grp_FaldaSX.Size = new System.Drawing.Size(400, 212);
-            this.grp_FaldaSX.TabIndex = 1;
-            this.grp_FaldaSX.TabStop = false;
-            this.grp_FaldaSX.Text = "falda sinistra";
-            // 
-            // grp_faldaDX
-            // 
-            this.grp_faldaDX.Location = new System.Drawing.Point(412, 122);
-            this.grp_faldaDX.Name = "grp_faldaDX";
-            this.grp_faldaDX.Size = new System.Drawing.Size(400, 212);
-            this.grp_faldaDX.TabIndex = 0;
-            this.grp_faldaDX.TabStop = false;
-            this.grp_faldaDX.Text = "falda destra";
+            this.Tab_UPS.BaseColor = System.Drawing.Color.White;
+            this.Tab_UPS.Controls.Add(this.grpUPS);
+            this.Tab_UPS.Font = null;
+            this.Tab_UPS.ImageIndex = 0;
+            this.Tab_UPS.ImageKey = null;
+            this.Tab_UPS.IsDerivedStyle = true;
+            this.Tab_UPS.Location = new System.Drawing.Point(4, 42);
+            this.Tab_UPS.Name = "Tab_UPS";
+            this.Tab_UPS.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_UPS.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_UPS.StyleManager = this.Stile;
+            this.Tab_UPS.TabIndex = 2;
+            this.Tab_UPS.Text = "UPS";
+            this.Tab_UPS.ThemeAuthor = "Narwin";
+            this.Tab_UPS.ThemeName = "MetroLite";
+            this.Tab_UPS.ToolTipText = null;
             // 
             // grpUPS
             // 
@@ -359,20 +247,174 @@ namespace AnTaREs
             // metroTetto
             // 
             this.metroTetto.BaseColor = System.Drawing.Color.White;
+            this.metroTetto.Controls.Add(this.Grp_Tetto);
             this.metroTetto.Font = null;
             this.metroTetto.ImageIndex = 0;
             this.metroTetto.ImageKey = null;
             this.metroTetto.IsDerivedStyle = true;
             this.metroTetto.Location = new System.Drawing.Point(4, 42);
             this.metroTetto.Name = "metroTetto";
-            this.metroTetto.Size = new System.Drawing.Size(1698, 535);
+            this.metroTetto.Size = new System.Drawing.Size(1698, 860);
             this.metroTetto.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroTetto.StyleManager = null;
+            this.metroTetto.StyleManager = this.Stile;
             this.metroTetto.TabIndex = 3;
             this.metroTetto.Text = "Tetto";
             this.metroTetto.ThemeAuthor = "Narwin";
             this.metroTetto.ThemeName = "MetroLite";
             this.metroTetto.ToolTipText = null;
+            // 
+            // Grp_Tetto
+            // 
+            this.Grp_Tetto.AutoSize = true;
+            this.Grp_Tetto.BackColor = System.Drawing.SystemColors.Window;
+            this.Grp_Tetto.Controls.Add(this.Grp_FaldaSX);
+            this.Grp_Tetto.Controls.Add(this.Grp_faldaDX);
+            this.Grp_Tetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Tetto.Location = new System.Drawing.Point(3, 3);
+            this.Grp_Tetto.Name = "Grp_Tetto";
+            this.Grp_Tetto.Size = new System.Drawing.Size(1661, 830);
+            this.Grp_Tetto.TabIndex = 2;
+            this.Grp_Tetto.TabStop = false;
+            this.Grp_Tetto.Text = "Tetto";
+            // 
+            // Grp_FaldaSX
+            // 
+            this.Grp_FaldaSX.Location = new System.Drawing.Point(6, 236);
+            this.Grp_FaldaSX.Name = "Grp_FaldaSX";
+            this.Grp_FaldaSX.Size = new System.Drawing.Size(550, 300);
+            this.Grp_FaldaSX.TabIndex = 1;
+            this.Grp_FaldaSX.TabStop = false;
+            this.Grp_FaldaSX.Text = "falda sinistra";
+            // 
+            // Grp_faldaDX
+            // 
+            this.Grp_faldaDX.Location = new System.Drawing.Point(605, 236);
+            this.Grp_faldaDX.Name = "Grp_faldaDX";
+            this.Grp_faldaDX.Size = new System.Drawing.Size(550, 300);
+            this.Grp_faldaDX.TabIndex = 0;
+            this.Grp_faldaDX.TabStop = false;
+            this.Grp_faldaDX.Text = "falda destra";
+            // 
+            // Tab_Parking
+            // 
+            this.Tab_Parking.BaseColor = System.Drawing.Color.White;
+            this.Tab_Parking.Controls.Add(this.Grp_Parking);
+            this.Tab_Parking.Font = null;
+            this.Tab_Parking.ImageIndex = 0;
+            this.Tab_Parking.ImageKey = null;
+            this.Tab_Parking.IsDerivedStyle = true;
+            this.Tab_Parking.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Parking.Name = "Tab_Parking";
+            this.Tab_Parking.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Parking.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Parking.StyleManager = null;
+            this.Tab_Parking.TabIndex = 4;
+            this.Tab_Parking.Text = "Parking";
+            this.Tab_Parking.ThemeAuthor = "Narwin";
+            this.Tab_Parking.ThemeName = "MetroLite";
+            this.Tab_Parking.ToolTipText = null;
+            // 
+            // Grp_Parking
+            // 
+            this.Grp_Parking.BackColor = System.Drawing.Color.White;
+            this.Grp_Parking.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Parking.Location = new System.Drawing.Point(3, 3);
+            this.Grp_Parking.Name = "Grp_Parking";
+            this.Grp_Parking.Size = new System.Drawing.Size(1055, 359);
+            this.Grp_Parking.TabIndex = 5;
+            this.Grp_Parking.TabStop = false;
+            this.Grp_Parking.Text = "Parking";
+            // 
+            // Tab_Motori
+            // 
+            this.Tab_Motori.BaseColor = System.Drawing.Color.White;
+            this.Tab_Motori.Controls.Add(this.Grp_Motori);
+            this.Tab_Motori.Font = null;
+            this.Tab_Motori.ImageIndex = 0;
+            this.Tab_Motori.ImageKey = null;
+            this.Tab_Motori.IsDerivedStyle = true;
+            this.Tab_Motori.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Motori.Name = "Tab_Motori";
+            this.Tab_Motori.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Motori.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Motori.StyleManager = null;
+            this.Tab_Motori.TabIndex = 5;
+            this.Tab_Motori.Text = "Motori";
+            this.Tab_Motori.ThemeAuthor = "Narwin";
+            this.Tab_Motori.ThemeName = "MetroLite";
+            this.Tab_Motori.ToolTipText = null;
+            // 
+            // Grp_Motori
+            // 
+            this.Grp_Motori.BackColor = System.Drawing.Color.White;
+            this.Grp_Motori.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Grp_Motori.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Motori.Location = new System.Drawing.Point(0, 0);
+            this.Grp_Motori.Name = "Grp_Motori";
+            this.Grp_Motori.Size = new System.Drawing.Size(1698, 860);
+            this.Grp_Motori.TabIndex = 0;
+            this.Grp_Motori.TabStop = false;
+            this.Grp_Motori.Text = "Motori";
+            // 
+            // Tab_Server
+            // 
+            this.Tab_Server.BaseColor = System.Drawing.Color.White;
+            this.Tab_Server.Controls.Add(this.grp_Server);
+            this.Tab_Server.Font = null;
+            this.Tab_Server.ImageIndex = 0;
+            this.Tab_Server.ImageKey = null;
+            this.Tab_Server.IsDerivedStyle = true;
+            this.Tab_Server.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Server.Name = "Tab_Server";
+            this.Tab_Server.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Server.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Server.StyleManager = null;
+            this.Tab_Server.TabIndex = 6;
+            this.Tab_Server.Text = "Server";
+            this.Tab_Server.ThemeAuthor = "Narwin";
+            this.Tab_Server.ThemeName = "MetroLite";
+            this.Tab_Server.ToolTipText = null;
+            // 
+            // grp_Server
+            // 
+            this.grp_Server.BackColor = System.Drawing.Color.White;
+            this.grp_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grp_Server.Location = new System.Drawing.Point(3, 3);
+            this.grp_Server.Name = "grp_Server";
+            this.grp_Server.Size = new System.Drawing.Size(686, 186);
+            this.grp_Server.TabIndex = 3;
+            this.grp_Server.TabStop = false;
+            this.grp_Server.Text = "Server";
+            // 
+            // Tab_Vertigo
+            // 
+            this.Tab_Vertigo.BaseColor = System.Drawing.Color.White;
+            this.Tab_Vertigo.Controls.Add(this.grp_Vertigo);
+            this.Tab_Vertigo.Font = null;
+            this.Tab_Vertigo.ImageIndex = 0;
+            this.Tab_Vertigo.ImageKey = null;
+            this.Tab_Vertigo.IsDerivedStyle = true;
+            this.Tab_Vertigo.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Vertigo.Name = "Tab_Vertigo";
+            this.Tab_Vertigo.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Vertigo.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Vertigo.StyleManager = null;
+            this.Tab_Vertigo.TabIndex = 7;
+            this.Tab_Vertigo.Text = "Vertigo";
+            this.Tab_Vertigo.ThemeAuthor = "Narwin";
+            this.Tab_Vertigo.ThemeName = "MetroLite";
+            this.Tab_Vertigo.ToolTipText = null;
+            // 
+            // grp_Vertigo
+            // 
+            this.grp_Vertigo.BackColor = System.Drawing.Color.White;
+            this.grp_Vertigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grp_Vertigo.Location = new System.Drawing.Point(3, 3);
+            this.grp_Vertigo.Name = "grp_Vertigo";
+            this.grp_Vertigo.Size = new System.Drawing.Size(1058, 294);
+            this.grp_Vertigo.TabIndex = 4;
+            this.grp_Vertigo.TabStop = false;
+            this.grp_Vertigo.Text = "Vertigo";
             // 
             // _metroSetControlBox1
             // 
@@ -414,36 +456,73 @@ namespace AnTaREs
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
             // 
-            // grp_Vertigo
+            // Tab_Telescopio
             // 
-            this.grp_Vertigo.BackColor = System.Drawing.Color.White;
-            this.grp_Vertigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grp_Vertigo.Location = new System.Drawing.Point(702, 346);
-            this.grp_Vertigo.Name = "grp_Vertigo";
-            this.grp_Vertigo.Size = new System.Drawing.Size(831, 186);
-            this.grp_Vertigo.TabIndex = 3;
-            this.grp_Vertigo.TabStop = false;
-            this.grp_Vertigo.Text = "Vertigo";
+            this.Tab_Telescopio.BaseColor = System.Drawing.Color.White;
+            this.Tab_Telescopio.Controls.Add(this.Grp_Telescopio);
+            this.Tab_Telescopio.Controls.Add(this.Grp_Autoguida);
+            this.Tab_Telescopio.Font = null;
+            this.Tab_Telescopio.ImageIndex = 0;
+            this.Tab_Telescopio.ImageKey = null;
+            this.Tab_Telescopio.IsDerivedStyle = true;
+            this.Tab_Telescopio.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Telescopio.Name = "Tab_Telescopio";
+            this.Tab_Telescopio.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Telescopio.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Telescopio.StyleManager = null;
+            this.Tab_Telescopio.TabIndex = 8;
+            this.Tab_Telescopio.Text = "Telescopio";
+            this.Tab_Telescopio.ThemeAuthor = "Narwin";
+            this.Tab_Telescopio.ThemeName = "MetroLite";
+            this.Tab_Telescopio.ToolTipText = null;
+            // 
+            // Grp_Autoguida
+            // 
+            this.Grp_Autoguida.BackColor = System.Drawing.Color.White;
+            this.Grp_Autoguida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Autoguida.Location = new System.Drawing.Point(4, 4);
+            this.Grp_Autoguida.Name = "Grp_Autoguida";
+            this.Grp_Autoguida.Size = new System.Drawing.Size(602, 338);
+            this.Grp_Autoguida.TabIndex = 0;
+            this.Grp_Autoguida.TabStop = false;
+            this.Grp_Autoguida.Text = "Autoguida";
+            // 
+            // Grp_Telescopio
+            // 
+            this.Grp_Telescopio.BackColor = System.Drawing.Color.White;
+            this.Grp_Telescopio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Telescopio.Location = new System.Drawing.Point(613, 4);
+            this.Grp_Telescopio.Name = "Grp_Telescopio";
+            this.Grp_Telescopio.Size = new System.Drawing.Size(670, 338);
+            this.Grp_Telescopio.TabIndex = 1;
+            this.Grp_Telescopio.TabStop = false;
+            this.Grp_Telescopio.Text = "Telescopio";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1730, 683);
+            this.ClientSize = new System.Drawing.Size(1730, 1008);
             this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this._metroSetControlBox1);
-            this.Controls.Add(this.TabConnection);
+            this.Controls.Add(this.SetTab_Control);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(12, 90, 12, 12);
             this.StyleManager = this.Stile;
-            this.TextColor = System.Drawing.Color.White;
-            this.ThemeName = "MetroLight";
+            this.ThemeAuthor = null;
+            this.ThemeName = null;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.TabConnection.ResumeLayout(false);
+            this.SetTab_Control.ResumeLayout(false);
             this.metroControllo.ResumeLayout(false);
-            this.metroPLC.ResumeLayout(false);
-            this.metroAllarmi.ResumeLayout(false);
-            this.grpTetto.ResumeLayout(false);
+            this.Tab_UPS.ResumeLayout(false);
+            this.metroTetto.ResumeLayout(false);
+            this.metroTetto.PerformLayout();
+            this.Grp_Tetto.ResumeLayout(false);
+            this.Tab_Parking.ResumeLayout(false);
+            this.Tab_Motori.ResumeLayout(false);
+            this.Tab_Server.ResumeLayout(false);
+            this.Tab_Vertigo.ResumeLayout(false);
+            this.Tab_Telescopio.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -451,44 +530,17 @@ namespace AnTaREs
         #endregion
 
         private MetroSet_UI.Components.StyleManager Stile;
-        private MetroSet_UI.Controls.MetroSetTabControl TabConnection;
+        private MetroSet_UI.Controls.MetroSetTabControl SetTab_Control;
         private MetroSet_UI.Child.MetroSetSetTabPage metroControllo;
         private MetroSet_UI.Controls.MetroSetEllipse btnControlStatus;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Connection;
         private MetroSet_UI.Controls.MetroSetSwitch swConnect;
-        private MetroSet_UI.Child.MetroSetSetTabPage metroPLC;
-        private MetroSet_UI.Child.MetroSetSetTabPage metroAllarmi;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_UPS;
         private MetroSet_UI.Child.MetroSetSetTabPage metroTetto;
-        private System.Windows.Forms.GroupBox grpFastChange;
         private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
-        private System.Windows.Forms.GroupBox grpCPU;
-        private System.Windows.Forms.GroupBox grpToogle;
-        private System.Windows.Forms.GroupBox grpTooglePLC;
-        private System.Windows.Forms.GroupBox grpSecurityChain;
         private System.Windows.Forms.GroupBox grpUPS;
         
-
-        public static MetroSet_UI.Controls.MetroSetLabel lblValueRun;
-        public static MetroSet_UI.Controls.MetroSetLabel lblValueDirection;
-        public static MetroSet_UI.Controls.MetroSetButton btnEvent;
-        public static MetroSet_UI.Controls.MetroSetLabel lblErrorCode;
-        public static MetroSet_UI.Controls.MetroSetLabel lblUnit;
-        public static MetroSet_UI.Controls.MetroSetLabel lblChange;
-        public static MetroSet_UI.Controls.MetroSetButton btnChange;
-        public static MetroSet_UI.Controls.MetroSetCheckBox chkToogle;
-        public static MetroSet_UI.Controls.MetroSetLabel lblSecurityChain;
-        public static MetroSet_UI.Controls.MetroSetEllipse eclSecurityChain;
         public static System.Windows.Forms.ToolTip PLC_Tooltip;
-        public static MetroSet_UI.Controls.MetroSetLabel Lbl_Loading;
-        public static MetroSet_UI.Controls.MetroSetLabel lbl_RamUsage;
-        public static MetroSet_UI.Controls.MetroSetLabel lblCPUUsage;
-        public static MetroSet_UI.Controls.MetroSetLabel lblUptime_Value;
-        public static MetroSet_UI.Controls.MetroSetLabel lblUptime;
-        public static MetroSet_UI.Controls.MetroSetEllipse btnIPStatus;
-        public static MetroSet_UI.Controls.MetroSetButton btn_Ping;
-        public static System.Windows.Forms.MaskedTextBox txtIP;
-        public static MetroSet_UI.Controls.MetroSetLabel LblIP_Value;
-        public static MetroSet_UI.Controls.MetroSetLabel lblIP;
 
         //UPS
         public static UPS_Alarm UPS_EchoMode;
@@ -518,19 +570,43 @@ namespace AnTaREs
         public static PLC_Label PLC_ChiudiTetto;
         public static PLC_Label PLC_ApriTetto;
         public static PLC_Label PLC_NoResetTermici;
-        public static PLC_Label PLC_Cicalini;
+        private static PLC_Label PLC_Cicalini;
+        private static PLC_Toggle PLC_CicaliniMute;
 
         //VERTIGO
         private static PLC_Label PLC_VertigoTettoChiuso;
         private static PLC_Label PLC_VertigoTettoAperto;
+        private static PLC_Label PLC_VertigoAllarmeTetto;
+        private static PLC_Label PLC_VertigoChiudiTetto;
+        private static PLC_Label PLC_VertigoApriTetto;
+
+        //PARKING
+        private static PLC_Label PLC_FineCorsa_AR_Parking;
+        private static PLC_Label PLC_FineCorsa_DEC_Parking;
+
+        //MOTORI
+        private static PLC_Label PLC_DEC_Direction;
+        private static PLC_Label PLC_AR_Direction;
+        private static PLC_Label PLC_DEC_Error;
+        private static PLC_Label PLC_AR_Error;
+
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;
-        private System.Windows.Forms.GroupBox grpTetto;
-        private System.Windows.Forms.GroupBox grp_faldaDX;
-        private System.Windows.Forms.GroupBox grp_FaldaSX;
+        private System.Windows.Forms.GroupBox Grp_Tetto;
+        private System.Windows.Forms.GroupBox Grp_FaldaSX;
+        private System.Windows.Forms.GroupBox Grp_faldaDX;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Parking;
+        private System.Windows.Forms.GroupBox Grp_Parking;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Motori;
+        private System.Windows.Forms.GroupBox Grp_Motori;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Server;
         private System.Windows.Forms.GroupBox grp_Server;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Vertigo;
         private System.Windows.Forms.GroupBox grp_Vertigo;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Telescopio;
+        private System.Windows.Forms.GroupBox Grp_Telescopio;
+        private System.Windows.Forms.GroupBox Grp_Autoguida;
     }
 }
 

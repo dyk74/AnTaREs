@@ -34,26 +34,6 @@ namespace AnTaREs
             VPN.VPN_PreSharedKey = "le12$pleiadi99";
             //
             Main.Connected1 = false;
-            Main.btnEvent = new MetroSet_UI.Controls.MetroSetButton();
-            Main.lblValueDirection = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblValueRun = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblUnit = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblErrorCode = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.btnChange= new MetroSet_UI.Controls.MetroSetButton();
-            Main.lblChange = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.chkToogle = new MetroSet_UI.Controls.MetroSetCheckBox();
-            Main.eclSecurityChain = new MetroSet_UI.Controls.MetroSetEllipse();
-            Main.lblSecurityChain = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.Lbl_Loading = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblUptime = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblUptime_Value = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblCPUUsage = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lbl_RamUsage = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.lblIP = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.LblIP_Value = new MetroSet_UI.Controls.MetroSetLabel();
-            Main.txtIP = new System.Windows.Forms.MaskedTextBox();
-            Main.btn_Ping = new MetroSet_UI.Controls.MetroSetButton();
-            Main.btnIPStatus = new MetroSet_UI.Controls.MetroSetEllipse();
 
             Main.UPS_EchoMode = new UPS_Alarm();
             Main.UPS_BatteryLow = new UPS_Alarm();
@@ -69,11 +49,24 @@ namespace AnTaREs
             Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
             Main.PLC_NoResetTermici = new PLC_Label();
             Main.PLC_Cicalini = new PLC_Label();
+            Main.PLC_CicaliniMute = new PLC_Toggle();
 
             Main.Server_KeepAlive = new PLC_KeepAlive();
 
             Main.PLC_VertigoTettoChiuso = new PLC_Label();
             Main.PLC_VertigoTettoAperto = new PLC_Label();
+            Main.PLC_VertigoAllarmeTetto = new PLC_Label();
+            Main.PLC_VertigoChiudiTetto = new PLC_Label();
+            Main.PLC_VertigoApriTetto = new PLC_Label();
+
+            Main.PLC_FineCorsa_AR_Parking = new PLC_Label();
+            Main.PLC_FineCorsa_DEC_Parking = new PLC_Label();
+
+            Main.PLC_DEC_Direction = new PLC_Label();
+            Main.PLC_AR_Direction = new PLC_Label();
+            Main.PLC_DEC_Error = new PLC_Label();
+            Main.PLC_AR_Error = new PLC_Label();
+
             //DA CAMBIARE CON UNO SWITCH
             Main.PLC_ApriFaldaSX = new PLC_Label();
             Main.PLC_ApriFaldaDX = new PLC_Label();
@@ -82,40 +75,130 @@ namespace AnTaREs
             Main.PLC_ChiudiTetto = new PLC_Label();
             Main.PLC_ApriTetto = new PLC_Label();
             //FINE CAMBIARE CON UNO SWITCH
-        
+
             InitializeComponent();
+            InitializeMotorsStatus();
+            InitializeParkingStatus();
             InitializeVertigoStatus();
             InitializeUPS();
             InitializeRoof();
             InitializeServerStatus();
-            PLCFastChange_initialize();
-            PLCChange_Initialize();
-            PLCCPU_Initialize();
-            PLCToogle_Initialize();
-            PLCChainElement_Initialize();
             StartUpdateTimer();
             lbl_Osservatorio.Text = VPN_AdapterName;
+        }
+        public void InitializeMotorsStatus()
+        {
+            PLC_DEC_Direction.TopLevel = false;
+            PLC_AR_Direction.TopLevel = false;
+            PLC_DEC_Error.TopLevel = false;
+            PLC_AR_Error.TopLevel = false;
+            this.Grp_Motori.Controls.Add(PLC_DEC_Direction);
+            this.Grp_Motori.Controls.Add(PLC_AR_Direction);
+            this.Grp_Motori.Controls.Add(PLC_DEC_Error);
+            this.Grp_Motori.Controls.Add(PLC_AR_Error);
+            PLC_DEC_Direction.Show();
+            PLC_AR_Direction.Show();
+            PLC_DEC_Error.Show();
+            PLC_AR_Error.Show();
+            PLC_DEC_Direction.Location = new System.Drawing.Point(20, 20);
+            PLC_AR_Direction.Location = new System.Drawing.Point(300, 20);
+            PLC_DEC_Error.Location = new System.Drawing.Point(20, 80);
+            PLC_AR_Error.Location = new System.Drawing.Point(300, 80);
+            PLC_DEC_Direction.Modifiable = true;
+            PLC_AR_Direction.Modifiable = true;
+            PLC_DEC_Error.Modifiable = false;
+            PLC_AR_Error.Modifiable = false;
+            PLC_DEC_Direction.Name = "PLC_DEC_Direction";
+            PLC_AR_Direction.Name = "PLC_AR_Direction";
+            PLC_DEC_Error.Name = "PLC_DEC_Error";
+            PLC_AR_Error.Name = "PLC_AR_Error";
+            PLC_DEC_Direction.PLCVariableName = "DEC Direction";
+            PLC_AR_Direction.PLCVariableName = "AR Direction";
+            PLC_DEC_Error.PLCVariableName = "DEC Error";
+            PLC_AR_Error.PLCVariableName = "AR Error";
+            PLC_DEC_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDecParkDirection";
+            PLC_AR_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRAParkDirection";
+            PLC_DEC_Error.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECError";
+            PLC_AR_Error.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRAError";
+            PLC_DEC_Direction.RedOnValue = true;
+            PLC_DEC_Error.RedOnValue = true;
+            PLC_AR_Direction.RedOnValue = true;
+            PLC_AR_Error.RedOnValue = true;
+            PLC_DEC_Direction.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_DEC_Error.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
+            PLC_AR_Error.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
+            PLC_AR_Direction.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+        }
+        public void InitializeParkingStatus()
+        {
+            PLC_FineCorsa_AR_Parking.TopLevel = false;
+            PLC_FineCorsa_DEC_Parking.TopLevel = false;
+            this.Grp_Parking.Controls.Add(PLC_FineCorsa_AR_Parking);
+            this.Grp_Parking.Controls.Add(PLC_FineCorsa_DEC_Parking);
+            PLC_FineCorsa_AR_Parking.Show();
+            PLC_FineCorsa_DEC_Parking.Show();
+            PLC_FineCorsa_AR_Parking.Location = new System.Drawing.Point(20, 20);
+            PLC_FineCorsa_DEC_Parking.Location = new System.Drawing.Point(20, 80);
+            PLC_FineCorsa_AR_Parking.Modifiable = false;
+            PLC_FineCorsa_DEC_Parking.Modifiable = false;
+            PLC_FineCorsa_AR_Parking.Name = "PLC_FineCorsa_AR_Parking";
+            PLC_FineCorsa_DEC_Parking.Name = "PLC_FineCorsa_DEC_Parking";
+            PLC_FineCorsa_AR_Parking.RedOnValue = false;
+            PLC_FineCorsa_DEC_Parking.RedOnValue = false;
+            PLC_FineCorsa_AR_Parking.PLCVariablePath = "TCPIP.S7-200.Parking.ISondaRAPark";
+            PLC_FineCorsa_DEC_Parking.PLCVariablePath = "TCPIP.S7-200.Parking.ISondaDECPark";
+            PLC_FineCorsa_AR_Parking.PLCVariableName = "Fine Corsa AR Parking";
+            PLC_FineCorsa_DEC_Parking.PLCVariableName = "Fine Corsa DEC Parking";
+            PLC_FineCorsa_AR_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FineCorsa_DEC_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void InitializeVertigoStatus()
         {
             PLC_VertigoTettoChiuso.TopLevel = false;
             PLC_VertigoTettoAperto.TopLevel = false;
+            PLC_VertigoAllarmeTetto.TopLevel = false;
+            PLC_VertigoChiudiTetto.TopLevel = false;
+            PLC_VertigoApriTetto.TopLevel = false;
             this.grp_Vertigo.Controls.Add(PLC_VertigoTettoChiuso);
             this.grp_Vertigo.Controls.Add(PLC_VertigoTettoAperto);
+            this.grp_Vertigo.Controls.Add(PLC_VertigoAllarmeTetto);
+            this.grp_Vertigo.Controls.Add(PLC_VertigoChiudiTetto);
+            this.grp_Vertigo.Controls.Add(PLC_VertigoApriTetto);
             PLC_VertigoTettoChiuso.Show();
             PLC_VertigoTettoAperto.Show();
+            PLC_VertigoAllarmeTetto.Show();
+            PLC_VertigoChiudiTetto.Show();
+            PLC_VertigoApriTetto.Show();
             PLC_VertigoTettoChiuso.Location = new System.Drawing.Point(20, 20);
-            PLC_VertigoTettoAperto.Location = new System.Drawing.Point(20, 200);
+            PLC_VertigoTettoAperto.Location = new System.Drawing.Point(200, 20);
+            PLC_VertigoAllarmeTetto.Location = new System.Drawing.Point(20, 80);
+            PLC_VertigoApriTetto.Location = new System.Drawing.Point(200, 80);
+            PLC_VertigoChiudiTetto.Location = new System.Drawing.Point(380, 80);
             PLC_VertigoTettoChiuso.PLCVariableName = "Segnale Tetto Chiuso";
             PLC_VertigoTettoAperto.PLCVariableName = "Segnale Tetto Aperto";
+            PLC_VertigoAllarmeTetto.PLCVariableName = " Segnale Allarme Tetto";
+            PLC_VertigoChiudiTetto.PLCVariableName = "Segnale Chiudi Tetto";
+            PLC_VertigoApriTetto.PLCVariableName = "Segnale Apri Tetto";
             PLC_VertigoTettoChiuso.Name = "PLC_VertigoTettoChiuso";
             PLC_VertigoTettoAperto.Name = "PLC_VertigoTettoAperto";
+            PLC_VertigoAllarmeTetto.Name = "PLC_VertigoAllarmeTetto";
+            PLC_VertigoChiudiTetto.Name = "PLC_VertigoChiudiTetto";
+            PLC_VertigoApriTetto.Name = "PLC_VertigoApriTetto";
             PLC_VertigoTettoChiuso.PLCVariablePath = "TCPIP.S7-200.Vertigo.RoofIsClosedVertigo";
             PLC_VertigoTettoAperto.PLCVariablePath = "TCPIP.S7-200.Vertigo.RoofIsOpenVertigo";
+            PLC_VertigoAllarmeTetto.PLCVariablePath = "TCPIP.S7-200.Vertigo.RoofAlarmVertigo";
+            PLC_VertigoChiudiTetto.PLCVariablePath = "TCPIP.S7-200.Vertigo.CloseRoofVertigo";
+            PLC_VertigoApriTetto.PLCVariablePath = "TCP.S7-200.Vertigo.OpenRoofVertigo";
             PLC_VertigoTettoChiuso.RedOnValue = false;
             PLC_VertigoTettoAperto.RedOnValue = true;
+            PLC_VertigoAllarmeTetto.RedOnValue = true;
+            PLC_VertigoChiudiTetto.RedOnValue = true;
+            PLC_VertigoApriTetto.RedOnValue = true;
             PLC_VertigoTettoChiuso.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_VertigoTettoAperto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_VertigoAllarmeTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_VertigoChiudiTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_VertigoApriTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         public void InitializeServerStatus()
         {
@@ -141,18 +224,20 @@ namespace AnTaREs
             PLC_Cicalini.TopLevel = false;
             PLC_ChiudiTetto.TopLevel = false;
             PLC_ApriTetto.TopLevel = false;
-            this.grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
-            this.grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
-            this.grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
-            this.grp_faldaDX.Controls.Add(PLC_ChiudiFaldaDX);
-            this.grp_FaldaSX.Controls.Add(PLC_FineCorsaAperturaSX);
-            this.grp_FaldaSX.Controls.Add(PLC_FineCorsaChiusuraSX);
-            this.grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
-            this.grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
-            this.grpTetto.Controls.Add(PLC_NoResetTermici);
-            this.grpTetto.Controls.Add(PLC_Cicalini);
-            this.grpTetto.Controls.Add(PLC_ChiudiTetto);
-            this.grpTetto.Controls.Add(PLC_ApriTetto);
+            PLC_CicaliniMute.TopLevel = false;
+            this.Grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
+            this.Grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
+            this.Grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
+            this.Grp_faldaDX.Controls.Add(PLC_ChiudiFaldaDX);
+            this.Grp_FaldaSX.Controls.Add(PLC_FineCorsaAperturaSX);
+            this.Grp_FaldaSX.Controls.Add(PLC_FineCorsaChiusuraSX);
+            this.Grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
+            this.Grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
+            this.Grp_Tetto.Controls.Add(PLC_NoResetTermici);
+            this.Grp_Tetto.Controls.Add(PLC_Cicalini);
+            this.Grp_Tetto.Controls.Add(PLC_CicaliniMute);
+            this.Grp_Tetto.Controls.Add(PLC_ChiudiTetto);
+            this.Grp_Tetto.Controls.Add(PLC_ApriTetto);
             PLC_ApriFaldaSX.Show();
             PLC_ApriFaldaDX.Show();
             PLC_ChiudiFaldaDX.Show();
@@ -163,6 +248,7 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraDX.Show();
             PLC_NoResetTermici.Show();
             PLC_Cicalini.Show();
+            PLC_CicaliniMute.Show();
             PLC_ChiudiTetto.Show();
             PLC_ApriTetto.Show();
             PLC_ApriFaldaSX.PLCVariableName = "Apri Falda Sinistra";
@@ -177,6 +263,7 @@ namespace AnTaREs
             PLC_ChiudiTetto.PLCVariableName = "Chiudi Tetto";
             PLC_ApriTetto.PLCVariableName = "Apri Tetto";
             PLC_Cicalini.PLCVariableName = "Cicalini";
+            PLC_CicaliniMute.PLCVariableName = "Mute";
             PLC_ApriFaldaSX.Location = new System.Drawing.Point(20, 20);
             PLC_FineCorsaAperturaSX.Location = new System.Drawing.Point(20, 80);
             PLC_FineCorsaAperturaDX.Location = new System.Drawing.Point(20, 80);
@@ -188,6 +275,7 @@ namespace AnTaREs
             PLC_NoResetTermici.Location = new System.Drawing.Point(20, 20);
             PLC_Cicalini.Location = new System.Drawing.Point(20, 80);
             PLC_ApriTetto.Location = new System.Drawing.Point(300, 20);
+            PLC_CicaliniMute.Location = new System.Drawing.Point(300, 80);
             PLC_ChiudiTetto.Location = new System.Drawing.Point(500, 20);
 
             PLC_ApriFaldaSX.Name = "PLC_ApriFaldaSX";
@@ -200,6 +288,7 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraDX.Name = "PLC_FineCorsaChiusuraDX";
             PLC_NoResetTermici.Name = "PLC_NoResetTermici";
             PLC_Cicalini.Name = "PLC_Cicalini";
+            PLC_CicaliniMute.Name = "PLC_CicaliniMute";
             PLC_ChiudiTetto.Name = "PLC_ChiudiTetto";
             PLC_ApriTetto.Name = "PLC_ApriTetto";
             PLC_ApriFaldaSX.PLCVariablePath = "TCPIP.S7-200.Roof.ApriFaldaSX";
@@ -212,6 +301,7 @@ namespace AnTaREs
             PLC_FineCorsaChiusuraDX.PLCVariablePath = "TCPIP.S7-200.Roof.FC_FaldaDXChiusura";
             PLC_NoResetTermici.PLCVariablePath = "TCPIP.S7-200.Roof.ContantoreAlmTermici";
             PLC_Cicalini.PLCVariablePath = "TCPIP.S7-200.Roof.Cicalini";
+            PLC_CicaliniMute.PLCVariablePath = "TCPIP.S7-200.Roof.CicaliniMute";
             PLC_ChiudiTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ChiudiTetto";
             PLC_ApriTetto.PLCVariablePath = "TCPIP.S7-200.Roof.ApriTetto";
             PLC_ApriFaldaSX.RedOnValue = true;
@@ -237,6 +327,7 @@ namespace AnTaREs
             PLC_Cicalini.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_ChiudiTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_ApriTetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_CicaliniMute.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_NoResetTermici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
         }
         public void InitializeUPS()
@@ -277,7 +368,7 @@ namespace AnTaREs
             UPS_Alarm.Location = new System.Drawing.Point(20, 170);
             UPS_ConnectionFailure.Location = new System.Drawing.Point(340, 20);
             UPS_MainFailure.Location = new System.Drawing.Point(340, 70);
-            UPS_ChargeValue.Location = new System.Drawing.Point(340, 120);
+            UPS_ChargeValue.Location = new System.Drawing.Point(20, 290);
             UPS_EchoMode.Name = "UPS_EchoMode";
             UPS_BatteryLow.Name = "UPS_BatteryLow";
             UPS_LDInverter.Name = "UPS_LDInverter";
@@ -347,154 +438,7 @@ namespace AnTaREs
                 }
            }
         }
-        private void Btn_Ping_Click(object sender, EventArgs e)
-        {
-            PLC.PLC_CheckConnectivity.Btn_Ping_Click(sender, e);
-        }
-        private void PLCChainElement_Initialize()
-        {
-            this.grpSecurityChain.Controls.Add(Main.lblSecurityChain);
-            this.grpSecurityChain.Controls.Add(Main.eclSecurityChain);
-            eclSecurityChain.BorderThickness = 0;
-            eclSecurityChain.Enabled = false;
-            eclSecurityChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            eclSecurityChain.Image = null;
-            eclSecurityChain.ImageSize = new System.Drawing.Size(64, 64);
-            eclSecurityChain.IsDerivedStyle = true;
-            eclSecurityChain.Location = new System.Drawing.Point(6, 19);
-            eclSecurityChain.Name = "eclSecurityChain";
-            eclSecurityChain.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            eclSecurityChain.NormalTextColor = System.Drawing.Color.Black;
-            eclSecurityChain.PressTextColor = System.Drawing.Color.White;
-            eclSecurityChain.Size = new System.Drawing.Size(75, 75);
-            eclSecurityChain.Style = MetroSet_UI.Enums.Style.Light;
-            eclSecurityChain.StyleManager = null;
-            eclSecurityChain.TabIndex = 0;
-            eclSecurityChain.ThemeAuthor = "Narwin";
-            eclSecurityChain.ThemeName = "MetroLite";
-            lblSecurityChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            lblSecurityChain.IsDerivedStyle = true;
-            lblSecurityChain.Location = new System.Drawing.Point(87, 40);
-            lblSecurityChain.Name = "lblSecurityChain";
-            lblSecurityChain.Size = new System.Drawing.Size(130, 23);
-            lblSecurityChain.Style = MetroSet_UI.Enums.Style.Light;
-            lblSecurityChain.StyleManager = null;
-            lblSecurityChain.TabIndex = 1;
-            lblSecurityChain.Text = "-";
-            lblSecurityChain.ThemeAuthor = "Narwin";
-            lblSecurityChain.ThemeName = "MetroLite";  
-        }
-        private void PLCToogle_Initialize()
-        {
-            this.grpTooglePLC.Controls.Add(Main.chkToogle);
-            chkToogle.BackColor = System.Drawing.Color.Transparent;
-            chkToogle.Checked = false;
-            chkToogle.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-            chkToogle.Cursor = System.Windows.Forms.Cursors.Hand;
-            chkToogle.IsDerivedStyle = true;
-            chkToogle.Location = new System.Drawing.Point(6, 19);
-            chkToogle.Name = "chkToogle";
-            chkToogle.SignStyle = MetroSet_UI.Enums.SignStyle.Shape;
-            chkToogle.Size = new System.Drawing.Size(154, 16);
-            chkToogle.Style = MetroSet_UI.Enums.Style.Light;
-            chkToogle.StyleManager = this.Stile;
-            chkToogle.TabIndex = 10;
-            chkToogle.Text = "-";
-            chkToogle.ThemeAuthor = null;
-            chkToogle.ThemeName = null;
-        }
-        private void PLCChange_Initialize()
-        {
-            this.grpToogle.Controls.Add(Main.lblChange);
-            this.grpToogle.Controls.Add(Main.btnChange);
-            btnChange.IsDerivedStyle = true;
-            btnChange.Location = new System.Drawing.Point(6, 25);
-            btnChange.Name = "btnChange";
-            btnChange.Size = new System.Drawing.Size(124, 45);
-            btnChange.Style = MetroSet_UI.Enums.Style.Light;
-            btnChange.StyleManager = null;
-            btnChange.TabIndex = 0;
-            btnChange.Text = "Event";
-            btnChange.ThemeAuthor = "Narwin";
-            btnChange.ThemeName = "MetroLite";
-            lblChange.IsDerivedStyle = true;
-            lblChange.Location = new System.Drawing.Point(136, 25);
-            lblChange.Name = "lblChange";
-            lblChange.Size = new System.Drawing.Size(100, 23);
-            lblChange.Style = MetroSet_UI.Enums.Style.Light;
-            lblChange.StyleManager = null;
-            lblChange.TabIndex = 1;
-            lblChange.Text = "-";
-            lblChange.ThemeAuthor = "Narwin";
-            lblChange.ThemeName = "MetroLite";
-        }
-        private void PLCCPU_Initialize()
-        {
-            this.grpCPU.Controls.Add(Main.lblUnit);
-            this.grpCPU.Controls.Add(Main.lblErrorCode);
-            lblUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            lblUnit.IsDerivedStyle = true;
-            lblUnit.Location = new System.Drawing.Point(7, 20);
-            lblUnit.Name = "lblUnit";
-            lblUnit.Size = new System.Drawing.Size(100, 23);
-            lblUnit.Style = MetroSet_UI.Enums.Style.Light;
-            lblUnit.StyleManager = null;
-            lblUnit.TabIndex = 0;
-            lblUnit.Text = "0";
-            lblUnit.ThemeAuthor = "Narwin";
-            lblUnit.ThemeName = "MetroLite";
-            lblErrorCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            lblErrorCode.IsDerivedStyle = true;
-            lblErrorCode.Location = new System.Drawing.Point(7, 47);
-            lblErrorCode.Name = "lblErrorCode";
-            lblErrorCode.Size = new System.Drawing.Size(100, 23);
-            lblErrorCode.Style = MetroSet_UI.Enums.Style.Light;
-            lblErrorCode.StyleManager = null;
-            lblErrorCode.TabIndex = 1;
-            lblErrorCode.Text = "0";
-            lblErrorCode.ThemeAuthor = "Narwin";
-            lblErrorCode.ThemeName = "MetroLite";
-            lblErrorCode.Click += LblErrorCode_Click;
-
-        }
-        private void PLCFastChange_initialize()
-        {
-            this.grpFastChange.Controls.Add(Main.lblValueRun);
-            this.grpFastChange.Controls.Add(Main.lblValueDirection);
-            this.grpFastChange.Controls.Add(Main.btnEvent);
-            btnEvent.Location = new System.Drawing.Point(6, 25);
-            btnEvent.Name = "btnEvent";
-            btnEvent.PressTextColor = System.Drawing.Color.White;
-            btnEvent.Size = new System.Drawing.Size(124, 45);
-            btnEvent.Style = MetroSet_UI.Enums.Style.Light;
-            btnEvent.StyleManager = null;
-            btnEvent.TabIndex = 3;
-            btnEvent.Text = "Event";
-            btnEvent.ThemeAuthor = "Narwin";
-            btnEvent.ThemeName = "MetroLite";
-            lblValueDirection.IsDerivedStyle = true;
-            lblValueDirection.Location = new System.Drawing.Point(136, 47);
-            lblValueDirection.Name = "lblValueDirection";
-            lblValueDirection.Size = new System.Drawing.Size(100, 23);
-            lblValueDirection.Style = MetroSet_UI.Enums.Style.Light;
-            lblValueDirection.StyleManager = null;
-            lblValueDirection.TabIndex = 5;
-            lblValueDirection.Text = "-";
-            lblValueDirection.ThemeAuthor = "Narwin";
-            lblValueDirection.ThemeName = "MetroLite";
-            lblValueRun.IsDerivedStyle = true;
-            lblValueRun.Location = new System.Drawing.Point(136, 25);
-            lblValueRun.Name = "lblValueRun";
-            lblValueRun.Size = new System.Drawing.Size(100, 23);
-            lblValueRun.Style = MetroSet_UI.Enums.Style.Light;
-            lblValueRun.StyleManager = null;
-            lblValueRun.TabIndex = 6;
-            lblValueRun.Text = "-";
-            lblValueRun.ThemeAuthor = "Narwin";
-            lblValueRun.ThemeName = "MetroLite";
-
-        }
-        private void LblErrorCode_Click(object sender,EventArgs e)
+         private void LblErrorCode_Click(object sender,EventArgs e)
         {
 
         }
