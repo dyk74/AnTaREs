@@ -50,11 +50,13 @@ namespace AnTaREs
             this.grp_Server = new System.Windows.Forms.GroupBox();
             this.Tab_Vertigo = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.grp_Vertigo = new System.Windows.Forms.GroupBox();
+            this.Tab_Telescopio = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Telescopio = new System.Windows.Forms.GroupBox();
+            this.Grp_Autoguida = new System.Windows.Forms.GroupBox();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
-            this.Tab_Telescopio = new MetroSet_UI.Child.MetroSetSetTabPage();
-            this.Grp_Autoguida = new System.Windows.Forms.GroupBox();
-            this.Grp_Telescopio = new System.Windows.Forms.GroupBox();
+            this.Tab_Bypass = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Bypass = new System.Windows.Forms.GroupBox();
             this.SetTab_Control.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.Tab_UPS.SuspendLayout();
@@ -65,6 +67,7 @@ namespace AnTaREs
             this.Tab_Server.SuspendLayout();
             this.Tab_Vertigo.SuspendLayout();
             this.Tab_Telescopio.SuspendLayout();
+            this.Tab_Bypass.SuspendLayout();
             this.SuspendLayout();
             // 
             // Stile
@@ -88,13 +91,14 @@ namespace AnTaREs
             this.SetTab_Control.Controls.Add(this.Tab_Server);
             this.SetTab_Control.Controls.Add(this.Tab_Vertigo);
             this.SetTab_Control.Controls.Add(this.Tab_Telescopio);
+            this.SetTab_Control.Controls.Add(this.Tab_Bypass);
             this.SetTab_Control.Cursor = System.Windows.Forms.Cursors.Default;
             this.SetTab_Control.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetTab_Control.IsDerivedStyle = true;
             this.SetTab_Control.ItemSize = new System.Drawing.Size(100, 38);
             this.SetTab_Control.Location = new System.Drawing.Point(12, 90);
             this.SetTab_Control.Name = "SetTab_Control";
-            this.SetTab_Control.SelectedIndex = 7;
+            this.SetTab_Control.SelectedIndex = 8;
             this.SetTab_Control.SelectedTextColor = System.Drawing.Color.White;
             this.SetTab_Control.Size = new System.Drawing.Size(1706, 906);
             this.SetTab_Control.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
@@ -416,6 +420,48 @@ namespace AnTaREs
             this.grp_Vertigo.TabStop = false;
             this.grp_Vertigo.Text = "Vertigo";
             // 
+            // Tab_Telescopio
+            // 
+            this.Tab_Telescopio.BaseColor = System.Drawing.Color.White;
+            this.Tab_Telescopio.Controls.Add(this.Grp_Telescopio);
+            this.Tab_Telescopio.Controls.Add(this.Grp_Autoguida);
+            this.Tab_Telescopio.Font = null;
+            this.Tab_Telescopio.ImageIndex = 0;
+            this.Tab_Telescopio.ImageKey = null;
+            this.Tab_Telescopio.IsDerivedStyle = true;
+            this.Tab_Telescopio.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Telescopio.Name = "Tab_Telescopio";
+            this.Tab_Telescopio.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Telescopio.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Telescopio.StyleManager = null;
+            this.Tab_Telescopio.TabIndex = 8;
+            this.Tab_Telescopio.Text = "Telescopio";
+            this.Tab_Telescopio.ThemeAuthor = "Narwin";
+            this.Tab_Telescopio.ThemeName = "MetroLite";
+            this.Tab_Telescopio.ToolTipText = null;
+            // 
+            // Grp_Telescopio
+            // 
+            this.Grp_Telescopio.BackColor = System.Drawing.Color.White;
+            this.Grp_Telescopio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Telescopio.Location = new System.Drawing.Point(613, 4);
+            this.Grp_Telescopio.Name = "Grp_Telescopio";
+            this.Grp_Telescopio.Size = new System.Drawing.Size(670, 338);
+            this.Grp_Telescopio.TabIndex = 1;
+            this.Grp_Telescopio.TabStop = false;
+            this.Grp_Telescopio.Text = "Telescopio";
+            // 
+            // Grp_Autoguida
+            // 
+            this.Grp_Autoguida.BackColor = System.Drawing.Color.White;
+            this.Grp_Autoguida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Autoguida.Location = new System.Drawing.Point(4, 4);
+            this.Grp_Autoguida.Name = "Grp_Autoguida";
+            this.Grp_Autoguida.Size = new System.Drawing.Size(602, 338);
+            this.Grp_Autoguida.TabIndex = 0;
+            this.Grp_Autoguida.TabStop = false;
+            this.Grp_Autoguida.Text = "Autoguida";
+            // 
             // _metroSetControlBox1
             // 
             this._metroSetControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -456,47 +502,35 @@ namespace AnTaREs
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
             // 
-            // Tab_Telescopio
+            // Tab_Bypass
             // 
-            this.Tab_Telescopio.BaseColor = System.Drawing.Color.White;
-            this.Tab_Telescopio.Controls.Add(this.Grp_Telescopio);
-            this.Tab_Telescopio.Controls.Add(this.Grp_Autoguida);
-            this.Tab_Telescopio.Font = null;
-            this.Tab_Telescopio.ImageIndex = 0;
-            this.Tab_Telescopio.ImageKey = null;
-            this.Tab_Telescopio.IsDerivedStyle = true;
-            this.Tab_Telescopio.Location = new System.Drawing.Point(4, 42);
-            this.Tab_Telescopio.Name = "Tab_Telescopio";
-            this.Tab_Telescopio.Size = new System.Drawing.Size(1698, 860);
-            this.Tab_Telescopio.Style = MetroSet_UI.Enums.Style.Light;
-            this.Tab_Telescopio.StyleManager = null;
-            this.Tab_Telescopio.TabIndex = 8;
-            this.Tab_Telescopio.Text = "Telescopio";
-            this.Tab_Telescopio.ThemeAuthor = "Narwin";
-            this.Tab_Telescopio.ThemeName = "MetroLite";
-            this.Tab_Telescopio.ToolTipText = null;
+            this.Tab_Bypass.BaseColor = System.Drawing.Color.White;
+            this.Tab_Bypass.Controls.Add(this.Grp_Bypass);
+            this.Tab_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tab_Bypass.ImageIndex = 0;
+            this.Tab_Bypass.ImageKey = null;
+            this.Tab_Bypass.IsDerivedStyle = true;
+            this.Tab_Bypass.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Bypass.Name = "Tab_Bypass";
+            this.Tab_Bypass.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Bypass.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Bypass.StyleManager = null;
+            this.Tab_Bypass.TabIndex = 9;
+            this.Tab_Bypass.Text = "Bypass";
+            this.Tab_Bypass.ThemeAuthor = "Narwin";
+            this.Tab_Bypass.ThemeName = "MetroLite";
+            this.Tab_Bypass.ToolTipText = null;
             // 
-            // Grp_Autoguida
+            // Grp_Bypass
             // 
-            this.Grp_Autoguida.BackColor = System.Drawing.Color.White;
-            this.Grp_Autoguida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grp_Autoguida.Location = new System.Drawing.Point(4, 4);
-            this.Grp_Autoguida.Name = "Grp_Autoguida";
-            this.Grp_Autoguida.Size = new System.Drawing.Size(602, 338);
-            this.Grp_Autoguida.TabIndex = 0;
-            this.Grp_Autoguida.TabStop = false;
-            this.Grp_Autoguida.Text = "Autoguida";
-            // 
-            // Grp_Telescopio
-            // 
-            this.Grp_Telescopio.BackColor = System.Drawing.Color.White;
-            this.Grp_Telescopio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grp_Telescopio.Location = new System.Drawing.Point(613, 4);
-            this.Grp_Telescopio.Name = "Grp_Telescopio";
-            this.Grp_Telescopio.Size = new System.Drawing.Size(670, 338);
-            this.Grp_Telescopio.TabIndex = 1;
-            this.Grp_Telescopio.TabStop = false;
-            this.Grp_Telescopio.Text = "Telescopio";
+            this.Grp_Bypass.BackColor = System.Drawing.Color.White;
+            this.Grp_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Bypass.Location = new System.Drawing.Point(3, 3);
+            this.Grp_Bypass.Name = "Grp_Bypass";
+            this.Grp_Bypass.Size = new System.Drawing.Size(1042, 346);
+            this.Grp_Bypass.TabIndex = 3;
+            this.Grp_Bypass.TabStop = false;
+            this.Grp_Bypass.Text = "Bypass";
             // 
             // Main
             // 
@@ -523,6 +557,7 @@ namespace AnTaREs
             this.Tab_Server.ResumeLayout(false);
             this.Tab_Vertigo.ResumeLayout(false);
             this.Tab_Telescopio.ResumeLayout(false);
+            this.Tab_Bypass.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -543,13 +578,14 @@ namespace AnTaREs
         public static System.Windows.Forms.ToolTip PLC_Tooltip;
 
         //UPS
-        public static UPS_Alarm UPS_EchoMode;
-        public static UPS_Alarm UPS_BatteryLow;
-        public static UPS_Alarm UPS_LDInverter;
-        public static UPS_Alarm UPS_Alarm;
-        public static UPS_Alarm UPS_ConnectionFailure;
-        public static UPS_Alarm UPS_MainFailure;
-        public static PLC_ProgressBar UPS_ChargeValue;
+        private static PLC_Alarm PLC_Alarm_UPS_EchoMode;
+        private static PLC_Alarm UPS_BatteryLow;
+        private static PLC_Alarm UPS_LDInverter;
+        private static PLC_Alarm UPS_Alarm;
+        private static PLC_Alarm UPS_ConnectionFailure;
+        private static PLC_Alarm UPS_MainFailure;
+        private static PLC_ProgressBar UPS_ChargeValue;
+        private static PLC_Toggle PLC_UPS_Alarm_Bypass;
         //UPS
         
         //SERVER
@@ -562,7 +598,7 @@ namespace AnTaREs
         public static PLC_Label PLC_ChiudiFaldaDX;
         // FINE DA CAMBIARE CON UNO SWITCH
 
-        //ROOF
+        //TETTO
         public static PLC_Label PLC_FineCorsaAperturaSX;
         public static PLC_Label PLC_FineCorsaChiusuraSX;
         public static PLC_Label PLC_FineCorsaAperturaDX;
@@ -574,6 +610,9 @@ namespace AnTaREs
         private static PLC_Toggle PLC_Reset_Termici;
         private static PLC_Toggle PLC_CicaliniMute;
         private static PLC_Toggle PLC_Reset_Counter_Termici;
+        private static PLC_Alarm PLC_Tetto_Chiusura_Timeout;
+        private static PLC_Alarm PLC_Tetto_Apertura_Timeout;
+        private static PLC_Alarm PLC_Tetto_Termico;
 
         //VERTIGO
         private static PLC_Label PLC_VertigoTettoChiuso;
@@ -581,6 +620,9 @@ namespace AnTaREs
         private static PLC_Label PLC_VertigoAllarmeTetto;
         private static PLC_Label PLC_VertigoChiudiTetto;
         private static PLC_Label PLC_VertigoApriTetto;
+        private static PLC_Toggle PLC_Vertigo_RoofOpen_Bypass;
+        private static PLC_Toggle PLC_Toggle_Vertigo_KeepAlive_Bypass;
+        private static PLC_Alarm PLC_Alarm_Vertigo_KeepAlive;
 
         //PARKING
         private static PLC_Label PLC_FineCorsa_AR_Parking;
@@ -602,9 +644,20 @@ namespace AnTaREs
         //AUTOGUIDA
         private static PLC_Label PLC_Autoguide_Closed;
         private static PLC_Label PLC_Autoguide_Opened;
+        private static PLC_Toggle PLC_Autoguide_Control;
+
+        //TELESCOPIO
         private static PLC_Label PLC_Telescope_Closed;
         private static PLC_Label PLC_Telescope_Opened;
+        private static PLC_Toggle PLC_Telescope_Cap_Bypass;
+        private static PLC_Toggle PLC_Telescope_FC_Bypass;
+        private static PLC_Toggle PLC_Telescope_Emergency_mode;
+        private static PLC_Toggle PLC_Telescope_Hook;
+        private static PLC_Toggle PLC_Telescope_Control;
+        private static PLC_Toggle PLC_Telescope_Power;
 
+        //METEO
+        private static PLC_Toggle PLC_Meteo_Bypass;
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;
@@ -622,6 +675,8 @@ namespace AnTaREs
         private MetroSet_UI.Child.MetroSetSetTabPage Tab_Telescopio;
         private System.Windows.Forms.GroupBox Grp_Telescopio;
         private System.Windows.Forms.GroupBox Grp_Autoguida;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Bypass;
+        private System.Windows.Forms.GroupBox Grp_Bypass;
     }
 }
 

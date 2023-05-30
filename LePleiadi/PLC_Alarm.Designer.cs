@@ -1,7 +1,7 @@
 ﻿
 namespace AnTaREs
 {
-    partial class UPS_Alarm
+    partial class PLC_Alarm
     {
         /// <summary> 
         /// Required designer variable.
@@ -37,7 +37,7 @@ namespace AnTaREs
             // Ecl_Alarm
             // 
             this.Ecl_Alarm.BorderThickness = 0;
-            this.Ecl_Alarm.DisabledBackColor = System.Drawing.Color.Gray;
+            this.Ecl_Alarm.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.Ecl_Alarm.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
             this.Ecl_Alarm.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.Ecl_Alarm.Enabled = false;
@@ -51,7 +51,7 @@ namespace AnTaREs
             this.Ecl_Alarm.Location = new System.Drawing.Point(0, 0);
             this.Ecl_Alarm.Name = "Ecl_Alarm";
             this.Ecl_Alarm.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.Ecl_Alarm.NormalColor = System.Drawing.Color.Gray;
+            this.Ecl_Alarm.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.Ecl_Alarm.NormalTextColor = System.Drawing.Color.Black;
             this.Ecl_Alarm.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.Ecl_Alarm.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -65,6 +65,7 @@ namespace AnTaREs
             // 
             // Btn_Reset
             // 
+            this.Btn_Reset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_Reset.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Btn_Reset.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Btn_Reset.DisabledForeColor = System.Drawing.Color.Gray;
@@ -107,7 +108,7 @@ namespace AnTaREs
             this.Lbl_Alarm.ThemeAuthor = "Narwin";
             this.Lbl_Alarm.ThemeName = "MetroLite";
             // 
-            // UPS_Alarm
+            // PLC_Alarm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -117,7 +118,7 @@ namespace AnTaREs
             this.Controls.Add(this.Ecl_Alarm);
             this.HeaderHeight = 1;
             this.Moveable = false;
-            this.Name = "UPS_Alarm";
+            this.Name = "PLC_Alarm";
             this.ShowIcon = false;
             this.SmallRectThickness = 1;
             this.ResumeLayout(false);

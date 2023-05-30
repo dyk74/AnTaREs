@@ -12,14 +12,14 @@ using static AnTaREs.Comunicazione;
 
 namespace AnTaREs
 {
-    public partial class UPS_Alarm : MetroSet_UI.Forms.MetroSetForm
+    public partial class PLC_Alarm : MetroSet_UI.Forms.MetroSetForm
     {
         private VariableHandle PLC_Handle;
         private string PLC_VariablePath;
         private VarEnum PLC_VariableType;
         private Comunicazioni PLC_Com;
         private bool Reset_Available = false;
-        public UPS_Alarm()
+        public PLC_Alarm()
         {
             InitializeComponent();
             PLC_Handle = null;
@@ -29,7 +29,7 @@ namespace AnTaREs
             Ecl_Alarm.NormalColor = Color.Gray;
             Btn_Reset.Enabled = false;
         }
-        public UPS_Alarm(VariableHandle C_Variable)
+        public PLC_Alarm(VariableHandle C_Variable)
         {
             InitializeComponent();
             PLC_Handle = null;
