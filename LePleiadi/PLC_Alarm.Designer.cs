@@ -48,7 +48,7 @@ namespace AnTaREs
             this.Ecl_Alarm.Image = null;
             this.Ecl_Alarm.ImageSize = new System.Drawing.Size(64, 64);
             this.Ecl_Alarm.IsDerivedStyle = true;
-            this.Ecl_Alarm.Location = new System.Drawing.Point(0, 0);
+            this.Ecl_Alarm.Location = new System.Drawing.Point(1, 1);
             this.Ecl_Alarm.Name = "Ecl_Alarm";
             this.Ecl_Alarm.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.Ecl_Alarm.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
@@ -74,7 +74,7 @@ namespace AnTaREs
             this.Btn_Reset.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
             this.Btn_Reset.HoverTextColor = System.Drawing.Color.White;
             this.Btn_Reset.IsDerivedStyle = true;
-            this.Btn_Reset.Location = new System.Drawing.Point(50, 0);
+            this.Btn_Reset.Location = new System.Drawing.Point(50, 1);
             this.Btn_Reset.Name = "Btn_Reset";
             this.Btn_Reset.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Btn_Reset.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
