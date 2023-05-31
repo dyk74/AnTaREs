@@ -140,6 +140,12 @@
     <Compile Include="PLC_Button.Designer.cs">
       <DependentUpon>PLC_Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="PLC_FastButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC_FastButton.Designer.cs">
+      <DependentUpon>PLC_FastButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="PLC_KeepAlive.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PLC_Button.resx">
       <DependentUpon>PLC_Button.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PLC_FastButton.resx">
+      <DependentUpon>PLC_FastButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PLC_KeepAlive.resx">
       <DependentUpon>PLC_KeepAlive.cs</DependentUpon>

@@ -30,7 +30,7 @@ namespace AnTaREs
         private void InitializeComponent()
         {
             this.Stile = new MetroSet_UI.Components.StyleManager();
-            this.SetTab_Control = new MetroSet_UI.Controls.MetroSetTabControl();
+            this.SetTab_Main = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.lbl_Osservatorio = new MetroSet_UI.Controls.MetroSetLabel();
             this.btnControlStatus = new MetroSet_UI.Controls.MetroSetEllipse();
@@ -53,11 +53,16 @@ namespace AnTaREs
             this.Tab_Telescopio = new MetroSet_UI.Child.MetroSetSetTabPage();
             this.Grp_Telescopio = new System.Windows.Forms.GroupBox();
             this.Grp_Autoguida = new System.Windows.Forms.GroupBox();
+            this.Tab_Mux = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Mux = new System.Windows.Forms.GroupBox();
+            this.Tab_Telecom = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Telecom = new System.Windows.Forms.GroupBox();
+            this.Tab_Bypass = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Grp_Security = new System.Windows.Forms.GroupBox();
+            this.Grp_Bypass = new System.Windows.Forms.GroupBox();
             this._metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             this.lblDateTime = new MetroSet_UI.Controls.MetroSetLabel();
-            this.Tab_Bypass = new MetroSet_UI.Child.MetroSetSetTabPage();
-            this.Grp_Bypass = new System.Windows.Forms.GroupBox();
-            this.SetTab_Control.SuspendLayout();
+            this.SetTab_Main.SuspendLayout();
             this.metroControllo.SuspendLayout();
             this.Tab_UPS.SuspendLayout();
             this.metroTetto.SuspendLayout();
@@ -67,6 +72,8 @@ namespace AnTaREs
             this.Tab_Server.SuspendLayout();
             this.Tab_Vertigo.SuspendLayout();
             this.Tab_Telescopio.SuspendLayout();
+            this.Tab_Mux.SuspendLayout();
+            this.Tab_Telecom.SuspendLayout();
             this.Tab_Bypass.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,38 +85,40 @@ namespace AnTaREs
             this.Stile.ThemeAuthor = null;
             this.Stile.ThemeName = null;
             // 
-            // SetTab_Control
+            // SetTab_Main
             // 
-            this.SetTab_Control.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
-            this.SetTab_Control.AnimateTime = 200;
-            this.SetTab_Control.BackgroundColor = System.Drawing.Color.White;
-            this.SetTab_Control.Controls.Add(this.metroControllo);
-            this.SetTab_Control.Controls.Add(this.Tab_UPS);
-            this.SetTab_Control.Controls.Add(this.metroTetto);
-            this.SetTab_Control.Controls.Add(this.Tab_Parking);
-            this.SetTab_Control.Controls.Add(this.Tab_Motori);
-            this.SetTab_Control.Controls.Add(this.Tab_Server);
-            this.SetTab_Control.Controls.Add(this.Tab_Vertigo);
-            this.SetTab_Control.Controls.Add(this.Tab_Telescopio);
-            this.SetTab_Control.Controls.Add(this.Tab_Bypass);
-            this.SetTab_Control.Cursor = System.Windows.Forms.Cursors.Default;
-            this.SetTab_Control.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetTab_Control.IsDerivedStyle = true;
-            this.SetTab_Control.ItemSize = new System.Drawing.Size(100, 38);
-            this.SetTab_Control.Location = new System.Drawing.Point(12, 90);
-            this.SetTab_Control.Name = "SetTab_Control";
-            this.SetTab_Control.SelectedIndex = 8;
-            this.SetTab_Control.SelectedTextColor = System.Drawing.Color.White;
-            this.SetTab_Control.Size = new System.Drawing.Size(1706, 906);
-            this.SetTab_Control.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.SetTab_Control.Speed = 100;
-            this.SetTab_Control.Style = MetroSet_UI.Enums.Style.Light;
-            this.SetTab_Control.StyleManager = this.Stile;
-            this.SetTab_Control.TabIndex = 0;
-            this.SetTab_Control.ThemeAuthor = null;
-            this.SetTab_Control.ThemeName = null;
-            this.SetTab_Control.UnselectedTextColor = System.Drawing.Color.Gray;
-            this.SetTab_Control.UseAnimation = false;
+            this.SetTab_Main.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
+            this.SetTab_Main.AnimateTime = 200;
+            this.SetTab_Main.BackgroundColor = System.Drawing.Color.White;
+            this.SetTab_Main.Controls.Add(this.metroControllo);
+            this.SetTab_Main.Controls.Add(this.Tab_UPS);
+            this.SetTab_Main.Controls.Add(this.metroTetto);
+            this.SetTab_Main.Controls.Add(this.Tab_Parking);
+            this.SetTab_Main.Controls.Add(this.Tab_Motori);
+            this.SetTab_Main.Controls.Add(this.Tab_Server);
+            this.SetTab_Main.Controls.Add(this.Tab_Vertigo);
+            this.SetTab_Main.Controls.Add(this.Tab_Telescopio);
+            this.SetTab_Main.Controls.Add(this.Tab_Mux);
+            this.SetTab_Main.Controls.Add(this.Tab_Telecom);
+            this.SetTab_Main.Controls.Add(this.Tab_Bypass);
+            this.SetTab_Main.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SetTab_Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetTab_Main.IsDerivedStyle = true;
+            this.SetTab_Main.ItemSize = new System.Drawing.Size(100, 38);
+            this.SetTab_Main.Location = new System.Drawing.Point(12, 90);
+            this.SetTab_Main.Name = "SetTab_Main";
+            this.SetTab_Main.SelectedIndex = 7;
+            this.SetTab_Main.SelectedTextColor = System.Drawing.Color.White;
+            this.SetTab_Main.Size = new System.Drawing.Size(1706, 906);
+            this.SetTab_Main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.SetTab_Main.Speed = 100;
+            this.SetTab_Main.Style = MetroSet_UI.Enums.Style.Light;
+            this.SetTab_Main.StyleManager = this.Stile;
+            this.SetTab_Main.TabIndex = 0;
+            this.SetTab_Main.ThemeAuthor = null;
+            this.SetTab_Main.ThemeName = null;
+            this.SetTab_Main.UnselectedTextColor = System.Drawing.Color.Gray;
+            this.SetTab_Main.UseAnimation = false;
             // 
             // metroControllo
             // 
@@ -276,25 +285,25 @@ namespace AnTaREs
             this.Grp_Tetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Grp_Tetto.Location = new System.Drawing.Point(3, 3);
             this.Grp_Tetto.Name = "Grp_Tetto";
-            this.Grp_Tetto.Size = new System.Drawing.Size(1661, 830);
+            this.Grp_Tetto.Size = new System.Drawing.Size(1698, 873);
             this.Grp_Tetto.TabIndex = 2;
             this.Grp_Tetto.TabStop = false;
             this.Grp_Tetto.Text = "Tetto";
             // 
             // Grp_FaldaSX
             // 
-            this.Grp_FaldaSX.Location = new System.Drawing.Point(6, 236);
+            this.Grp_FaldaSX.Location = new System.Drawing.Point(6, 554);
             this.Grp_FaldaSX.Name = "Grp_FaldaSX";
-            this.Grp_FaldaSX.Size = new System.Drawing.Size(550, 300);
+            this.Grp_FaldaSX.Size = new System.Drawing.Size(800, 300);
             this.Grp_FaldaSX.TabIndex = 1;
             this.Grp_FaldaSX.TabStop = false;
             this.Grp_FaldaSX.Text = "falda sinistra";
             // 
             // Grp_faldaDX
             // 
-            this.Grp_faldaDX.Location = new System.Drawing.Point(605, 236);
+            this.Grp_faldaDX.Location = new System.Drawing.Point(892, 554);
             this.Grp_faldaDX.Name = "Grp_faldaDX";
-            this.Grp_faldaDX.Size = new System.Drawing.Size(550, 300);
+            this.Grp_faldaDX.Size = new System.Drawing.Size(800, 300);
             this.Grp_faldaDX.TabIndex = 0;
             this.Grp_faldaDX.TabStop = false;
             this.Grp_faldaDX.Text = "falda destra";
@@ -444,9 +453,9 @@ namespace AnTaREs
             // 
             this.Grp_Telescopio.BackColor = System.Drawing.Color.White;
             this.Grp_Telescopio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grp_Telescopio.Location = new System.Drawing.Point(613, 4);
+            this.Grp_Telescopio.Location = new System.Drawing.Point(895, 4);
             this.Grp_Telescopio.Name = "Grp_Telescopio";
-            this.Grp_Telescopio.Size = new System.Drawing.Size(670, 338);
+            this.Grp_Telescopio.Size = new System.Drawing.Size(800, 400);
             this.Grp_Telescopio.TabIndex = 1;
             this.Grp_Telescopio.TabStop = false;
             this.Grp_Telescopio.Text = "Telescopio";
@@ -457,10 +466,112 @@ namespace AnTaREs
             this.Grp_Autoguida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Grp_Autoguida.Location = new System.Drawing.Point(4, 4);
             this.Grp_Autoguida.Name = "Grp_Autoguida";
-            this.Grp_Autoguida.Size = new System.Drawing.Size(602, 338);
+            this.Grp_Autoguida.Size = new System.Drawing.Size(800, 400);
             this.Grp_Autoguida.TabIndex = 0;
             this.Grp_Autoguida.TabStop = false;
             this.Grp_Autoguida.Text = "Autoguida";
+            // 
+            // Tab_Mux
+            // 
+            this.Tab_Mux.BaseColor = System.Drawing.Color.White;
+            this.Tab_Mux.Controls.Add(this.Grp_Mux);
+            this.Tab_Mux.Font = null;
+            this.Tab_Mux.ImageIndex = 0;
+            this.Tab_Mux.ImageKey = null;
+            this.Tab_Mux.IsDerivedStyle = true;
+            this.Tab_Mux.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Mux.Name = "Tab_Mux";
+            this.Tab_Mux.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Mux.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Mux.StyleManager = null;
+            this.Tab_Mux.TabIndex = 10;
+            this.Tab_Mux.Text = "Multiplexer";
+            this.Tab_Mux.ThemeAuthor = "Narwin";
+            this.Tab_Mux.ThemeName = "MetroLite";
+            this.Tab_Mux.ToolTipText = null;
+            // 
+            // Grp_Mux
+            // 
+            this.Grp_Mux.BackColor = System.Drawing.Color.White;
+            this.Grp_Mux.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Mux.Location = new System.Drawing.Point(4, 4);
+            this.Grp_Mux.Name = "Grp_Mux";
+            this.Grp_Mux.Size = new System.Drawing.Size(995, 352);
+            this.Grp_Mux.TabIndex = 0;
+            this.Grp_Mux.TabStop = false;
+            this.Grp_Mux.Text = "Multiplexer";
+            // 
+            // Tab_Telecom
+            // 
+            this.Tab_Telecom.BaseColor = System.Drawing.Color.White;
+            this.Tab_Telecom.Controls.Add(this.Grp_Telecom);
+            this.Tab_Telecom.Font = null;
+            this.Tab_Telecom.ImageIndex = 0;
+            this.Tab_Telecom.ImageKey = null;
+            this.Tab_Telecom.IsDerivedStyle = true;
+            this.Tab_Telecom.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Telecom.Name = "Tab_Telecom";
+            this.Tab_Telecom.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Telecom.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Telecom.StyleManager = null;
+            this.Tab_Telecom.TabIndex = 11;
+            this.Tab_Telecom.Text = "Comunicazioni";
+            this.Tab_Telecom.ThemeAuthor = "Narwin";
+            this.Tab_Telecom.ThemeName = "MetroLite";
+            this.Tab_Telecom.ToolTipText = null;
+            // 
+            // Grp_Telecom
+            // 
+            this.Grp_Telecom.BackColor = System.Drawing.Color.White;
+            this.Grp_Telecom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Telecom.Location = new System.Drawing.Point(4, 4);
+            this.Grp_Telecom.Name = "Grp_Telecom";
+            this.Grp_Telecom.Size = new System.Drawing.Size(843, 420);
+            this.Grp_Telecom.TabIndex = 0;
+            this.Grp_Telecom.TabStop = false;
+            this.Grp_Telecom.Text = "Comunicazioni";
+            // 
+            // Tab_Bypass
+            // 
+            this.Tab_Bypass.BaseColor = System.Drawing.Color.White;
+            this.Tab_Bypass.Controls.Add(this.Grp_Security);
+            this.Tab_Bypass.Controls.Add(this.Grp_Bypass);
+            this.Tab_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tab_Bypass.ImageIndex = 0;
+            this.Tab_Bypass.ImageKey = null;
+            this.Tab_Bypass.IsDerivedStyle = true;
+            this.Tab_Bypass.Location = new System.Drawing.Point(4, 42);
+            this.Tab_Bypass.Name = "Tab_Bypass";
+            this.Tab_Bypass.Size = new System.Drawing.Size(1698, 860);
+            this.Tab_Bypass.Style = MetroSet_UI.Enums.Style.Light;
+            this.Tab_Bypass.StyleManager = null;
+            this.Tab_Bypass.TabIndex = 9;
+            this.Tab_Bypass.Text = "Bypass";
+            this.Tab_Bypass.ThemeAuthor = "Narwin";
+            this.Tab_Bypass.ThemeName = "MetroLite";
+            this.Tab_Bypass.ToolTipText = null;
+            // 
+            // Grp_Security
+            // 
+            this.Grp_Security.BackColor = System.Drawing.Color.White;
+            this.Grp_Security.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Security.Location = new System.Drawing.Point(895, 3);
+            this.Grp_Security.Name = "Grp_Security";
+            this.Grp_Security.Size = new System.Drawing.Size(800, 400);
+            this.Grp_Security.TabIndex = 4;
+            this.Grp_Security.TabStop = false;
+            this.Grp_Security.Text = "Security";
+            // 
+            // Grp_Bypass
+            // 
+            this.Grp_Bypass.BackColor = System.Drawing.Color.White;
+            this.Grp_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grp_Bypass.Location = new System.Drawing.Point(3, 3);
+            this.Grp_Bypass.Name = "Grp_Bypass";
+            this.Grp_Bypass.Size = new System.Drawing.Size(800, 400);
+            this.Grp_Bypass.TabIndex = 3;
+            this.Grp_Bypass.TabStop = false;
+            this.Grp_Bypass.Text = "Bypass";
             // 
             // _metroSetControlBox1
             // 
@@ -502,36 +613,6 @@ namespace AnTaREs
             this.lblDateTime.ThemeAuthor = null;
             this.lblDateTime.ThemeName = null;
             // 
-            // Tab_Bypass
-            // 
-            this.Tab_Bypass.BaseColor = System.Drawing.Color.White;
-            this.Tab_Bypass.Controls.Add(this.Grp_Bypass);
-            this.Tab_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tab_Bypass.ImageIndex = 0;
-            this.Tab_Bypass.ImageKey = null;
-            this.Tab_Bypass.IsDerivedStyle = true;
-            this.Tab_Bypass.Location = new System.Drawing.Point(4, 42);
-            this.Tab_Bypass.Name = "Tab_Bypass";
-            this.Tab_Bypass.Size = new System.Drawing.Size(1698, 860);
-            this.Tab_Bypass.Style = MetroSet_UI.Enums.Style.Light;
-            this.Tab_Bypass.StyleManager = null;
-            this.Tab_Bypass.TabIndex = 9;
-            this.Tab_Bypass.Text = "Bypass";
-            this.Tab_Bypass.ThemeAuthor = "Narwin";
-            this.Tab_Bypass.ThemeName = "MetroLite";
-            this.Tab_Bypass.ToolTipText = null;
-            // 
-            // Grp_Bypass
-            // 
-            this.Grp_Bypass.BackColor = System.Drawing.Color.White;
-            this.Grp_Bypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grp_Bypass.Location = new System.Drawing.Point(3, 3);
-            this.Grp_Bypass.Name = "Grp_Bypass";
-            this.Grp_Bypass.Size = new System.Drawing.Size(1042, 346);
-            this.Grp_Bypass.TabIndex = 3;
-            this.Grp_Bypass.TabStop = false;
-            this.Grp_Bypass.Text = "Bypass";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -539,14 +620,14 @@ namespace AnTaREs
             this.ClientSize = new System.Drawing.Size(1730, 1008);
             this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this._metroSetControlBox1);
-            this.Controls.Add(this.SetTab_Control);
+            this.Controls.Add(this.SetTab_Main);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(12, 90, 12, 12);
             this.StyleManager = this.Stile;
             this.ThemeAuthor = null;
             this.ThemeName = null;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.SetTab_Control.ResumeLayout(false);
+            this.SetTab_Main.ResumeLayout(false);
             this.metroControllo.ResumeLayout(false);
             this.Tab_UPS.ResumeLayout(false);
             this.metroTetto.ResumeLayout(false);
@@ -557,6 +638,8 @@ namespace AnTaREs
             this.Tab_Server.ResumeLayout(false);
             this.Tab_Vertigo.ResumeLayout(false);
             this.Tab_Telescopio.ResumeLayout(false);
+            this.Tab_Mux.ResumeLayout(false);
+            this.Tab_Telecom.ResumeLayout(false);
             this.Tab_Bypass.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -565,7 +648,7 @@ namespace AnTaREs
         #endregion
 
         private MetroSet_UI.Components.StyleManager Stile;
-        private MetroSet_UI.Controls.MetroSetTabControl SetTab_Control;
+        private MetroSet_UI.Controls.MetroSetTabControl SetTab_Main;
         private MetroSet_UI.Child.MetroSetSetTabPage metroControllo;
         private MetroSet_UI.Controls.MetroSetEllipse btnControlStatus;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Connection;
@@ -598,21 +681,34 @@ namespace AnTaREs
         public static PLC_Label PLC_ChiudiFaldaDX;
         // FINE DA CAMBIARE CON UNO SWITCH
 
+        //TETTO SX
+        private static PLC_Label PLC_FineCorsaAperturaSX;
+        private static PLC_Label PLC_FineCorsaChiusuraSX;
+        private static PLC_Button PLC_Button_Stop_SX;
+        private static PLC_Button PLC_Button_Close_SX;
+        private static PLC_Button PLC_Button_Open_SX;
+        
+
+        //TETTO DX
+        private static PLC_Label PLC_FineCorsaAperturaDX;
+        private static PLC_Label PLC_FineCorsaChiusuraDX;
+        private static PLC_Button PLC_Button_Stop_DX;
+        private static PLC_Button PLC_Button_Close_DX;
+        private static PLC_Button PLC_Button_Open_DX;
+
         //TETTO
-        public static PLC_Label PLC_FineCorsaAperturaSX;
-        public static PLC_Label PLC_FineCorsaChiusuraSX;
-        public static PLC_Label PLC_FineCorsaAperturaDX;
-        public static PLC_Label PLC_FineCorsaChiusuraDX;
-        public static PLC_Label PLC_ChiudiTetto;
-        public static PLC_Label PLC_ApriTetto;
+        private static PLC_Label PLC_ChiudiTetto;
+        private static PLC_Label PLC_ApriTetto;
         private static PLC_Label PLC_Cicalini;
-        public static PLC_Label PLC_NoResetTermici;
+        private static PLC_Label PLC_NoResetTermici;
         private static PLC_Toggle PLC_Reset_Termici;
         private static PLC_Toggle PLC_CicaliniMute;
         private static PLC_Toggle PLC_Reset_Counter_Termici;
         private static PLC_Alarm PLC_Tetto_Chiusura_Timeout;
         private static PLC_Alarm PLC_Tetto_Apertura_Timeout;
         private static PLC_Alarm PLC_Tetto_Termico;
+        private static PLC_Button PLC_Button_Ascom_Abort;
+        private static PLC_Button PLC_Button_Reset_Termici;
 
         //VERTIGO
         private static PLC_Label PLC_VertigoTettoChiuso;
@@ -627,6 +723,7 @@ namespace AnTaREs
         //PARKING
         private static PLC_Label PLC_FineCorsa_AR_Parking;
         private static PLC_Label PLC_FineCorsa_DEC_Parking;
+        private static PLC_Button PLC_Button_Park_Scope;
 
         //MOTORI
         private static PLC_Label PLC_DEC_Direction;
@@ -640,24 +737,39 @@ namespace AnTaREs
         private static PLC_Toggle PLC_Immediate_DEC_Stop;
         private static PLC_Toggle PLC_Immediate_AR_Stop;
         private static PLC_Toggle PLC_Emergency_Stop;
+        private static PLC_FastButton PLC_FastButton_DEC_Down;
 
         //AUTOGUIDA
         private static PLC_Label PLC_Autoguide_Closed;
         private static PLC_Label PLC_Autoguide_Opened;
         private static PLC_Toggle PLC_Autoguide_Control;
+        private static PLC_Button PLC_Button_Close_Autoguide;
+        private static PLC_Button PLC_Button_Open_Autoguide;
 
         //TELESCOPIO
         private static PLC_Label PLC_Telescope_Closed;
         private static PLC_Label PLC_Telescope_Opened;
         private static PLC_Toggle PLC_Telescope_Cap_Bypass;
         private static PLC_Toggle PLC_Telescope_FC_Bypass;
-        private static PLC_Toggle PLC_Telescope_Emergency_mode;
         private static PLC_Toggle PLC_Telescope_Hook;
         private static PLC_Toggle PLC_Telescope_Control;
         private static PLC_Toggle PLC_Telescope_Power;
+        private static PLC_Button PLC_Button_Close_Telescope;
+        private static PLC_Button PLC_Button_Open_Telescope;
 
         //METEO
         private static PLC_Toggle PLC_Meteo_Bypass;
+
+        //MUX
+        private static PLC_Button PLC_Button_MUX_PLC;
+        private static PLC_Button PLC_Button_MUX_Vertigo;
+
+        //TELECOM
+        private static PLC_Button PLC_Button_Telecom_ON;
+
+        //SECURITY
+        private static PLC_Toggle PLC_Telescope_Emergency_mode;
+        private static PLC_Button PLC_Button_Security_Reset;
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;
@@ -677,6 +789,11 @@ namespace AnTaREs
         private System.Windows.Forms.GroupBox Grp_Autoguida;
         private MetroSet_UI.Child.MetroSetSetTabPage Tab_Bypass;
         private System.Windows.Forms.GroupBox Grp_Bypass;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Mux;
+        private System.Windows.Forms.GroupBox Grp_Mux;
+        private MetroSet_UI.Child.MetroSetSetTabPage Tab_Telecom;
+        private System.Windows.Forms.GroupBox Grp_Telecom;
+        private System.Windows.Forms.GroupBox Grp_Security;
     }
 }
 
