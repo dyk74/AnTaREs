@@ -29,6 +29,7 @@ namespace AnTaREs
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Stile = new MetroSet_UI.Components.StyleManager();
             this.SetTab_Main = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
@@ -621,6 +622,7 @@ namespace AnTaREs
             this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this._metroSetControlBox1);
             this.Controls.Add(this.SetTab_Main);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(12, 90, 12, 12);
             this.StyleManager = this.Stile;
@@ -738,6 +740,9 @@ namespace AnTaREs
         private static PLC_Toggle PLC_Immediate_AR_Stop;
         private static PLC_Toggle PLC_Emergency_Stop;
         private static PLC_FastButton PLC_FastButton_DEC_Down;
+        private static PLC_FastButton PLC_FastButton_DEC_UP;
+        private static PLC_FastButton PLC_FastButton_AR_DX;
+        private static PLC_FastButton PLC_FastButton_AR_SX;
 
         //AUTOGUIDA
         private static PLC_Label PLC_Autoguide_Closed;
@@ -770,6 +775,19 @@ namespace AnTaREs
         //SECURITY
         private static PLC_Toggle PLC_Telescope_Emergency_mode;
         private static PLC_Button PLC_Button_Security_Reset;
+        private static PLC_SecurityChain PLC_SecurityChain_Quadro;
+        private static PLC_SecurityChain PLC_SecurityChain_Enabled;
+        private static PLC_SecurityChain PLC_SecurityChain_Timeout_Closing;
+        private static PLC_SecurityChain PLC_SecurityChain_Timeout_Opening;
+        private static PLC_SecurityChain PLC_SecurityChain_Allarme_Termici;
+        private static PLC_SecurityChain PLC_SecurityChain_Allarme_Fusibili;
+        private static PLC_SecurityChain PLC_SecurityChain_Allarme_Fusibili_PLC;
+        private static PLC_SecurityChain PLC_SecurityChain_Allarme_Meteo;
+        private static PLC_SecurityChain PLC_SecurityChain_Vertigo;
+        private static PLC_SecurityChain PLC_SecurityChain_Primary_Power;
+        private static PLC_SecurityChain PLC_SecurityChain_Secondary_Power;
+        private static PLC_SecurityChain PLC_SecurityChain_Reinsert;
+        private static PLC_SecurityChain PLC_SecurityChain_UPS_Failure;
 
         private MetroSet_UI.Controls.MetroSetLabel lblDateTime;
         private MetroSet_UI.Controls.MetroSetLabel lbl_Osservatorio;

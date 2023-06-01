@@ -76,22 +76,87 @@ namespace AnTaREs
             Main.PLC_Telescope_Emergency_mode = new PLC_Toggle();
             Main.PLC_Button_Security_Reset = new PLC_Button();
             Main.PLC_Emergency_Stop = new PLC_Toggle();
+            Main.PLC_SecurityChain_Quadro = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Enabled = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Timeout_Closing = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Timeout_Opening = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Allarme_Termici = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Allarme_Fusibili = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Allarme_Fusibili_PLC = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Allarme_Meteo = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Vertigo = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Primary_Power = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Secondary_Power = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_Reinsert = new PLC_SecurityChain();
+            Main.PLC_SecurityChain_UPS_Failure = new PLC_SecurityChain();
 
             PLC_Telescope_Emergency_mode.TopLevel = false;
             PLC_Button_Security_Reset.TopLevel = false;
             PLC_Emergency_Stop.TopLevel = false;
+            PLC_SecurityChain_Quadro.TopLevel = false;
+            PLC_SecurityChain_Enabled.TopLevel = false;
+            PLC_SecurityChain_Timeout_Closing.TopLevel = false;
+            PLC_SecurityChain_Timeout_Opening.TopLevel = false;
+            PLC_SecurityChain_Allarme_Termici.TopLevel = false;
+            PLC_SecurityChain_Allarme_Fusibili.TopLevel = false;
+            PLC_SecurityChain_Allarme_Fusibili_PLC.TopLevel = false;
+            PLC_SecurityChain_Allarme_Meteo.TopLevel = false;
+            PLC_SecurityChain_Vertigo.TopLevel = false;
+            PLC_SecurityChain_Primary_Power.TopLevel = false;
+            PLC_SecurityChain_Secondary_Power.TopLevel = false;
+            PLC_SecurityChain_Reinsert.TopLevel = false;
+            PLC_SecurityChain_UPS_Failure.TopLevel = false;
 
             this.Grp_Security.Controls.Add(PLC_Telescope_Emergency_mode);
             this.Grp_Security.Controls.Add(PLC_Button_Security_Reset);
             this.Grp_Security.Controls.Add(PLC_Emergency_Stop);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Quadro);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Enabled);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Timeout_Closing);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Timeout_Opening);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Allarme_Termici);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Allarme_Fusibili);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Allarme_Fusibili_PLC);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Allarme_Meteo);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Vertigo);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Primary_Power);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Secondary_Power);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_Reinsert);
+            this.Grp_Security.Controls.Add(PLC_SecurityChain_UPS_Failure);
 
             PLC_Telescope_Emergency_mode.Show();
             PLC_Button_Security_Reset.Show();
             PLC_Emergency_Stop.Show();
+            PLC_SecurityChain_Quadro.Show();
+            PLC_SecurityChain_Enabled.Show();
+            PLC_SecurityChain_Timeout_Closing.Show();
+            PLC_SecurityChain_Timeout_Opening.Show();
+            PLC_SecurityChain_Allarme_Termici.Show();
+            PLC_SecurityChain_Allarme_Fusibili.Show();
+            PLC_SecurityChain_Allarme_Fusibili_PLC.Show();
+            PLC_SecurityChain_Allarme_Meteo.Show();
+            PLC_SecurityChain_Vertigo.Show();
+            PLC_SecurityChain_Primary_Power.Show();
+            PLC_SecurityChain_Secondary_Power.Show();
+            PLC_SecurityChain_Reinsert.Show();
+            PLC_SecurityChain_UPS_Failure.Show();
 
             PLC_Telescope_Emergency_mode.Location = new System.Drawing.Point(50, 50);
             PLC_Button_Security_Reset.Location = new System.Drawing.Point(300, 50);
             PLC_Emergency_Stop.Location = new System.Drawing.Point(50, 100);
+            PLC_SecurityChain_Quadro.Location = new System.Drawing.Point(300, 100);
+            PLC_SecurityChain_Enabled.Location = new System.Drawing.Point(550, 50);
+            PLC_SecurityChain_Timeout_Closing.Location = new System.Drawing.Point(550, 100);
+            PLC_SecurityChain_Timeout_Opening.Location = new System.Drawing.Point(50, 150);
+            PLC_SecurityChain_Allarme_Termici.Location = new System.Drawing.Point(300, 150);
+            PLC_SecurityChain_Allarme_Fusibili.Location = new System.Drawing.Point(550, 150);
+            PLC_SecurityChain_Allarme_Fusibili_PLC.Location = new System.Drawing.Point(50, 200);
+            PLC_SecurityChain_Allarme_Meteo.Location = new System.Drawing.Point(300, 200);
+            PLC_SecurityChain_Vertigo.Location = new System.Drawing.Point(550, 200);
+            PLC_SecurityChain_Primary_Power.Location = new System.Drawing.Point(50, 250);
+            PLC_SecurityChain_Secondary_Power.Location = new System.Drawing.Point(300, 250);
+            PLC_SecurityChain_Reinsert.Location = new System.Drawing.Point(550, 250);
+            PLC_SecurityChain_UPS_Failure.Location = new System.Drawing.Point(50, 300);
 
             PLC_Emergency_Stop.ForeColor = Color.Red;
             PLC_Emergency_Stop.BackColor = Color.Red;
@@ -101,20 +166,101 @@ namespace AnTaREs
             PLC_Telescope_Emergency_mode.Name = "PLC_Telescope_Emercency_mode";
             PLC_Button_Security_Reset.Name = "PLC_Button_Security_Reset";
             PLC_Emergency_Stop.Name = "PLC_Emercency_Stop";
+            PLC_SecurityChain_Quadro.Name = "PLC_SecurityChain_Quadro";
+            PLC_SecurityChain_Enabled.Name = "PLC_SecurityChain_Enabled";
+            PLC_SecurityChain_Timeout_Closing.Name = "PLC_SecurityChain_Timeout_Closing";
+            PLC_SecurityChain_Timeout_Opening.Name = "PLC_SecurityChain_Timeout_Opening";
+            PLC_SecurityChain_Allarme_Termici.Name = "PLC_SecurityChain_Allarme_Termici";
+            PLC_SecurityChain_Allarme_Fusibili.Name = "PLC_SecurityChain_Allarme_Fusibili";
+            PLC_SecurityChain_Allarme_Fusibili_PLC.Name = "PLC_SecurityChain_Allarme_Fusibili_PLC";
+            PLC_SecurityChain_Allarme_Meteo.Name = "PLC_SecurityChain_Allarme_Meteo";
+            PLC_SecurityChain_Vertigo.Name = "PLC_SecurityChain_Vertigo";
+            PLC_SecurityChain_Primary_Power.Name = "PLC_SecurityChain_Primary_Power";
+            PLC_SecurityChain_Secondary_Power.Name = "PLC_SecurityChain_Secondary_Power";
+            PLC_SecurityChain_Reinsert.Name = "PLC_SecurityChain_Reinsert";
+            PLC_SecurityChain_UPS_Failure.Name = "PLC_SecurityChain_UPS_Failure";
 
             PLC_Telescope_Emergency_mode.PLCVariableName = "Telescope Emergency Mode";
             PLC_Button_Security_Reset.PLCVariableName = "Reset";
             PLC_Emergency_Stop.PLCVariableName = "PLC EMERCENCY STOP";
 
+            PLC_SecurityChain_Quadro.PLCAlarmName = "Quadro";
+            PLC_SecurityChain_Enabled.PLCAlarmName = "Enabled";
+            PLC_SecurityChain_Timeout_Closing.PLCAlarmName = "Closing Timeout";
+            PLC_SecurityChain_Timeout_Opening.PLCAlarmName = "Opening Timeout";
+            PLC_SecurityChain_Allarme_Termici.PLCAlarmName = "Allarme Termici";
+            PLC_SecurityChain_Allarme_Fusibili.PLCAlarmName = "Allarme Fusibili";
+            PLC_SecurityChain_Allarme_Fusibili_PLC.PLCAlarmName = "Allarme Fusibili PLC";
+            PLC_SecurityChain_Allarme_Meteo.PLCAlarmName = "Allarme Meteo";
+            PLC_SecurityChain_Vertigo.PLCAlarmName = "Vertigo not alive";
+            PLC_SecurityChain_Primary_Power.PLCAlarmName = "Alimentazione Primaria";
+            PLC_SecurityChain_Secondary_Power.PLCAlarmName = "Alimentazione Secondaria";
+            PLC_SecurityChain_Reinsert.PLCAlarmName = "Reinsert Alarm";
+            PLC_SecurityChain_UPS_Failure.PLCAlarmName = "UPS Main Failure";
+
             PLC_Telescope_Emergency_mode.PLCVariablePath = "TCPIP.S7-200.SecurityChain.EmergencyMode";
             PLC_Button_Security_Reset.PLCVariablePath = "TCPIP.S7-200.SecurityChain.ReinserimentoCtrl";
             PLC_Emergency_Stop.PLCVariablePath = "TCPIP.S7-200.SecurityChain.InhibitPLC";
+            PLC_SecurityChain_Quadro.PLCVariablePath = "TCPIP.S7-200.QuadroTele.AlimentazioneQuadroTelescopio";
+            PLC_SecurityChain_Enabled.PLCVariablePath = "TCPIP.S7-200.SecurityChain.ObservatoryEnabled";
+            PLC_SecurityChain_Timeout_Closing.PLCVariablePath = "TCPIP.S7-200.SecurityChain.AlmTimeoutFaldaChiusura";
+            PLC_SecurityChain_Timeout_Opening.PLCVariablePath = "TCPIP.S7-200.SecurityChain.AlmTimeoutFaldaApertura";
+            PLC_SecurityChain_Allarme_Termici.PLCVariablePath = "TCPIP.S7-200.SecurityChain.AlmTermico";
+            PLC_SecurityChain_Allarme_Fusibili.PLCVariablePath = "TCPIP.S7-200.SecurityChain.MFusibiliGenerali";
+            PLC_SecurityChain_Allarme_Fusibili_PLC.PLCVariablePath = "TCPIP.S7-200.SecurityChain.MFusibiliEntratePLC";
+            PLC_SecurityChain_Allarme_Meteo.PLCVariablePath = "TCPIP.S7-200.SecurityChain.MalmMeteo";
+            PLC_SecurityChain_Vertigo.PLCVariablePath = "TCPIP.S7-200.SecurityChain.AlmVertigoNotAlive";
+            PLC_SecurityChain_Primary_Power.PLCVariablePath = "TCPIP.S7-200.SecurityChain.MAlimentazione24V_1";
+            PLC_SecurityChain_Secondary_Power.PLCVariablePath = "TCPIP.S7-200.SecurityChain.MAlimentazione24V_2";
+            PLC_SecurityChain_Reinsert.PLCVariablePath = "TCPIP.S7-200.SecurityChain.ReinserimentoCtrl";
+            PLC_SecurityChain_UPS_Failure.PLCVariablePath = "TCPIP.S7-200.SecurityChain.AlmUPSMainsFailure";
 
             PLC_Button_Security_Reset.ResetState = false;
+
+            PLC_SecurityChain_Quadro.PLCAlarmOnValue = false;
+            PLC_SecurityChain_Enabled.PLCAlarmOnValue = false;
+            PLC_SecurityChain_Timeout_Closing.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Timeout_Opening.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Allarme_Termici.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Allarme_Fusibili.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Allarme_Fusibili_PLC.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Allarme_Meteo.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Vertigo.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Primary_Power.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Secondary_Power.PLCAlarmOnValue = true;
+            PLC_SecurityChain_Reinsert.PLCAlarmOnValue = false;
+            PLC_SecurityChain_UPS_Failure.PLCAlarmOnValue = true;
+
+            PLC_SecurityChain_Quadro.PLCToolTipTextValue = "Alimentazione Quadro Telescopio";
+            PLC_SecurityChain_Enabled.PLCToolTipTextValue = "Observatory Enable flag";
+            PLC_SecurityChain_Timeout_Closing.PLCToolTipTextValue = "Timeout Chiusura falda";
+            PLC_SecurityChain_Timeout_Opening.PLCToolTipTextValue = "Timeout Apertura falda";
+            PLC_SecurityChain_Allarme_Termici.PLCToolTipTextValue = "Allarme Termici Motore";
+            PLC_SecurityChain_Allarme_Fusibili.PLCToolTipTextValue = "Allarme Fusibili";
+            PLC_SecurityChain_Allarme_Fusibili_PLC.PLCToolTipTextValue = "Allarme Fusibili PLC";
+            PLC_SecurityChain_Allarme_Meteo.PLCToolTipTextValue = "Allarme Meteo";
+            PLC_SecurityChain_Vertigo.PLCToolTipTextValue = "Vertigo Alarm";
+            PLC_SecurityChain_Primary_Power.PLCToolTipTextValue = "Alimentazione Primaria";
+            PLC_SecurityChain_Secondary_Power.PLCToolTipTextValue = "Alimentazione Secondaria";
+            PLC_SecurityChain_Reinsert.PLCToolTipTextValue = "Reinsert";
+            PLC_SecurityChain_UPS_Failure.PLCToolTipTextValue = "UPS Main Failure";
 
             PLC_Telescope_Emergency_mode.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Button_Security_Reset.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Emergency_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Quadro.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Enabled.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Timeout_Closing.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Timeout_Opening.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Allarme_Termici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Allarme_Fusibili.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Allarme_Fusibili_PLC.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Allarme_Meteo.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Vertigo.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Primary_Power.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Secondary_Power.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_Reinsert.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_SecurityChain_UPS_Failure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         private void InitializeTelecomStatus()
         {
@@ -395,8 +541,10 @@ namespace AnTaREs
             Main.PLC_Decelerated_AR_Stop = new PLC_Toggle();
             Main.PLC_Immediate_DEC_Stop = new PLC_Toggle();
             Main.PLC_Immediate_AR_Stop = new PLC_Toggle();
-
             Main.PLC_FastButton_DEC_Down = new PLC_FastButton();
+            Main.PLC_FastButton_DEC_UP = new PLC_FastButton();
+            Main.PLC_FastButton_AR_DX = new PLC_FastButton();
+            Main.PLC_FastButton_AR_SX = new PLC_FastButton();
 
             PLC_DEC_Direction.TopLevel = false;
             PLC_AR_Direction.TopLevel = false;
@@ -408,8 +556,10 @@ namespace AnTaREs
             PLC_Decelerated_AR_Stop.TopLevel = false;
             PLC_Immediate_DEC_Stop.TopLevel = false;
             PLC_Immediate_AR_Stop.TopLevel = false;
-
             PLC_FastButton_DEC_Down.TopLevel = false;
+            PLC_FastButton_DEC_UP.TopLevel = false;
+            PLC_FastButton_AR_DX.TopLevel = false;
+            PLC_FastButton_AR_SX.TopLevel = false;
 
             this.Grp_Motori.Controls.Add(PLC_DEC_Direction);
             this.Grp_Motori.Controls.Add(PLC_AR_Direction);
@@ -421,8 +571,10 @@ namespace AnTaREs
             this.Grp_Motori.Controls.Add(PLC_Decelerated_AR_Stop);
             this.Grp_Motori.Controls.Add(PLC_Immediate_DEC_Stop);
             this.Grp_Motori.Controls.Add(PLC_Immediate_AR_Stop);
-
             this.Grp_Motori.Controls.Add(PLC_FastButton_DEC_Down);
+            this.Grp_Motori.Controls.Add(PLC_FastButton_DEC_UP);
+            this.Grp_Motori.Controls.Add(PLC_FastButton_AR_DX);
+            this.Grp_Motori.Controls.Add(PLC_FastButton_AR_SX);
 
             PLC_DEC_Direction.Show();
             PLC_AR_Direction.Show();
@@ -434,24 +586,25 @@ namespace AnTaREs
             PLC_Decelerated_AR_Stop.Show();
             PLC_Immediate_DEC_Stop.Show();
             PLC_Immediate_AR_Stop.Show();
-
             PLC_FastButton_DEC_Down.Show();
-
-
-
+            PLC_FastButton_DEC_UP.Show();
+            PLC_FastButton_AR_DX.Show();
+            PLC_FastButton_AR_SX.Show();
 
             PLC_DEC_Direction.Location = new System.Drawing.Point(50, 50);
             PLC_DEC_Error.Location = new System.Drawing.Point(50, 100);
             PLC_FastButton_DEC_Down.Location = new System.Drawing.Point(50, 150);
             PLC_AR_Direction.Location = new System.Drawing.Point(300, 50);
             PLC_AR_Error.Location = new System.Drawing.Point(300, 100);
+            PLC_FastButton_DEC_UP.Location = new System.Drawing.Point(300, 150);
             PLC_DEC_Run.Location = new System.Drawing.Point(550, 50);
             PLC_AR_Run.Location = new System.Drawing.Point(550, 100);
+            PLC_FastButton_AR_DX.Location = new System.Drawing.Point(550, 150);
             PLC_Decelerated_DEC_Stop.Location = new System.Drawing.Point(800, 50);
             PLC_Immediate_DEC_Stop.Location = new System.Drawing.Point(800, 100);
+            PLC_FastButton_AR_SX.Location = new System.Drawing.Point(800, 150);
             PLC_Decelerated_AR_Stop.Location = new System.Drawing.Point(1050, 50);
             PLC_Immediate_AR_Stop.Location = new System.Drawing.Point(1050,100);
-
 
             PLC_DEC_Direction.Modifiable = true;
             PLC_AR_Direction.Modifiable = true;
@@ -459,6 +612,9 @@ namespace AnTaREs
             PLC_AR_Error.Modifiable = false;
 
             PLC_FastButton_DEC_Down.PLCDirectionValue = true;
+            PLC_FastButton_DEC_UP.PLCDirectionValue = false;
+            PLC_FastButton_AR_DX.PLCDirectionValue = true;
+            PLC_FastButton_AR_SX.PLCDirectionValue = false;
 
             PLC_DEC_Direction.Name = "PLC_DEC_Direction";
             PLC_AR_Direction.Name = "PLC_AR_Direction";
@@ -469,8 +625,10 @@ namespace AnTaREs
             PLC_Immediate_AR_Stop.Name = "PLC_Immediate_AR_Stop";
             PLC_Decelerated_AR_Stop.Name = "PLC_Decelerated_AR_Stop";
             PLC_Decelerated_DEC_Stop.Name = "PLC_Decelerated_DEC_Stop";
-
             PLC_FastButton_DEC_Down.Name = "PLC_FastButton_DEC_Down";
+            PLC_FastButton_DEC_UP.Name = "PLC_FastButton_DEC_UP";
+            PLC_FastButton_AR_DX.Name = "PLC_FastButton_AR_DX";
+            PLC_FastButton_AR_SX.Name = "PLC_FastButton_AR_SX";
 
             PLC_DEC_Direction.PLCVariableName = "DEC Direction";
             PLC_AR_Direction.PLCVariableName = "AR Direction";
@@ -482,8 +640,10 @@ namespace AnTaREs
             PLC_Immediate_DEC_Stop.PLCVariableName = "DEC Immediate Stop";
             PLC_Immediate_AR_Stop.PLCVariableName = "AR Immediate Stop";
             PLC_Decelerated_AR_Stop.PLCVariableName = "AR Decelerated Stop";
-
             PLC_FastButton_DEC_Down.PLCVariableName = "DEC Down";
+            PLC_FastButton_DEC_UP.PLCVariableName = "DEC Up";
+            PLC_FastButton_AR_DX.PLCVariableName = "AR Right";
+            PLC_FastButton_AR_SX.PLCVariableName = "AR Left";
 
             PLC_DEC_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDecParkDirection";
             PLC_AR_Direction.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRAParkDirection";
@@ -495,9 +655,14 @@ namespace AnTaREs
             PLC_Immediate_DEC_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.MotorDECIStop";
             PLC_Decelerated_AR_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.MotorRADDStop";
             PLC_Immediate_AR_Stop.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.Motor.RAIStop";
-
-            PLC_FastButton_DEC_Down.PLCVariablePathDirection = "TCPIP.S7-200.TMotors.DecMotorDECManualDirection";
+            PLC_FastButton_DEC_Down.PLCVariablePathDirection = "TCPIP.S7-200.TMotors.Dec.MotorDECManualDirection";
             PLC_FastButton_DEC_Down.PLCVariablePathRun = "TCPIP.S7-200.TMotors.Dec.MotorDECManualRun";
+            PLC_FastButton_DEC_UP.PLCVariablePathDirection = "TCPIP.S7-200.TMotors.Dec.MotorDecManualDirection";
+            PLC_FastButton_DEC_UP.PLCVariablePathRun = "TCPIP.S7-200.TMotors.Dec.MotorDECManualRun";
+            PLC_FastButton_AR_DX.PLCVariablePathDirection = "TCPIP.S7-200.TMotors.AR.MotorRAManualDirection";
+            PLC_FastButton_AR_DX.PLCVariablePathRun = "TCPIP.S7-200.TMotors.AR.MotorRAManualRun";
+            PLC_FastButton_AR_SX.PLCVariablePathDirection = "TCPIP.S7-200.TMotors.AR.MotorRAManualDirection";
+            PLC_FastButton_AR_SX.PLCVariablePathRun = "TCPIP.S7-200.TMotors.AR.MotorRAManualRun";
 
             PLC_DEC_Direction.RedOnValue = true;
             PLC_DEC_Error.RedOnValue = true;
@@ -514,9 +679,14 @@ namespace AnTaREs
             PLC_AR_Run.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Decelerated_AR_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Immediate_AR_Stop.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-
             PLC_FastButton_DEC_Down.PLCVariableTypeRun = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FastButton_DEC_Down.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_DEC_UP.PLCVariableTypeRun = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_DEC_UP.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_AR_DX.PLCVariableTypeRun = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_AR_DX.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_AR_SX.PLCVariableTypeRun = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_FastButton_AR_SX.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         private void InitializeParkingStatus()
         {
