@@ -711,6 +711,7 @@ namespace AnTaREs
         private static PLC_Alarm PLC_Tetto_Termico;
         private static PLC_Button PLC_Button_Ascom_Abort;
         private static PLC_Button PLC_Button_Reset_Termici;
+        private static PLC_Roof PLC_Roof_Tetto;
 
         //VERTIGO
         private static PLC_Label PLC_VertigoTettoChiuso;
@@ -726,6 +727,7 @@ namespace AnTaREs
         private static PLC_Label PLC_FineCorsa_AR_Parking;
         private static PLC_Label PLC_FineCorsa_DEC_Parking;
         private static PLC_Button PLC_Button_Park_Scope;
+        private static PLC_Label PLC_Label_Optical_Sensor;
 
         //MOTORI
         private static PLC_Label PLC_DEC_Direction;

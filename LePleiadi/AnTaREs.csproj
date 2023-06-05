@@ -121,9 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comunicazione.cs" />
-    <Compile Include="Gauge.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +146,12 @@
     <Compile Include="PLC_FastButton.Designer.cs">
       <DependentUpon>PLC_FastButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="PLC_Gauge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC_Gauge.Designer.cs">
+      <DependentUpon>PLC_Gauge.cs</DependentUpon>
+    </Compile>
     <Compile Include="PLC_KeepAlive.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +169,12 @@
     </Compile>
     <Compile Include="PLC_ProgressBar.Designer.cs">
       <DependentUpon>PLC_ProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PLC_Roof.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC_Roof.Designer.cs">
+      <DependentUpon>PLC_Roof.cs</DependentUpon>
     </Compile>
     <Compile Include="PLC_SecurityChain.cs">
       <SubType>Form</SubType>
@@ -200,6 +209,9 @@
     <EmbeddedResource Include="PLC_FastButton.resx">
       <DependentUpon>PLC_FastButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PLC_Gauge.resx">
+      <DependentUpon>PLC_Gauge.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PLC_KeepAlive.resx">
       <DependentUpon>PLC_KeepAlive.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PLC_ProgressBar.resx">
       <DependentUpon>PLC_ProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PLC_Roof.resx">
+      <DependentUpon>PLC_Roof.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PLC_SecurityChain.resx">
       <DependentUpon>PLC_SecurityChain.cs</DependentUpon>

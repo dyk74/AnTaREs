@@ -20,9 +20,7 @@ namespace AnTaREs
     {
         private System.Timers.Timer UpdateTimer;
         private DateTime DateTime;
-
         public static bool Connected1 { get; set; }
-
         public Main()
         {
             // DA METTERE IN CONFIG FILE
@@ -693,46 +691,57 @@ namespace AnTaREs
             Main.PLC_FineCorsa_AR_Parking = new PLC_Label();
             Main.PLC_FineCorsa_DEC_Parking = new PLC_Label();
             Main.PLC_Button_Park_Scope = new PLC_Button();
+            Main.PLC_Label_Optical_Sensor = new PLC_Label();
 
             PLC_FineCorsa_AR_Parking.TopLevel = false;
             PLC_FineCorsa_DEC_Parking.TopLevel = false;
             PLC_Button_Park_Scope.TopLevel = false;
+            PLC_Label_Optical_Sensor.TopLevel = false;
 
             this.Grp_Parking.Controls.Add(PLC_FineCorsa_AR_Parking);
             this.Grp_Parking.Controls.Add(PLC_FineCorsa_DEC_Parking);
             this.Grp_Parking.Controls.Add(PLC_Button_Park_Scope);
+            this.Grp_Parking.Controls.Add(PLC_Label_Optical_Sensor);
 
             PLC_FineCorsa_AR_Parking.Show();
             PLC_FineCorsa_DEC_Parking.Show();
             PLC_Button_Park_Scope.Show();
+            PLC_Label_Optical_Sensor.Show();
 
             PLC_FineCorsa_AR_Parking.Location = new System.Drawing.Point(50, 50);
             PLC_FineCorsa_DEC_Parking.Location = new System.Drawing.Point(50, 100);
             PLC_Button_Park_Scope.Location = new System.Drawing.Point(300, 50);
+            PLC_Label_Optical_Sensor.Location = new System.Drawing.Point(300, 100);
 
             PLC_FineCorsa_AR_Parking.Modifiable = false;
             PLC_FineCorsa_DEC_Parking.Modifiable = false;
+            PLC_Label_Optical_Sensor.Modifiable = false;
 
             PLC_Button_Park_Scope.ResetState = false;
 
             PLC_FineCorsa_AR_Parking.Name = "PLC_FineCorsa_AR_Parking";
             PLC_FineCorsa_DEC_Parking.Name = "PLC_FineCorsa_DEC_Parking";
             PLC_Button_Park_Scope.Name = "PLC_Button_Park_Scope";
+            PLC_Label_Optical_Sensor.Name = "PLC_Label_Optical_Sensor";
 
             PLC_FineCorsa_AR_Parking.RedOnValue = false;
             PLC_FineCorsa_DEC_Parking.RedOnValue = false;
+            PLC_Label_Optical_Sensor.RedOnValue = false;
 
             PLC_FineCorsa_AR_Parking.PLCVariablePath = "TCPIP.S7-200.Parking.ISondaRAPark";
             PLC_FineCorsa_DEC_Parking.PLCVariablePath = "TCPIP.S7-200.Parking.ISondaDECPark";
             PLC_Button_Park_Scope.PLCVariablePath = "TCPIP.S7-200.Parking.MParkScope";
+            PLC_Label_Optical_Sensor.PLCVariablePath = "TCPIP.S7-200.Parking.ISondaRA";
 
             PLC_FineCorsa_AR_Parking.PLCVariableName = "Fine Corsa AR Parking";
             PLC_FineCorsa_DEC_Parking.PLCVariableName = "Fine Corsa DEC Parking";
             PLC_Button_Park_Scope.PLCVariableName = "Park Scope";
+            PLC_Label_Optical_Sensor.PLCVariableName = "Sonda Ottica";
 
             PLC_FineCorsa_AR_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FineCorsa_DEC_Parking.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Button_Park_Scope.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Label_Optical_Sensor.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         private void InitializeVertigoStatus()
         {
@@ -981,6 +990,7 @@ namespace AnTaREs
             Main.PLC_Tetto_Termico = new PLC_Alarm();
             Main.PLC_Button_Ascom_Abort = new PLC_Button();
             Main.PLC_Button_Reset_Termici = new PLC_Button();
+            Main.PLC_Roof_Tetto = new PLC_Roof();
 
             PLC_NoResetTermici.TopLevel = false;
             PLC_Cicalini.TopLevel = false;
@@ -994,6 +1004,7 @@ namespace AnTaREs
             PLC_Tetto_Termico.TopLevel = false;
             PLC_Button_Ascom_Abort.TopLevel = false;
             PLC_Button_Reset_Termici.TopLevel = false;
+            PLC_Roof_Tetto.TopLevel = false;
 
             this.Grp_Tetto.Controls.Add(PLC_NoResetTermici);
             this.Grp_Tetto.Controls.Add(PLC_Reset_Termici);
@@ -1007,6 +1018,7 @@ namespace AnTaREs
             this.Grp_Tetto.Controls.Add(PLC_Tetto_Termico);
             this.Grp_Tetto.Controls.Add(PLC_Button_Ascom_Abort);
             this.Grp_Tetto.Controls.Add(PLC_Button_Reset_Termici);
+            this.Grp_Tetto.Controls.Add(PLC_Roof_Tetto);
 
             PLC_NoResetTermici.Show();
             PLC_Cicalini.Show();
@@ -1020,6 +1032,7 @@ namespace AnTaREs
             PLC_Tetto_Termico.Show();
             PLC_Button_Ascom_Abort.Show();
             PLC_Button_Reset_Termici.Show();
+            PLC_Roof_Tetto.Show();
 
             PLC_NoResetTermici.PLCVariableName = "Numero Reset Termici";
             PLC_ChiudiTetto.PLCVariableName = "Chiudi Tetto";
@@ -1047,6 +1060,7 @@ namespace AnTaREs
             PLC_Tetto_Termico.Location = new System.Drawing.Point(800, 150);
             PLC_Button_Ascom_Abort.Location = new System.Drawing.Point(1150, 50);
             PLC_Button_Reset_Termici.Location = new System.Drawing.Point(1150, 100);
+            PLC_Roof_Tetto.Location = new System.Drawing.Point(1150, 150);
 
             PLC_NoResetTermici.Name = "PLC_NoResetTermici";
             PLC_Cicalini.Name = "PLC_Cicalini";
@@ -1060,6 +1074,7 @@ namespace AnTaREs
             PLC_Tetto_Termico.Name = "PLC_Tetto_Termico";
             PLC_Button_Ascom_Abort.Name = "PLC_Button_Ascom_Abort";
             PLC_Button_Reset_Termici.Name = "PLC_Button_Reset_Termici";
+            PLC_Roof_Tetto.Name = "PLC_Roof_Tetto";
 
             PLC_NoResetTermici.PLCVariablePath = "TCPIP.S7-200.Roof.ContantoreAlmTermici";
             PLC_Cicalini.PLCVariablePath = "TCPIP.S7-200.Roof.Cicalini";
@@ -1073,6 +1088,10 @@ namespace AnTaREs
             PLC_Tetto_Termico.PLCVariablePath = "TCPIP.S7-200.Roof.AlmTermico";
             PLC_Button_Ascom_Abort.PLCVariablePath = "TCPIP.S7-200.RoofDriver.AbortOperation";
             PLC_Button_Reset_Termici.PLCVariablePath = "TCPIP.S7-200.Roof.OResetTermico";
+            PLC_Roof_Tetto.PLCVariablePathRightClose = "TCPIP.S7-200.Roof.FC_FaldaDXChiusura";
+            PLC_Roof_Tetto.PLCVariablePathRightOpen = "TCPIP.S7-200.Roof.FC_FaldaDXApertura";
+            PLC_Roof_Tetto.PLCVariablePathLeftClose = "TCPIP.S7-200.Roof.FC_FaldaSXChiusura";
+            PLC_Roof_Tetto.PLCVariablePathLeftOpen = "TCPIP.S7-200.Roof.FC_FaldaSXApertura";
 
             PLC_NoResetTermici.RedOnValue = true;
             PLC_Cicalini.RedOnValue = true;
@@ -1098,6 +1117,7 @@ namespace AnTaREs
             PLC_Tetto_Termico.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Button_Ascom_Abort.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Button_Reset_Termici.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Roof_Tetto.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         private void InitializeUPS()
         {
@@ -1261,6 +1281,5 @@ namespace AnTaREs
                 }
             }
         }
-
     }
 }
