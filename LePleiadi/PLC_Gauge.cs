@@ -170,7 +170,7 @@ namespace AnTaREs
         }
         public void ResetDefault()
         {
-            this.Value = 0;
+            this.PLCVariableValue = 0;
         }
         public bool Online(bool value)
         {
@@ -196,7 +196,7 @@ namespace AnTaREs
         void Handle_OnValueChange(object sender)
         {
             if ((PLC_Handle != null) && (PLC_Handle.ActualValue != null))
-                this.Value = (float)(Convert.ToDouble(PLC_Handle.ActualValue) / 1000);
+                this.PLCVariableValue = (float)(Convert.ToDouble(PLC_Handle.ActualValue) / 1000);
         }
         public string PLCVariablePath
         {
@@ -220,7 +220,7 @@ namespace AnTaREs
                 PLC_VariableType = value;
             }
         }
-        public Single Value
+        public Single PLCVariableValue
         {
             get
             {
@@ -262,7 +262,7 @@ namespace AnTaREs
                     PLC_CapIdx = value;
             }
         }
-        private Color CapColor
+        public Color CapColor
         {
             get
             {
@@ -279,7 +279,7 @@ namespace AnTaREs
                 }
             }
         }
-        private Color[] CapColors
+        public Color[] CapColors
         {
             get
             {
@@ -463,7 +463,7 @@ namespace AnTaREs
                 }
             }
         }
-        public Color ScaleLinesInteralColor
+        public Color ScaleLinesInternalColor
         {
             get => PLC_ScaleLinesInternalColor;
             set

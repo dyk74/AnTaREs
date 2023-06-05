@@ -33,6 +33,7 @@ namespace AnTaREs
             this.Stile = new MetroSet_UI.Components.StyleManager();
             this.SetTab_Main = new MetroSet_UI.Controls.MetroSetTabControl();
             this.metroControllo = new MetroSet_UI.Child.MetroSetSetTabPage();
+            this.Chk_Local = new MetroSet_UI.Controls.MetroSetCheckBox();
             this.lbl_Osservatorio = new MetroSet_UI.Controls.MetroSetLabel();
             this.btnControlStatus = new MetroSet_UI.Controls.MetroSetEllipse();
             this.lbl_Connection = new MetroSet_UI.Controls.MetroSetLabel();
@@ -108,7 +109,7 @@ namespace AnTaREs
             this.SetTab_Main.ItemSize = new System.Drawing.Size(100, 38);
             this.SetTab_Main.Location = new System.Drawing.Point(12, 90);
             this.SetTab_Main.Name = "SetTab_Main";
-            this.SetTab_Main.SelectedIndex = 7;
+            this.SetTab_Main.SelectedIndex = 0;
             this.SetTab_Main.SelectedTextColor = System.Drawing.Color.White;
             this.SetTab_Main.Size = new System.Drawing.Size(1706, 906);
             this.SetTab_Main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
@@ -124,6 +125,7 @@ namespace AnTaREs
             // metroControllo
             // 
             this.metroControllo.BaseColor = System.Drawing.Color.White;
+            this.metroControllo.Controls.Add(this.Chk_Local);
             this.metroControllo.Controls.Add(this.lbl_Osservatorio);
             this.metroControllo.Controls.Add(this.btnControlStatus);
             this.metroControllo.Controls.Add(this.lbl_Connection);
@@ -142,6 +144,29 @@ namespace AnTaREs
             this.metroControllo.ThemeAuthor = "Narwin";
             this.metroControllo.ThemeName = "MetroLite";
             this.metroControllo.ToolTipText = null;
+            // 
+            // Chk_Local
+            // 
+            this.Chk_Local.BackColor = System.Drawing.Color.Transparent;
+            this.Chk_Local.BackgroundColor = System.Drawing.Color.White;
+            this.Chk_Local.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.Chk_Local.Checked = false;
+            this.Chk_Local.CheckSignColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Chk_Local.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
+            this.Chk_Local.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Chk_Local.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.Chk_Local.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Chk_Local.IsDerivedStyle = true;
+            this.Chk_Local.Location = new System.Drawing.Point(669, 40);
+            this.Chk_Local.Name = "Chk_Local";
+            this.Chk_Local.SignStyle = MetroSet_UI.Enums.SignStyle.Sign;
+            this.Chk_Local.Size = new System.Drawing.Size(146, 16);
+            this.Chk_Local.Style = MetroSet_UI.Enums.Style.Light;
+            this.Chk_Local.StyleManager = null;
+            this.Chk_Local.TabIndex = 4;
+            this.Chk_Local.Text = "Connessione Locale";
+            this.Chk_Local.ThemeAuthor = "Narwin";
+            this.Chk_Local.ThemeName = "MetroLite";
             // 
             // lbl_Osservatorio
             // 
@@ -629,6 +654,7 @@ namespace AnTaREs
             this.ThemeAuthor = null;
             this.ThemeName = null;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.SetTab_Main.ResumeLayout(false);
             this.metroControllo.ResumeLayout(false);
             this.Tab_UPS.ResumeLayout(false);
@@ -745,6 +771,8 @@ namespace AnTaREs
         private static PLC_FastButton PLC_FastButton_DEC_UP;
         private static PLC_FastButton PLC_FastButton_AR_DX;
         private static PLC_FastButton PLC_FastButton_AR_SX;
+        private static PLC_Gauge PLC_Gauge_DEC;
+        private static PLC_Gauge PLC_Gauge_AR;
 
         //AUTOGUIDA
         private static PLC_Label PLC_Autoguide_Closed;
@@ -814,6 +842,7 @@ namespace AnTaREs
         private MetroSet_UI.Child.MetroSetSetTabPage Tab_Telecom;
         private System.Windows.Forms.GroupBox Grp_Telecom;
         private System.Windows.Forms.GroupBox Grp_Security;
+        private MetroSet_UI.Controls.MetroSetCheckBox Chk_Local;
     }
 }
 

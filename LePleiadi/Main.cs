@@ -543,6 +543,9 @@ namespace AnTaREs
             Main.PLC_FastButton_DEC_UP = new PLC_FastButton();
             Main.PLC_FastButton_AR_DX = new PLC_FastButton();
             Main.PLC_FastButton_AR_SX = new PLC_FastButton();
+            Main.PLC_Gauge_DEC = new PLC_Gauge();
+            Main.PLC_Gauge_AR = new PLC_Gauge();
+            
 
             PLC_DEC_Direction.TopLevel = false;
             PLC_AR_Direction.TopLevel = false;
@@ -558,6 +561,8 @@ namespace AnTaREs
             PLC_FastButton_DEC_UP.TopLevel = false;
             PLC_FastButton_AR_DX.TopLevel = false;
             PLC_FastButton_AR_SX.TopLevel = false;
+            PLC_Gauge_DEC.TopLevel = false;
+            PLC_Gauge_AR.TopLevel = false;
 
             this.Grp_Motori.Controls.Add(PLC_DEC_Direction);
             this.Grp_Motori.Controls.Add(PLC_AR_Direction);
@@ -573,6 +578,8 @@ namespace AnTaREs
             this.Grp_Motori.Controls.Add(PLC_FastButton_DEC_UP);
             this.Grp_Motori.Controls.Add(PLC_FastButton_AR_DX);
             this.Grp_Motori.Controls.Add(PLC_FastButton_AR_SX);
+            this.Grp_Motori.Controls.Add(PLC_Gauge_DEC);
+            this.Grp_Motori.Controls.Add(PLC_Gauge_AR);
 
             PLC_DEC_Direction.Show();
             PLC_AR_Direction.Show();
@@ -588,6 +595,8 @@ namespace AnTaREs
             PLC_FastButton_DEC_UP.Show();
             PLC_FastButton_AR_DX.Show();
             PLC_FastButton_AR_SX.Show();
+            PLC_Gauge_DEC.Show();
+            PLC_Gauge_AR.Show();
 
             PLC_DEC_Direction.Location = new System.Drawing.Point(50, 50);
             PLC_DEC_Error.Location = new System.Drawing.Point(50, 100);
@@ -603,7 +612,11 @@ namespace AnTaREs
             PLC_FastButton_AR_SX.Location = new System.Drawing.Point(800, 150);
             PLC_Decelerated_AR_Stop.Location = new System.Drawing.Point(1050, 50);
             PLC_Immediate_AR_Stop.Location = new System.Drawing.Point(1050,100);
+            PLC_Gauge_DEC.Location = new System.Drawing.Point(50, 550);
+            PLC_Gauge_AR.Location = new System.Drawing.Point(350, 550);
 
+            InitializeGaugeDEC();
+            InitializeGaugeAR();
             PLC_DEC_Direction.Modifiable = true;
             PLC_AR_Direction.Modifiable = true;
             PLC_DEC_Error.Modifiable = false;
@@ -685,6 +698,130 @@ namespace AnTaREs
             PLC_FastButton_AR_DX.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FastButton_AR_SX.PLCVariableTypeRun = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_FastButton_AR_SX.PLCVariableTypeDirection = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+        }
+        private void InitializeGaugeAR()
+        {
+            PLC_Gauge_AR.BaseArcColor = System.Drawing.Color.Gray;
+            PLC_Gauge_AR.BaseArcRadius = 30;
+            PLC_Gauge_AR.BaseArcStart = 135;
+            PLC_Gauge_AR.BaseArcSweep = 270;
+            PLC_Gauge_AR.BaseArcWidth = 2;
+            PLC_Gauge_AR.CapIdx = ((byte)(1));
+            PLC_Gauge_AR.CapColors = new System.Drawing.Color[] { System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black };
+            PLC_Gauge_AR.CapPosition = new System.Drawing.Point(43, 90);
+            PLC_Gauge_AR.CapsPosition = new System.Drawing.Point[] { new System.Drawing.Point(10, 10), new System.Drawing.Point(43, 90), new System.Drawing.Point(10, 10), new System.Drawing.Point(10, 10), new System.Drawing.Point(10, 10) };
+            PLC_Gauge_AR.CapsText = new string[] { "", "RA (KHz)", "", "", "" };
+            PLC_Gauge_AR.CapText = "AR ";
+            PLC_Gauge_AR.Center = new System.Drawing.Point(65, 65);
+            PLC_Gauge_AR.MaxValue = 20F;
+            PLC_Gauge_AR.MinValue = 0F;
+            PLC_Gauge_AR.Name = "PLC_Gauge_AR";
+            PLC_Gauge_AR.NeedleColor1 = PLC_Gauge.Needle_Color.Gray;
+            PLC_Gauge_AR.NeedleColor2 = System.Drawing.Color.DimGray;
+            PLC_Gauge_AR.NeedleRadius = 40;
+            PLC_Gauge_AR.NeedleType = 0;
+            PLC_Gauge_AR.NeedleWidth = 2;
+            PLC_Gauge_AR.PLCVariablePath = "TCPIP.S7-200.TMotors.AR.ActualMotorRASpeed";
+            PLC_Gauge_AR.RangeIdx = ((byte)(2));
+            PLC_Gauge_AR.RangeColor = System.Drawing.Color.DarkOrange;
+            PLC_Gauge_AR.RangeEnabled = true;
+            PLC_Gauge_AR.RangeEndValue = 15F;
+            PLC_Gauge_AR.RangeInnerRadius = 30;
+            PLC_Gauge_AR.RangeOuterRadius = 40;
+            PLC_Gauge_AR.RangesColor = new System.Drawing.Color[] { System.Drawing.Color.LightGreen, System.Drawing.Color.Red, System.Drawing.Color.DarkOrange, System.Drawing.SystemColors.Control, System.Drawing.SystemColors.Control };
+            PLC_Gauge_AR.RangesEnabled = new bool[] { true, true, true, false, false };
+            PLC_Gauge_AR.RangesEndValue = new float[] { 10F, 20F, 15F, 0F, 0F };
+            PLC_Gauge_AR.RangesInnerRadius = new int[] { 30, 30, 30, 70, 70 };
+            PLC_Gauge_AR.RangesOuterRadius = new int[] { 40, 40, 40, 80, 80 };
+            PLC_Gauge_AR.RangesStartValue = new float[] { 0F, 15F, 10F, 0F, 0F };
+            PLC_Gauge_AR.RangeStartValue = 10F;
+            PLC_Gauge_AR.ScaleLinesInternalColor = System.Drawing.Color.Black;
+            PLC_Gauge_AR.ScaleLinesInternalInnerRadius = 43;
+            PLC_Gauge_AR.ScaleLinesInternalOuterRadius = 40;
+            PLC_Gauge_AR.ScaleLinesInternalWidth = 1;
+            PLC_Gauge_AR.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            PLC_Gauge_AR.ScaleLinesMajorInnerRadius = 30;
+            PLC_Gauge_AR.ScaleLinesMajorOuterRadius = 40;
+            PLC_Gauge_AR.ScaleLinesMajorStepValue = 1F;
+            PLC_Gauge_AR.ScaleLinesMajorWidth = 2;
+            PLC_Gauge_AR.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            PLC_Gauge_AR.ScaleLinesMinorInnerRadius = 45;
+            PLC_Gauge_AR.ScaleLinesMinorNumberOf = 9;
+            PLC_Gauge_AR.ScaleLinesMinorOuterRadius = 40;
+            PLC_Gauge_AR.ScaleLinesMinorWidth = 1;
+            PLC_Gauge_AR.ScaleNumbersColor = System.Drawing.Color.Black;
+            PLC_Gauge_AR.ScaleNumbersFormat = null;
+            PLC_Gauge_AR.ScaleNumbersRadius = 55;
+            PLC_Gauge_AR.ScaleNumbersRotation = 0;
+            PLC_Gauge_AR.ScaleNumbersStartScaleLine = 0;
+            PLC_Gauge_AR.ScaleNumbersStepScaleLines = 1;
+            PLC_Gauge_AR.Size = new System.Drawing.Size(200, 200);
+            PLC_Gauge_AR.TabIndex = 0;
+            PLC_Gauge_AR.Text = "AR";
+            PLC_Gauge_AR.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
+            PLC_Gauge_AR.PLCVariableValue = 0F;
+        }
+        private void InitializeGaugeDEC()
+        {
+            PLC_Gauge_DEC.BaseArcColor = System.Drawing.Color.Gray;
+            PLC_Gauge_DEC.BaseArcRadius = 30;
+            PLC_Gauge_DEC.BaseArcStart = 135;
+            PLC_Gauge_DEC.BaseArcSweep = 270;
+            PLC_Gauge_DEC.BaseArcWidth = 2;
+            PLC_Gauge_DEC.CapIdx = ((byte)(1));
+            PLC_Gauge_DEC.CapColors = new System.Drawing.Color[] { System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black, System.Drawing.Color.Black };
+            PLC_Gauge_DEC.CapPosition = new System.Drawing.Point(39, 90);
+            PLC_Gauge_DEC.CapsPosition = new System.Drawing.Point[] { new System.Drawing.Point(10, 10), new System.Drawing.Point(39, 90), new System.Drawing.Point(10, 10), new System.Drawing.Point(10, 10), new System.Drawing.Point(10, 10) };
+            PLC_Gauge_DEC.CapsText = new string[] { "", "DEC", "", "", "" };
+            PLC_Gauge_DEC.CapText = "DEC ";
+            PLC_Gauge_DEC.Center = new System.Drawing.Point(65, 65);
+            PLC_Gauge_DEC.MaxValue = 20F;
+            PLC_Gauge_DEC.MinValue = 0F;
+            PLC_Gauge_DEC.Name = "PLC_Gauge_DEC";
+            PLC_Gauge_DEC.NeedleColor1 = PLC_Gauge.Needle_Color.Gray;
+            PLC_Gauge_DEC.NeedleColor2 = System.Drawing.Color.DimGray;
+            PLC_Gauge_DEC.NeedleRadius = 40;
+            PLC_Gauge_DEC.NeedleType = 0;
+            PLC_Gauge_DEC.NeedleWidth = 2;
+            PLC_Gauge_DEC.PLCVariablePath = "TCPIP.S7-200.TMotors.Dec.ActualMotorDECSpeed";
+            PLC_Gauge_DEC.RangeIdx = ((byte)(2));
+            PLC_Gauge_DEC.RangeColor = System.Drawing.Color.DarkOrange;
+            PLC_Gauge_DEC.RangeEnabled = true;
+            PLC_Gauge_DEC.RangeEndValue = 15F;
+            PLC_Gauge_DEC.RangeInnerRadius = 30;
+            PLC_Gauge_DEC.RangeOuterRadius = 40;
+            PLC_Gauge_DEC.RangesColor = new System.Drawing.Color[] { System.Drawing.Color.LightGreen, System.Drawing.Color.Red, System.Drawing.Color.DarkOrange, System.Drawing.SystemColors.Control, System.Drawing.SystemColors.Control };
+            PLC_Gauge_DEC.RangesEnabled = new bool[] { true, true, true, false, false };
+            PLC_Gauge_DEC.RangesEndValue = new float[] { 10F, 20F, 15F, 0F, 0F };
+            PLC_Gauge_DEC.RangesInnerRadius = new int[] { 30, 30, 30, 70, 70 };
+            PLC_Gauge_DEC.RangesOuterRadius = new int[] { 40, 40, 40, 80, 80 };
+            PLC_Gauge_DEC.RangesStartValue = new float[] { 0F, 15F, 10F, 0F, 0F };
+            PLC_Gauge_DEC.RangeStartValue = 10F;
+            PLC_Gauge_DEC.ScaleLinesInternalColor = System.Drawing.Color.Black;
+            PLC_Gauge_DEC.ScaleLinesInternalInnerRadius = 43;
+            PLC_Gauge_DEC.ScaleLinesInternalOuterRadius = 40;
+            PLC_Gauge_DEC.ScaleLinesInternalWidth = 1;
+            PLC_Gauge_DEC.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            PLC_Gauge_DEC.ScaleLinesMajorInnerRadius = 30;
+            PLC_Gauge_DEC.ScaleLinesMajorOuterRadius = 40;
+            PLC_Gauge_DEC.ScaleLinesMajorStepValue = 1F;
+            PLC_Gauge_DEC.ScaleLinesMajorWidth = 2;
+            PLC_Gauge_DEC.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            PLC_Gauge_DEC.ScaleLinesMinorInnerRadius = 45;
+            PLC_Gauge_DEC.ScaleLinesMinorNumberOf = 9;
+            PLC_Gauge_DEC.ScaleLinesMinorOuterRadius = 40;
+            PLC_Gauge_DEC.ScaleLinesMinorWidth = 1;
+            PLC_Gauge_DEC.ScaleNumbersColor = System.Drawing.Color.Black;
+            PLC_Gauge_DEC.ScaleNumbersFormat = null;
+            PLC_Gauge_DEC.ScaleNumbersRadius = 55;
+            PLC_Gauge_DEC.ScaleNumbersRotation = 0;
+            PLC_Gauge_DEC.ScaleNumbersStartScaleLine = 0;
+            PLC_Gauge_DEC.ScaleNumbersStepScaleLines = 1;
+            PLC_Gauge_DEC.Size = new System.Drawing.Size(200, 200);
+            PLC_Gauge_DEC.TabIndex = 1;
+            PLC_Gauge_DEC.Text = "DEC";
+            PLC_Gauge_DEC.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_INT;
+            PLC_Gauge_DEC.PLCVariableValue = 0F;
         }
         private void InitializeParkingStatus()
         {
@@ -1236,12 +1373,14 @@ namespace AnTaREs
             MetroSetSwitch swC = sender as MetroSetSwitch;
             if (swC.CheckState==MetroSet_UI.Enums.CheckState.Checked)
             {
-                VPN.Disconnect();
+                if (!Chk_Local.Checked)
+                    VPN.Disconnect();
                 Main.Connected1 = false;
                 swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
                 btnControlStatus.DisabledBorderColor = Color.Red;
                 btnControlStatus.DisabledForeColor = Color.Red;
                 btnControlStatus.DisabledBackColor = Color.Red;
+                OnlineConnections(false);
             }
             else if(swC.CheckState==MetroSet_UI.Enums.CheckState.Unchecked)
             {
@@ -1251,13 +1390,23 @@ namespace AnTaREs
                     try
                     {
                         swC.CheckState = MetroSet_UI.Enums.CheckState.Checked;
-                        VPN.Connect();
-                        if (VPN._handle != null)
+                        if(!Chk_Local.Checked)
+                            VPN.Connect();
+                        if (VPN._handle != null && !Chk_Local.Checked)
                         {
                             Main.Connected1 = true;
                             btnControlStatus.DisabledBorderColor = Color.Green;
                             btnControlStatus.DisabledForeColor = Color.Green;
                             btnControlStatus.DisabledBackColor = Color.Green;
+                            OnlineConnections(true);
+                        }
+                        else if(VPN._handle==null && Chk_Local.Checked)
+                        {
+                            Main.Connected1 = true;
+                            btnControlStatus.DisabledBorderColor = Color.Green;
+                            btnControlStatus.DisabledForeColor = Color.Green;
+                            btnControlStatus.DisabledBackColor = Color.Green;
+                            OnlineConnections(true);
                         }
                         else
                         {
@@ -1267,7 +1416,8 @@ namespace AnTaREs
                     }
                     catch(Exception ex)
                     {
-                        VPN.Disconnect();
+                        if(!Chk_Local.Checked)
+                            VPN.Disconnect();
                         swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
                         btnControlStatus.DisabledBorderColor = Color.Red;
                         btnControlStatus.DisabledForeColor = Color.Red;
@@ -1280,6 +1430,182 @@ namespace AnTaREs
                     swC.Switched = false;
                 }
             }
+        }
+        private void ConnectionUPS(bool Value)
+        {
+            //UPS
+            PLC_Alarm_UPS_EchoMode.Online(Value);
+            UPS_BatteryLow.Online(Value);
+            UPS_LDInverter.Online(Value);
+            UPS_Alarm.Online(Value);
+            UPS_ConnectionFailure.Online(Value);
+            UPS_MainFailure.Online(Value);
+            UPS_ChargeValue.Online(Value);
+            PLC_UPS_Alarm_Bypass.Online(Value);
+    }
+        private void ConnectionServer(bool Value)
+        {
+            Server_KeepAlive.Online(Value);
+        }
+        private void ConnectionFaldaSX(bool Value)
+        {
+            PLC_ApriFaldaSX.Online(Value);
+            PLC_FineCorsaAperturaSX.Online(Value);
+            PLC_ChiudiFaldaSX.Online(Value);
+            PLC_FineCorsaChiusuraSX.Online(Value);
+            PLC_Button_Stop_SX.Online(Value);
+            PLC_Button_Close_SX.Online(Value);
+            PLC_Button_Open_SX.Online(Value);
+    }
+        private void ConnectionFaldaDX(bool Value)
+        {
+            PLC_ApriFaldaDX.Online(Value);
+            PLC_ChiudiFaldaDX.Online(Value);
+            PLC_FineCorsaAperturaDX.Online(Value);
+            PLC_FineCorsaChiusuraDX.Online(Value);
+            PLC_Button_Stop_DX.Online(Value);
+            PLC_Button_Close_DX.Online(Value);
+            PLC_Button_Open_DX.Online(Value);
+        }
+        private void ConnectionTetto(bool Value)
+        {
+            PLC_ChiudiTetto.Online(Value);
+            PLC_ApriTetto.Online(Value);
+            PLC_Cicalini.Online(Value);
+            PLC_NoResetTermici.Online(Value);
+            PLC_Reset_Termici.Online(Value);
+            PLC_CicaliniMute.Online(Value);
+            PLC_Reset_Counter_Termici.Online(Value);
+            PLC_Tetto_Chiusura_Timeout.Online(Value);
+            PLC_Tetto_Apertura_Timeout.Online(Value);
+            PLC_Tetto_Termico.Online(Value);
+            PLC_Button_Ascom_Abort.Online(Value);
+            PLC_Button_Reset_Termici.Online(Value);
+            PLC_Roof_Tetto.Online(Value);
+        }
+        private void ConnectionVertigo(bool Value)
+        {
+            PLC_VertigoTettoChiuso.Online(Value);
+            PLC_VertigoTettoAperto.Online(Value);
+            PLC_VertigoAllarmeTetto.Online(Value);
+            PLC_VertigoChiudiTetto.Online(Value);
+            PLC_VertigoApriTetto.Online(Value);
+            PLC_Vertigo_RoofOpen_Bypass.Online(Value);
+            PLC_Toggle_Vertigo_KeepAlive_Bypass.Online(Value);
+            PLC_Alarm_Vertigo_KeepAlive.Online(Value);
+        }
+        private void ConnectionParking(bool Value)
+        {
+            PLC_FineCorsa_AR_Parking.Online(Value);
+            PLC_FineCorsa_DEC_Parking.Online(Value);
+            PLC_Button_Park_Scope.Online(Value);
+            PLC_Label_Optical_Sensor.Online(Value);
+        }
+        private void ConnectionMotori(bool Value)
+        {
+            PLC_DEC_Direction.Online(Value);
+            PLC_AR_Direction.Online(Value);
+            PLC_DEC_Error.Online(Value);
+            PLC_AR_Error.Online(Value);
+            PLC_DEC_Run.Online(Value);
+            PLC_AR_Run.Online(Value);
+            PLC_Decelerated_DEC_Stop.Online(Value);
+            PLC_Decelerated_AR_Stop.Online(Value);
+            PLC_Immediate_DEC_Stop.Online(Value);
+            PLC_Immediate_AR_Stop.Online(Value);
+            PLC_Emergency_Stop.Online(Value);
+            PLC_FastButton_DEC_Down.Online(Value);
+            PLC_FastButton_DEC_UP.Online(Value);
+            PLC_FastButton_AR_DX.Online(Value);
+            PLC_FastButton_AR_SX.Online(Value);
+            PLC_Gauge_DEC.Online(Value);
+            PLC_Gauge_AR.Online(Value);
+        }
+        private void ConnectionAutoguida(bool Value)
+        {
+            PLC_Autoguide_Closed.Online(Value);
+            PLC_Autoguide_Opened.Online(Value);
+            PLC_Autoguide_Control.Online(Value);
+            PLC_Button_Close_Autoguide.Online(Value);
+            PLC_Button_Open_Autoguide.Online(Value);
+        }
+        private void ConnectionTelescopio(bool Value)
+        {
+            PLC_Telescope_Closed.Online(Value);
+            PLC_Telescope_Opened.Online(Value);
+            PLC_Telescope_Cap_Bypass.Online(Value);
+            PLC_Telescope_FC_Bypass.Online(Value);
+            PLC_Telescope_Hook.Online(Value);
+            PLC_Telescope_Control.Online(Value);
+            PLC_Telescope_Power.Online(Value);
+            PLC_Button_Close_Telescope.Online(Value);
+            PLC_Button_Open_Telescope.Online(Value);
+        }
+        private void ConnectionMeteo(bool Value)
+        {
+            PLC_Meteo_Bypass.Online(Value);
+        }
+        private void ConnectionMUX(bool Value)
+        {
+            PLC_Button_MUX_PLC.Online(Value);
+            PLC_Button_MUX_Vertigo.Online(Value);
+    }
+        private void ConnectionTelecom(bool Value)
+        {
+            PLC_Button_Telecom_ON.Online(Value);
+        }
+        private void ConnectionSecurity(bool Value)
+        {
+            PLC_Telescope_Emergency_mode.Online(Value);
+            PLC_Button_Security_Reset.Online(Value);
+            PLC_SecurityChain_Quadro.Online(Value);
+            PLC_SecurityChain_Enabled.Online(Value);
+            PLC_SecurityChain_Timeout_Closing.Online(Value);
+            PLC_SecurityChain_Timeout_Opening.Online(Value);
+            PLC_SecurityChain_Allarme_Termici.Online(Value);
+            PLC_SecurityChain_Allarme_Fusibili.Online(Value);
+            PLC_SecurityChain_Allarme_Fusibili_PLC.Online(Value);
+            PLC_SecurityChain_Allarme_Meteo.Online(Value);
+            PLC_SecurityChain_Vertigo.Online(Value);
+            PLC_SecurityChain_Primary_Power.Online(Value);
+            PLC_SecurityChain_Secondary_Power.Online(Value);
+            PLC_SecurityChain_Reinsert.Online(Value);
+            PLC_SecurityChain_UPS_Failure.Online(Value);
+        }
+        private void OnlineConnections(bool Value)
+        {
+            try
+            {
+                ConnectionUPS(Value);
+                ConnectionServer(Value);
+                ConnectionFaldaSX(Value);
+                ConnectionFaldaDX(Value);
+                ConnectionTetto(Value);
+                ConnectionVertigo(Value);
+                ConnectionParking(Value);
+                ConnectionMotori(Value);
+                ConnectionAutoguida(Value);
+                ConnectionTelescopio(Value);
+                ConnectionMeteo(Value);
+                ConnectionMUX(Value);
+                ConnectionTelecom(Value);
+                ConnectionSecurity(Value);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore online:" + ex.Message);
+            }
+        }
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (VPN._handle != null)
+            {
+                OnlineConnections(false);
+                VPN.Disconnect();
+            }
+            else
+                OnlineConnections(false);
+                
         }
     }
 }
