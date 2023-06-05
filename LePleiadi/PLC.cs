@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using static AnTaREs.Comunicazione;
+using static AnTaREs.PLC_Comunication;
 using System.Windows.Forms;
 using System.Timers;
 using System.Net.NetworkInformation;

@@ -10,100 +10,64 @@ using System.Runtime.InteropServices;
 
 namespace AnTaREs
 {
-    public class Comunicazione
+    public class PLC_Comunication
     {
         public class Variabili
         {
-            protected string Variable_Path;
-            protected object Variable_ActualValue;
-            protected VarEnum Variable_VariableType;
-            protected int Variable_Handle;
-            protected int Variable_HandleServer;
-            protected bool Variable_Modifiable;
+            protected string PLC_Variable_Path;
+            protected object PLC_Variable_ActualValue;
+            protected VarEnum PLC_Variable_VariableType;
+            protected int PLC_Variable_Handle;
+            protected int PLC_Variable_HandleServer;
+            protected bool PLC_Variable_Modifiable;
             public Variabili()
             {
-                Variable_Handle = -1;
-                Variable_Path = "";
-                Variable_ActualValue = null;
-                Variable_VariableType = VarEnum.VT_UNKNOWN;
-                Variable_Modifiable = true;
-                Variable_HandleServer = -1;
+                PLC_Variable_Handle = -1;
+                PLC_Variable_Path = "";
+                PLC_Variable_ActualValue = null;
+                PLC_Variable_VariableType = VarEnum.VT_UNKNOWN;
+                PLC_Variable_Modifiable = true;
+                PLC_Variable_HandleServer = -1;
             }
             public string VariablePath
             {
-                get
-                {
-                    return Variable_Path;
-                }
-                set
-                {
-                    Variable_Path = value;
-                }
+                get => PLC_Variable_Path;
+                set=> PLC_Variable_Path = value;
             }
             public object ActualValue
             {
-                get
-                {
-                    return Variable_ActualValue;
-                }
-                set
-                {
-                    Variable_ActualValue = value;
-                }
+                get => PLC_Variable_ActualValue;
+                set => PLC_Variable_ActualValue = value;
             }
             public bool Modifiable
             {
-                get
-                {
-                    return Variable_Modifiable;
-                }
-                set
-                {
-                    Variable_Modifiable = value;
-                }
+                get => PLC_Variable_Modifiable;
+                set => PLC_Variable_Modifiable = value;
             }
             public VarEnum VariableType
             {
-                get
-                {
-                    return Variable_VariableType;
-                }
-                set
-                {
-                    Variable_VariableType = value;
-                }
+                get=> PLC_Variable_VariableType;
+                set=> PLC_Variable_VariableType = value;
             }
             public int VariableHandle
             {
-                get
-                {
-                    return Variable_Handle;
-                }
-                set
-                {
-                    Variable_Handle = value;
-                }
+                get => PLC_Variable_Handle;
+                set=> PLC_Variable_Handle = value;
             }
             public int VariableHandleServer
             {
-                get
-                {
-                    return Variable_HandleServer;
-                }
-                set
-                {
-                    VariableHandleServer = value;
-                }
+                get => PLC_Variable_HandleServer;
+                set=> PLC_Variable_HandleServer = value;
             }
         }
         public class Comunicazioni
         {
             private static Comunicazioni instance;
-            private OPCServer ServerName;
+            private readonly OPCServer ServerName;
             private OPCGroup Group;
-            private string PLCName;
-            private string GroupName;
-            private int UpdateRate;
+            private readonly string PLCName;
+            private readonly string GroupName;
+            private readonly int UpdateRate;
             private int HandleCreated;
             public delegate void OnPLCValueChange(object sender, int ClientHandle, object NewValue);
             public delegate void OnPLCWriteComplete(object sender, int ClientHandle, int TransactionID);
@@ -156,6 +120,7 @@ namespace AnTaREs
                 }
                 catch (Exception ex)
                 {
+                    VPN.Disconnect();
                     throw new Exception("Comunication Error: " + ex.Message);
                 }
             }
@@ -181,12 +146,12 @@ namespace AnTaREs
             public bool RemoveVariable(VariableHandle Variable)
             {
                 Array PLCHandleServer = new Int32[2];
-                Array ErrorArray = new Int32[1];
+                _ = new int[1];
                 PLCHandleServer.SetValue(0, 1);
                 PLCHandleServer.SetValue(Variable.VariableHandleServer, 1);
                 int NoItem = 1;
                 if (Variable.VariableHandleServer > -1)
-                    Group.OPCItems.Remove(NoItem,ref  PLCHandleServer,out ErrorArray);
+                    Group.OPCItems.Remove(NoItem, ref PLCHandleServer, out _);
                 return true;
             }
             public bool RegisterVariable(VariableHandle Variable)
@@ -218,6 +183,7 @@ namespace AnTaREs
                 }
                 catch (Exception ex)
                 {
+                    VPN.Disconnect();
                     throw new Exception("Sync Read Error: " + ex.Message);
                 }
                 if (Convert.ToInt32(SyncItemServerErrors.GetValue(1)) == 0)
@@ -316,45 +282,44 @@ namespace AnTaREs
             public VariableHandle(Comunicazioni C_Com, string C_Path,int C_Variable,bool C_Modifiable)
             {
                 Com = C_Com;
-                Variable_Path = C_Path;
-                Variable_Handle = C_Variable;
-                Variable_ActualValue = null;
-                Variable_Modifiable = C_Modifiable;
-                Variable_VariableType = VarEnum.VT_UNKNOWN;
+                PLC_Variable_Path = C_Path;
+                PLC_Variable_Handle = C_Variable;
+                PLC_Variable_ActualValue = null;
+                PLC_Variable_Modifiable = C_Modifiable;
+                PLC_Variable_VariableType = VarEnum.VT_UNKNOWN;
                 Com.ValueChange += new Comunicazioni.OnPLCValueChange(Com_OnValueChange);
                 Com.WriteComplete += new Comunicazioni.OnPLCWriteComplete(Com_OnWriteComplete);
             }
             public VariableHandle(Comunicazioni C_Com,string C_Path, int C_Variable,bool C_Modifiable,VarEnum C_VarType)
             {
                 Com = C_Com;
-                Variable_Path = C_Path;
-                Variable_Handle = C_Variable;
-                Variable_ActualValue = null;
-                Variable_Modifiable = C_Modifiable;
-                Variable_VariableType = C_VarType;
+                PLC_Variable_Path = C_Path;
+                PLC_Variable_Handle = C_Variable;
+                PLC_Variable_ActualValue = null;
+                PLC_Variable_Modifiable = C_Modifiable;
+                PLC_Variable_VariableType = C_VarType;
                 Com.ValueChange += new Comunicazioni.OnPLCValueChange(Com_OnValueChange);
                 Com.WriteComplete += new Comunicazioni.OnPLCWriteComplete(Com_OnWriteComplete);
             }
             void Com_OnWriteComplete(object C_sender, int C_ClientHandle,int C_TransactionID)
             {
-                if (C_ClientHandle != this.Variable_Handle)
+                if (C_ClientHandle != this.PLC_Variable_Handle)
                     return;
                 else
                 {
                     this.WritePending = false;
                     OnWriteComplete?.Invoke(this);
                 }
-
             }
             void Com_OnValueChange(object C_sender,Int32 C_ClientHandle, object C_NewValue)
             {
                 try
                 {
-                    if (C_ClientHandle != this.Variable_Handle)
+                    if (C_ClientHandle != this.PLC_Variable_Handle)
                         return;
                     else
                     {
-                        Variable_ActualValue = C_NewValue;
+                        PLC_Variable_ActualValue = C_NewValue;
                         OnValueChange?.Invoke(this);
                     }
                 }

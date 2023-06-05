@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static AnTaREs.Comunicazione;
+using static AnTaREs.PLC_Comunication;
 
 namespace AnTaREs
 {

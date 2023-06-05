@@ -120,7 +120,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comunicazione.cs" />
+    <Compile Include="PLC_Comunication.cs" />
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
