@@ -11,18 +11,15 @@ using MetroSet_UI.Forms;
 
 namespace AnTaREs
 {
-    public partial class InputForm : MetroSetForm
+    public partial class Frm_InputForm : MetroSetForm
     {
-        public InputForm()
+        public Frm_InputForm()
         {
             InitializeComponent();
         }
         public MetroSet_UI.Controls.MetroSetTextBox Input
         {
-            get
-            {
-                return txtInputForm;
-            }
+            get => txt_InputForm;
         }
     }
 }

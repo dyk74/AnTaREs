@@ -83,7 +83,7 @@ namespace AnTaREs
         private void ChangeValue()
         {
             string ResultString = "";
-            InputForm C_Form = new InputForm();
+            Frm_InputForm C_Form = new Frm_InputForm();
             if (C_Form.ShowDialog() == DialogResult.OK)
                 ResultString = C_Form.Input.Text;
             else

@@ -107,52 +107,30 @@ namespace AnTaREs
         [Browsable(true),Description("PLC Path"),Category("UPS")]
         public string PLCVariablePath
         {
-            get
-            {
-                return PLC_VariablePath;
-            }
-            set
-            {
-                PLC_VariablePath = value;
-            }
+            get => PLC_VariablePath;
+            set=> PLC_VariablePath = value;
         }
         [Browsable(true),Description("PLC Type"),Category("UPS")]
         public VarEnum PLCVariableType
         {
-            get
-            {
-                return PLC_VariableType;
-            }
-            set
-            {
-                PLC_VariableType = value;
-            }
+            get => PLC_VariableType;
+            set=> PLC_VariableType = value;
         }
         [Browsable(true),Description("PLC Name"),Category("UPS")]
         public string PLCAlarmName
         {
-            get
-            {
-                return Lbl_Alarm.Text;
-            }
-            set
-            {
-                Lbl_Alarm.Text = value;
-            }
+            get=> Lbl_Alarm.Text;
+            set=> Lbl_Alarm.Text = value;
         }
         public bool ResetAvailable
         {
-            get
-            {
-                return Reset_Available;
-            }
+            get=>Reset_Available;
             set
             {
                 Reset_Available = value;
                 SetReset();
             }
         }
-
         private void Btn_Reset_Click(object sender, EventArgs e)
         {
             PLC_Handle.Write(false);

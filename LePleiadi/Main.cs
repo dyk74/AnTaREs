@@ -16,12 +16,12 @@ using static AnTaREs.VPN ;
 
 namespace AnTaREs
 {
-    public partial class Main : MetroSetForm
+    public partial class Frm_Main : MetroSetForm
     {
         private System.Timers.Timer UpdateTimer;
         private DateTime DateTime;
         public static bool Connected1 { get; set; }
-        public Main()
+        public Frm_Main()
         {
             // DA METTERE IN CONFIG FILE
             VPN.VPN_Server = "vpn.lepleiadi.ch";
@@ -31,26 +31,11 @@ namespace AnTaREs
             VPN.VPN_Password = "le12$pleiadi99";
             VPN.VPN_PreSharedKey = "le12$pleiadi99";
             //
-            Main.Connected1 = false;
-            Main.PLC_Alarm_UPS_EchoMode = new PLC_Alarm();
-            Main.UPS_BatteryLow = new PLC_Alarm();
-            Main.UPS_LDInverter = new PLC_Alarm();
-            Main.UPS_Alarm = new PLC_Alarm();
-            Main.UPS_ConnectionFailure = new PLC_Alarm();
-            Main.UPS_MainFailure = new PLC_Alarm();
-            Main.UPS_ChargeValue = new PLC_ProgressBar();
-            Main.Server_KeepAlive = new PLC_KeepAlive();
-            Main.PLC_VertigoTettoChiuso = new PLC_Label();
-            Main.PLC_VertigoTettoAperto = new PLC_Label();
-            Main.PLC_VertigoAllarmeTetto = new PLC_Label();
-            Main.PLC_VertigoChiudiTetto = new PLC_Label();
-            Main.PLC_VertigoApriTetto = new PLC_Label();
-            Main.PLC_Alarm_Vertigo_KeepAlive = new PLC_Alarm();
-
+            Frm_Main.Connected1 = false;
             InitializeComponent();
             InitializeSystem();
             StartUpdateTimer();
-            lbl_Osservatorio.Text = VPN_AdapterName;
+            Lbl_Observatory.Text = VPN_AdapterName;
         }
         private void InitializeSystem()
         {
@@ -71,22 +56,22 @@ namespace AnTaREs
         }
         private void InitializeSecurityStatus()
         {
-            Main.PLC_Telescope_Emergency_mode = new PLC_Toggle();
-            Main.PLC_Button_Security_Reset = new PLC_Button();
-            Main.PLC_Emergency_Stop = new PLC_Toggle();
-            Main.PLC_SecurityChain_Quadro = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Enabled = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Timeout_Closing = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Timeout_Opening = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Allarme_Termici = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Allarme_Fusibili = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Allarme_Fusibili_PLC = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Allarme_Meteo = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Vertigo = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Primary_Power = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Secondary_Power = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_Reinsert = new PLC_SecurityChain();
-            Main.PLC_SecurityChain_UPS_Failure = new PLC_SecurityChain();
+            Frm_Main.PLC_Telescope_Emergency_mode = new PLC_Toggle();
+            Frm_Main.PLC_Button_Security_Reset = new PLC_Button();
+            Frm_Main.PLC_Emergency_Stop = new PLC_Toggle();
+            Frm_Main.PLC_SecurityChain_Quadro = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Enabled = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Timeout_Closing = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Timeout_Opening = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Allarme_Termici = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Allarme_Fusibili = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Allarme_Fusibili_PLC = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Allarme_Meteo = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Vertigo = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Primary_Power = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Secondary_Power = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_Reinsert = new PLC_SecurityChain();
+            Frm_Main.PLC_SecurityChain_UPS_Failure = new PLC_SecurityChain();
 
             PLC_Telescope_Emergency_mode.TopLevel = false;
             PLC_Button_Security_Reset.TopLevel = false;
@@ -262,7 +247,7 @@ namespace AnTaREs
         }
         private void InitializeTelecomStatus()
         {
-            Main.PLC_Button_Telecom_ON = new PLC_Button();
+            Frm_Main.PLC_Button_Telecom_ON = new PLC_Button();
 
             PLC_Button_Telecom_ON.TopLevel = false;
 
@@ -285,8 +270,8 @@ namespace AnTaREs
         }
         private void InitializeMUXStatus()
         {
-            Main.PLC_Button_MUX_PLC = new PLC_Button();
-            Main.PLC_Button_MUX_Vertigo = new PLC_Button();
+            Frm_Main.PLC_Button_MUX_PLC = new PLC_Button();
+            Frm_Main.PLC_Button_MUX_Vertigo = new PLC_Button();
 
             PLC_Button_MUX_PLC.TopLevel = false;
             PLC_Button_MUX_Vertigo.TopLevel = false;
@@ -317,11 +302,11 @@ namespace AnTaREs
         }
         private void InitializeAutoGuideStatus()
         {
-            Main.PLC_Autoguide_Closed = new PLC_Label();
-            Main.PLC_Autoguide_Opened = new PLC_Label();
-            Main.PLC_Autoguide_Control = new PLC_Toggle();
-            Main.PLC_Button_Close_Autoguide = new PLC_Button();
-            Main.PLC_Button_Open_Autoguide = new PLC_Button();
+            Frm_Main.PLC_Autoguide_Closed = new PLC_Label();
+            Frm_Main.PLC_Autoguide_Opened = new PLC_Label();
+            Frm_Main.PLC_Autoguide_Control = new PLC_Toggle();
+            Frm_Main.PLC_Button_Close_Autoguide = new PLC_Button();
+            Frm_Main.PLC_Button_Open_Autoguide = new PLC_Button();
 
             PLC_Autoguide_Closed.TopLevel = false;
             PLC_Autoguide_Opened.TopLevel = false;
@@ -329,11 +314,11 @@ namespace AnTaREs
             PLC_Button_Close_Autoguide.TopLevel = false;
             PLC_Button_Open_Autoguide.TopLevel = false;
 
-            this.Grp_Autoguida.Controls.Add(PLC_Autoguide_Closed);
-            this.Grp_Autoguida.Controls.Add(PLC_Autoguide_Opened);
-            this.Grp_Autoguida.Controls.Add(PLC_Autoguide_Control);
-            this.Grp_Autoguida.Controls.Add(PLC_Button_Close_Autoguide);
-            this.Grp_Autoguida.Controls.Add(PLC_Button_Open_Autoguide);
+            this.Grp_Autopilot.Controls.Add(PLC_Autoguide_Closed);
+            this.Grp_Autopilot.Controls.Add(PLC_Autoguide_Opened);
+            this.Grp_Autopilot.Controls.Add(PLC_Autoguide_Control);
+            this.Grp_Autopilot.Controls.Add(PLC_Button_Close_Autoguide);
+            this.Grp_Autopilot.Controls.Add(PLC_Button_Open_Autoguide);
 
             PLC_Autoguide_Closed.Show();
             PLC_Autoguide_Opened.Show();
@@ -379,33 +364,33 @@ namespace AnTaREs
         }
         private void InitializeBypassStatus()
         {
-            Main.PLC_Telescope_Cap_Bypass = new PLC_Toggle();
-            Main.PLC_Telescope_FC_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Telescope_Cap_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Telescope_FC_Bypass = new PLC_Toggle();
 
-            Main.PLC_Vertigo_RoofOpen_Bypass = new PLC_Toggle();
-            Main.PLC_UPS_Alarm_Bypass = new PLC_Toggle();
-            Main.PLC_Toggle_Vertigo_KeepAlive_Bypass = new PLC_Toggle();
-            Main.PLC_Meteo_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Vertigo_RoofOpen_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Toggle_PLC_UPS_Alarm_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Toggle_Vertigo_KeepAlive_Bypass = new PLC_Toggle();
+            Frm_Main.PLC_Meteo_Bypass = new PLC_Toggle();
 
             PLC_Telescope_Cap_Bypass.TopLevel = false;
             PLC_Telescope_FC_Bypass.TopLevel = false;
 
             PLC_Vertigo_RoofOpen_Bypass.TopLevel = false;
-            PLC_UPS_Alarm_Bypass.TopLevel = false;
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.TopLevel = false;
             PLC_Toggle_Vertigo_KeepAlive_Bypass.TopLevel = false;
             PLC_Meteo_Bypass.TopLevel = false;
 
             this.Grp_Bypass.Controls.Add(PLC_Telescope_FC_Bypass);
             this.Grp_Bypass.Controls.Add(PLC_Telescope_Cap_Bypass);
             this.Grp_Bypass.Controls.Add(PLC_Vertigo_RoofOpen_Bypass);
-            this.Grp_Bypass.Controls.Add(PLC_UPS_Alarm_Bypass);
+            this.Grp_Bypass.Controls.Add(PLC_Toggle_PLC_UPS_Alarm_Bypass);
             this.Grp_Bypass.Controls.Add(PLC_Meteo_Bypass);
 
             PLC_Telescope_Cap_Bypass.Show();
             PLC_Telescope_FC_Bypass.Show();
 
             PLC_Vertigo_RoofOpen_Bypass.Show();
-            PLC_UPS_Alarm_Bypass.Show();
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.Show();
             PLC_Toggle_Vertigo_KeepAlive_Bypass.Show();
             PLC_Meteo_Bypass.Show();
 
@@ -413,47 +398,47 @@ namespace AnTaREs
             PLC_Telescope_FC_Bypass.Location = new System.Drawing.Point(50, 100);
             PLC_Meteo_Bypass.Location = new System.Drawing.Point(50, 150);
             PLC_Vertigo_RoofOpen_Bypass.Location = new System.Drawing.Point(300, 50);
-            PLC_UPS_Alarm_Bypass.Location = new System.Drawing.Point(300, 100);
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.Location = new System.Drawing.Point(300, 100);
             PLC_Toggle_Vertigo_KeepAlive_Bypass.Location = new System.Drawing.Point(300, 150);
 
             PLC_Telescope_Cap_Bypass.Name = "PLC_Telescope_Cap_Bypass";
             PLC_Telescope_FC_Bypass.Name = "PLC_Telescope_FC_Bypass";
 
             PLC_Vertigo_RoofOpen_Bypass.Name = "PLC_Vertigo_RoofOpen_Bypass";
-            PLC_UPS_Alarm_Bypass.Name = "PLC_UPS_Alarm_Bypass";
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.Name = "PLC_Toggle_PLC_UPS_Alarm_Bypass";
             PLC_Toggle_Vertigo_KeepAlive_Bypass.Name = "PLC_Vertigo_KeepAlive_Bypass";
             PLC_Meteo_Bypass.Name = "PLC_Meteo_Bypass";
 
             PLC_Telescope_FC_Bypass.PLCVariableName = "FC Telescope Bypass";
             PLC_Telescope_Cap_Bypass.PLCVariableName = "Safe Cap Bypass";
             PLC_Vertigo_RoofOpen_Bypass.PLCVariableName = "Vertigo Roof Open Bypass";
-            PLC_UPS_Alarm_Bypass.PLCVariableName = "UPS Alarm Bypass";
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.PLCVariableName = "Bypass allarme UPS";
             PLC_Toggle_Vertigo_KeepAlive_Bypass.PLCVariableName = "Vertigo KeepAlive Bypass";
             PLC_Meteo_Bypass.PLCVariableName = "Meteo Bypass";
 
             PLC_Telescope_Cap_Bypass.PLCVariablePath = "TCPIP.S7-200.TelescopeCap.MTelescopeCapBypass";
             PLC_Telescope_FC_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MFCTelescopeBypass";
             PLC_Vertigo_RoofOpen_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MApertoVertigoBypass";
-            PLC_UPS_Alarm_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MAlmUPSBypass";
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MAlmUPSBypass";
             PLC_Toggle_Vertigo_KeepAlive_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MalmVertigoBypass";
             PLC_Meteo_Bypass.PLCVariablePath = "TCPIP.S7-200.Bypass.MalMeteoBypass";
 
             PLC_Telescope_Cap_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Telescope_Cap_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Vertigo_RoofOpen_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            PLC_UPS_Alarm_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Toggle_Vertigo_KeepAlive_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
             PLC_Meteo_Bypass.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
         }
         private void InitializeTelescopeStatus()
         {
-            Main.PLC_Telescope_Closed = new PLC_Label();
-            Main.PLC_Telescope_Opened = new PLC_Label();
-            Main.PLC_Telescope_Hook = new PLC_Toggle();
-            Main.PLC_Telescope_Control = new PLC_Toggle();
-            Main.PLC_Telescope_Power = new PLC_Toggle();
-            Main.PLC_Button_Close_Telescope = new PLC_Button();
-            Main.PLC_Button_Open_Telescope = new PLC_Button();
+            Frm_Main.PLC_Telescope_Closed = new PLC_Label();
+            Frm_Main.PLC_Telescope_Opened = new PLC_Label();
+            Frm_Main.PLC_Telescope_Hook = new PLC_Toggle();
+            Frm_Main.PLC_Telescope_Control = new PLC_Toggle();
+            Frm_Main.PLC_Telescope_Power = new PLC_Toggle();
+            Frm_Main.PLC_Button_Close_Telescope = new PLC_Button();
+            Frm_Main.PLC_Button_Open_Telescope = new PLC_Button();
 
             PLC_Telescope_Closed.TopLevel = false;
             PLC_Telescope_Opened.TopLevel = false;
@@ -463,13 +448,13 @@ namespace AnTaREs
             PLC_Button_Close_Telescope.TopLevel = false;
             PLC_Button_Open_Telescope.TopLevel = false;
 
-            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Closed);
-            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Opened);
-            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Hook);
-            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Control);
-            this.Grp_Telescopio.Controls.Add(PLC_Telescope_Power);
-            this.Grp_Telescopio.Controls.Add(PLC_Button_Close_Telescope);
-            this.Grp_Telescopio.Controls.Add(PLC_Button_Open_Telescope);
+            this.Grp_Telescope.Controls.Add(PLC_Telescope_Closed);
+            this.Grp_Telescope.Controls.Add(PLC_Telescope_Opened);
+            this.Grp_Telescope.Controls.Add(PLC_Telescope_Hook);
+            this.Grp_Telescope.Controls.Add(PLC_Telescope_Control);
+            this.Grp_Telescope.Controls.Add(PLC_Telescope_Power);
+            this.Grp_Telescope.Controls.Add(PLC_Button_Close_Telescope);
+            this.Grp_Telescope.Controls.Add(PLC_Button_Open_Telescope);
 
             PLC_Telescope_Closed.Show();
             PLC_Telescope_Opened.Show();
@@ -529,22 +514,22 @@ namespace AnTaREs
         }
         private void InitializeMotorsStatus()
         {
-            Main.PLC_DEC_Direction = new PLC_Label();
-            Main.PLC_AR_Direction = new PLC_Label();
-            Main.PLC_DEC_Error = new PLC_Label();
-            Main.PLC_AR_Error = new PLC_Label();
-            Main.PLC_DEC_Run = new PLC_Toggle();
-            Main.PLC_AR_Run = new PLC_Toggle();
-            Main.PLC_Decelerated_DEC_Stop = new PLC_Toggle();
-            Main.PLC_Decelerated_AR_Stop = new PLC_Toggle();
-            Main.PLC_Immediate_DEC_Stop = new PLC_Toggle();
-            Main.PLC_Immediate_AR_Stop = new PLC_Toggle();
-            Main.PLC_FastButton_DEC_Down = new PLC_FastButton();
-            Main.PLC_FastButton_DEC_UP = new PLC_FastButton();
-            Main.PLC_FastButton_AR_DX = new PLC_FastButton();
-            Main.PLC_FastButton_AR_SX = new PLC_FastButton();
-            Main.PLC_Gauge_DEC = new PLC_Gauge();
-            Main.PLC_Gauge_AR = new PLC_Gauge();
+            Frm_Main.PLC_DEC_Direction = new PLC_Label();
+            Frm_Main.PLC_AR_Direction = new PLC_Label();
+            Frm_Main.PLC_DEC_Error = new PLC_Label();
+            Frm_Main.PLC_AR_Error = new PLC_Label();
+            Frm_Main.PLC_DEC_Run = new PLC_Toggle();
+            Frm_Main.PLC_AR_Run = new PLC_Toggle();
+            Frm_Main.PLC_Decelerated_DEC_Stop = new PLC_Toggle();
+            Frm_Main.PLC_Decelerated_AR_Stop = new PLC_Toggle();
+            Frm_Main.PLC_Immediate_DEC_Stop = new PLC_Toggle();
+            Frm_Main.PLC_Immediate_AR_Stop = new PLC_Toggle();
+            Frm_Main.PLC_FastButton_DEC_Down = new PLC_FastButton();
+            Frm_Main.PLC_FastButton_DEC_UP = new PLC_FastButton();
+            Frm_Main.PLC_FastButton_AR_DX = new PLC_FastButton();
+            Frm_Main.PLC_FastButton_AR_SX = new PLC_FastButton();
+            Frm_Main.PLC_Gauge_DEC = new PLC_Gauge();
+            Frm_Main.PLC_Gauge_AR = new PLC_Gauge();
             
 
             PLC_DEC_Direction.TopLevel = false;
@@ -564,22 +549,22 @@ namespace AnTaREs
             PLC_Gauge_DEC.TopLevel = false;
             PLC_Gauge_AR.TopLevel = false;
 
-            this.Grp_Motori.Controls.Add(PLC_DEC_Direction);
-            this.Grp_Motori.Controls.Add(PLC_AR_Direction);
-            this.Grp_Motori.Controls.Add(PLC_DEC_Error);
-            this.Grp_Motori.Controls.Add(PLC_AR_Error);
-            this.Grp_Motori.Controls.Add(PLC_DEC_Run);
-            this.Grp_Motori.Controls.Add(PLC_AR_Run);
-            this.Grp_Motori.Controls.Add(PLC_Decelerated_DEC_Stop);
-            this.Grp_Motori.Controls.Add(PLC_Decelerated_AR_Stop);
-            this.Grp_Motori.Controls.Add(PLC_Immediate_DEC_Stop);
-            this.Grp_Motori.Controls.Add(PLC_Immediate_AR_Stop);
-            this.Grp_Motori.Controls.Add(PLC_FastButton_DEC_Down);
-            this.Grp_Motori.Controls.Add(PLC_FastButton_DEC_UP);
-            this.Grp_Motori.Controls.Add(PLC_FastButton_AR_DX);
-            this.Grp_Motori.Controls.Add(PLC_FastButton_AR_SX);
-            this.Grp_Motori.Controls.Add(PLC_Gauge_DEC);
-            this.Grp_Motori.Controls.Add(PLC_Gauge_AR);
+            this.Grp_Motors.Controls.Add(PLC_DEC_Direction);
+            this.Grp_Motors.Controls.Add(PLC_AR_Direction);
+            this.Grp_Motors.Controls.Add(PLC_DEC_Error);
+            this.Grp_Motors.Controls.Add(PLC_AR_Error);
+            this.Grp_Motors.Controls.Add(PLC_DEC_Run);
+            this.Grp_Motors.Controls.Add(PLC_AR_Run);
+            this.Grp_Motors.Controls.Add(PLC_Decelerated_DEC_Stop);
+            this.Grp_Motors.Controls.Add(PLC_Decelerated_AR_Stop);
+            this.Grp_Motors.Controls.Add(PLC_Immediate_DEC_Stop);
+            this.Grp_Motors.Controls.Add(PLC_Immediate_AR_Stop);
+            this.Grp_Motors.Controls.Add(PLC_FastButton_DEC_Down);
+            this.Grp_Motors.Controls.Add(PLC_FastButton_DEC_UP);
+            this.Grp_Motors.Controls.Add(PLC_FastButton_AR_DX);
+            this.Grp_Motors.Controls.Add(PLC_FastButton_AR_SX);
+            this.Grp_Motors.Controls.Add(PLC_Gauge_DEC);
+            this.Grp_Motors.Controls.Add(PLC_Gauge_AR);
 
             PLC_DEC_Direction.Show();
             PLC_AR_Direction.Show();
@@ -825,10 +810,10 @@ namespace AnTaREs
         }
         private void InitializeParkingStatus()
         {
-            Main.PLC_FineCorsa_AR_Parking = new PLC_Label();
-            Main.PLC_FineCorsa_DEC_Parking = new PLC_Label();
-            Main.PLC_Button_Park_Scope = new PLC_Button();
-            Main.PLC_Label_Optical_Sensor = new PLC_Label();
+            Frm_Main.PLC_FineCorsa_AR_Parking = new PLC_Label();
+            Frm_Main.PLC_FineCorsa_DEC_Parking = new PLC_Label();
+            Frm_Main.PLC_Button_Park_Scope = new PLC_Button();
+            Frm_Main.PLC_Label_Optical_Sensor = new PLC_Label();
 
             PLC_FineCorsa_AR_Parking.TopLevel = false;
             PLC_FineCorsa_DEC_Parking.TopLevel = false;
@@ -882,18 +867,25 @@ namespace AnTaREs
         }
         private void InitializeVertigoStatus()
         {
+            Frm_Main.PLC_Alarm_Vertigo_KeepAlive = new PLC_Alarm();
+            Frm_Main.PLC_VertigoApriTetto = new PLC_Label();
+            Frm_Main.PLC_VertigoChiudiTetto = new PLC_Label();
+            Frm_Main.PLC_VertigoAllarmeTetto = new PLC_Label();
+            Frm_Main.PLC_VertigoTettoAperto = new PLC_Label();
+            Frm_Main.PLC_VertigoTettoChiuso = new PLC_Label();
+
             PLC_VertigoTettoChiuso.TopLevel = false;
             PLC_VertigoTettoAperto.TopLevel = false;
             PLC_VertigoAllarmeTetto.TopLevel = false;
             PLC_VertigoChiudiTetto.TopLevel = false;
             PLC_VertigoApriTetto.TopLevel = false;
             PLC_Alarm_Vertigo_KeepAlive.TopLevel = false;
-            this.grp_Vertigo.Controls.Add(PLC_VertigoTettoChiuso);
-            this.grp_Vertigo.Controls.Add(PLC_VertigoTettoAperto);
-            this.grp_Vertigo.Controls.Add(PLC_VertigoAllarmeTetto);
-            this.grp_Vertigo.Controls.Add(PLC_VertigoChiudiTetto);
-            this.grp_Vertigo.Controls.Add(PLC_VertigoApriTetto);
-            this.grp_Vertigo.Controls.Add(PLC_Alarm_Vertigo_KeepAlive);
+            this.Grp_Vertigo.Controls.Add(PLC_VertigoTettoChiuso);
+            this.Grp_Vertigo.Controls.Add(PLC_VertigoTettoAperto);
+            this.Grp_Vertigo.Controls.Add(PLC_VertigoAllarmeTetto);
+            this.Grp_Vertigo.Controls.Add(PLC_VertigoChiudiTetto);
+            this.Grp_Vertigo.Controls.Add(PLC_VertigoApriTetto);
+            this.Grp_Vertigo.Controls.Add(PLC_Alarm_Vertigo_KeepAlive);
             PLC_VertigoTettoChiuso.Show();
             PLC_VertigoTettoAperto.Show();
             PLC_VertigoAllarmeTetto.Show();
@@ -939,8 +931,9 @@ namespace AnTaREs
         }
         private void InitializeServerStatus()
         {
+            Frm_Main.Server_KeepAlive = new PLC_KeepAlive();
             Server_KeepAlive.TopLevel = false;
-            this.grp_Server.Controls.Add(Server_KeepAlive);
+            this.Grp_Server.Controls.Add(Server_KeepAlive);
             Server_KeepAlive.Show();
             Server_KeepAlive.Location = new System.Drawing.Point(20, 20);
             Server_KeepAlive.Name = "Server_KeepAlive";
@@ -949,13 +942,13 @@ namespace AnTaREs
         }
         private void InitializeRoofRight()
         {
-            Main.PLC_ApriFaldaDX = new PLC_Label();
-            Main.PLC_ChiudiFaldaDX = new PLC_Label();
-            Main.PLC_FineCorsaAperturaDX = new PLC_Label();
-            Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
-            Main.PLC_Button_Stop_DX = new PLC_Button();
-            Main.PLC_Button_Close_DX = new PLC_Button();
-            Main.PLC_Button_Open_DX = new PLC_Button();
+            Frm_Main.PLC_ApriFaldaDX = new PLC_Label();
+            Frm_Main.PLC_ChiudiFaldaDX = new PLC_Label();
+            Frm_Main.PLC_FineCorsaAperturaDX = new PLC_Label();
+            Frm_Main.PLC_FineCorsaChiusuraDX = new PLC_Label();
+            Frm_Main.PLC_Button_Stop_DX = new PLC_Button();
+            Frm_Main.PLC_Button_Close_DX = new PLC_Button();
+            Frm_Main.PLC_Button_Open_DX = new PLC_Button();
 
             PLC_ApriFaldaDX.TopLevel = false;
             PLC_ChiudiFaldaDX.TopLevel = false;
@@ -965,13 +958,13 @@ namespace AnTaREs
             PLC_Button_Close_DX.TopLevel = false;
             PLC_Button_Open_DX.TopLevel = false;
 
-            this.Grp_faldaDX.Controls.Add(PLC_ApriFaldaDX);
-            this.Grp_faldaDX.Controls.Add(PLC_ChiudiFaldaDX);
-            this.Grp_faldaDX.Controls.Add(PLC_FineCorsaAperturaDX);
-            this.Grp_faldaDX.Controls.Add(PLC_FineCorsaChiusuraDX);
-            this.Grp_faldaDX.Controls.Add(PLC_Button_Stop_DX);
-            this.Grp_faldaDX.Controls.Add(PLC_Button_Close_DX);
-            this.Grp_faldaDX.Controls.Add(PLC_Button_Open_DX);
+            this.Grp_Flap_Right.Controls.Add(PLC_ApriFaldaDX);
+            this.Grp_Flap_Right.Controls.Add(PLC_ChiudiFaldaDX);
+            this.Grp_Flap_Right.Controls.Add(PLC_FineCorsaAperturaDX);
+            this.Grp_Flap_Right.Controls.Add(PLC_FineCorsaChiusuraDX);
+            this.Grp_Flap_Right.Controls.Add(PLC_Button_Stop_DX);
+            this.Grp_Flap_Right.Controls.Add(PLC_Button_Close_DX);
+            this.Grp_Flap_Right.Controls.Add(PLC_Button_Open_DX);
 
             PLC_ApriFaldaDX.Show();
             PLC_ChiudiFaldaDX.Show();
@@ -1032,13 +1025,13 @@ namespace AnTaREs
         }
         private void InitializeRoofLeft()
         {
-            Main.PLC_ApriFaldaSX = new PLC_Label();
-            Main.PLC_ChiudiFaldaSX = new PLC_Label();
-            Main.PLC_FineCorsaAperturaSX = new PLC_Label();
-            Main.PLC_FineCorsaChiusuraSX = new PLC_Label();
-            Main.PLC_Button_Stop_SX = new PLC_Button();
-            Main.PLC_Button_Close_SX = new PLC_Button();
-            Main.PLC_Button_Open_SX = new PLC_Button();
+            Frm_Main.PLC_ApriFaldaSX = new PLC_Label();
+            Frm_Main.PLC_ChiudiFaldaSX = new PLC_Label();
+            Frm_Main.PLC_FineCorsaAperturaSX = new PLC_Label();
+            Frm_Main.PLC_FineCorsaChiusuraSX = new PLC_Label();
+            Frm_Main.PLC_Button_Stop_SX = new PLC_Button();
+            Frm_Main.PLC_Button_Close_SX = new PLC_Button();
+            Frm_Main.PLC_Button_Open_SX = new PLC_Button();
 
             PLC_ApriFaldaSX.TopLevel = false;
             PLC_ChiudiFaldaSX.TopLevel = false;
@@ -1048,13 +1041,13 @@ namespace AnTaREs
             PLC_Button_Close_SX.TopLevel = false;
             PLC_Button_Open_SX.TopLevel = false;
 
-            this.Grp_FaldaSX.Controls.Add(PLC_ApriFaldaSX);
-            this.Grp_FaldaSX.Controls.Add(PLC_ChiudiFaldaSX);
-            this.Grp_FaldaSX.Controls.Add(PLC_FineCorsaAperturaSX);
-            this.Grp_FaldaSX.Controls.Add(PLC_FineCorsaChiusuraSX);
-            this.Grp_FaldaSX.Controls.Add(PLC_Button_Stop_SX);
-            this.Grp_FaldaSX.Controls.Add(PLC_Button_Close_SX);
-            this.Grp_FaldaSX.Controls.Add(PLC_Button_Open_SX);
+            this.Grp_Flap_Left.Controls.Add(PLC_ApriFaldaSX);
+            this.Grp_Flap_Left.Controls.Add(PLC_ChiudiFaldaSX);
+            this.Grp_Flap_Left.Controls.Add(PLC_FineCorsaAperturaSX);
+            this.Grp_Flap_Left.Controls.Add(PLC_FineCorsaChiusuraSX);
+            this.Grp_Flap_Left.Controls.Add(PLC_Button_Stop_SX);
+            this.Grp_Flap_Left.Controls.Add(PLC_Button_Close_SX);
+            this.Grp_Flap_Left.Controls.Add(PLC_Button_Open_SX);
 
             PLC_ApriFaldaSX.Show();
             PLC_ChiudiFaldaSX.Show();
@@ -1115,19 +1108,19 @@ namespace AnTaREs
         }
         private void InitializeRoof()
         {
-            Main.PLC_NoResetTermici = new PLC_Label();
-            Main.PLC_Cicalini = new PLC_Label();
-            Main.PLC_ChiudiTetto = new PLC_Label();
-            Main.PLC_ApriTetto = new PLC_Label();
-            Main.PLC_CicaliniMute = new PLC_Toggle();
-            Main.PLC_Reset_Termici = new PLC_Toggle();
-            Main.PLC_Reset_Counter_Termici = new PLC_Toggle();
-            Main.PLC_Tetto_Chiusura_Timeout = new PLC_Alarm();
-            Main.PLC_Tetto_Apertura_Timeout = new PLC_Alarm();
-            Main.PLC_Tetto_Termico = new PLC_Alarm();
-            Main.PLC_Button_Ascom_Abort = new PLC_Button();
-            Main.PLC_Button_Reset_Termici = new PLC_Button();
-            Main.PLC_Roof_Tetto = new PLC_Roof();
+            Frm_Main.PLC_NoResetTermici = new PLC_Label();
+            Frm_Main.PLC_Cicalini = new PLC_Label();
+            Frm_Main.PLC_ChiudiTetto = new PLC_Label();
+            Frm_Main.PLC_ApriTetto = new PLC_Label();
+            Frm_Main.PLC_CicaliniMute = new PLC_Toggle();
+            Frm_Main.PLC_Reset_Termici = new PLC_Toggle();
+            Frm_Main.PLC_Reset_Counter_Termici = new PLC_Toggle();
+            Frm_Main.PLC_Tetto_Chiusura_Timeout = new PLC_Alarm();
+            Frm_Main.PLC_Tetto_Apertura_Timeout = new PLC_Alarm();
+            Frm_Main.PLC_Tetto_Termico = new PLC_Alarm();
+            Frm_Main.PLC_Button_Ascom_Abort = new PLC_Button();
+            Frm_Main.PLC_Button_Reset_Termici = new PLC_Button();
+            Frm_Main.PLC_Roof_Tetto = new PLC_Roof();
 
             PLC_NoResetTermici.TopLevel = false;
             PLC_Cicalini.TopLevel = false;
@@ -1143,19 +1136,19 @@ namespace AnTaREs
             PLC_Button_Reset_Termici.TopLevel = false;
             PLC_Roof_Tetto.TopLevel = false;
 
-            this.Grp_Tetto.Controls.Add(PLC_NoResetTermici);
-            this.Grp_Tetto.Controls.Add(PLC_Reset_Termici);
-            this.Grp_Tetto.Controls.Add(PLC_Cicalini);
-            this.Grp_Tetto.Controls.Add(PLC_CicaliniMute);
-            this.Grp_Tetto.Controls.Add(PLC_ChiudiTetto);
-            this.Grp_Tetto.Controls.Add(PLC_ApriTetto);
-            this.Grp_Tetto.Controls.Add(PLC_Reset_Counter_Termici);
-            this.Grp_Tetto.Controls.Add(PLC_Tetto_Chiusura_Timeout);
-            this.Grp_Tetto.Controls.Add(PLC_Tetto_Apertura_Timeout);
-            this.Grp_Tetto.Controls.Add(PLC_Tetto_Termico);
-            this.Grp_Tetto.Controls.Add(PLC_Button_Ascom_Abort);
-            this.Grp_Tetto.Controls.Add(PLC_Button_Reset_Termici);
-            this.Grp_Tetto.Controls.Add(PLC_Roof_Tetto);
+            this.Grp_Roof.Controls.Add(PLC_NoResetTermici);
+            this.Grp_Roof.Controls.Add(PLC_Reset_Termici);
+            this.Grp_Roof.Controls.Add(PLC_Cicalini);
+            this.Grp_Roof.Controls.Add(PLC_CicaliniMute);
+            this.Grp_Roof.Controls.Add(PLC_ChiudiTetto);
+            this.Grp_Roof.Controls.Add(PLC_ApriTetto);
+            this.Grp_Roof.Controls.Add(PLC_Reset_Counter_Termici);
+            this.Grp_Roof.Controls.Add(PLC_Tetto_Chiusura_Timeout);
+            this.Grp_Roof.Controls.Add(PLC_Tetto_Apertura_Timeout);
+            this.Grp_Roof.Controls.Add(PLC_Tetto_Termico);
+            this.Grp_Roof.Controls.Add(PLC_Button_Ascom_Abort);
+            this.Grp_Roof.Controls.Add(PLC_Button_Reset_Termici);
+            this.Grp_Roof.Controls.Add(PLC_Roof_Tetto);
 
             PLC_NoResetTermici.Show();
             PLC_Cicalini.Show();
@@ -1258,70 +1251,77 @@ namespace AnTaREs
         }
         private void InitializeUPS()
         {
+            Frm_Main.PLC_Alarm_UPS_EchoMode = new PLC_Alarm();
+            Frm_Main.PLC_Alarm_UPS_BatteryLow = new PLC_Alarm();
+            Frm_Main.PLC_Alarm_UPS_LDInverter = new PLC_Alarm();
+            Frm_Main.PLC_Alarm_UPS_Alarm = new PLC_Alarm();
+            Frm_Main.PLC_Alarm_UPS_ConnectionFailure = new PLC_Alarm();
+            Frm_Main.PLC_Alarm_UPS_MainFailure = new PLC_Alarm();
+            Frm_Main.PLC_ProgressBar_UPS_ChargeValue = new PLC_ProgressBar();
             PLC_Alarm_UPS_EchoMode.TopLevel = false;
-            UPS_BatteryLow.TopLevel = false;
-            UPS_LDInverter.TopLevel = false;
-            UPS_Alarm.TopLevel = false;
-            UPS_ConnectionFailure.TopLevel = false;
-            UPS_MainFailure.TopLevel = false;
-            UPS_ChargeValue.TopLevel = false;
-            this.grpUPS.Controls.Add(PLC_Alarm_UPS_EchoMode);
-            this.grpUPS.Controls.Add(UPS_BatteryLow);
-            this.grpUPS.Controls.Add(UPS_LDInverter);
-            this.grpUPS.Controls.Add(UPS_Alarm);
-            this.grpUPS.Controls.Add(UPS_ConnectionFailure);
-            this.grpUPS.Controls.Add(UPS_MainFailure);
-            this.grpUPS.Controls.Add(UPS_ChargeValue);
+            PLC_Alarm_UPS_BatteryLow.TopLevel = false;
+            PLC_Alarm_UPS_LDInverter.TopLevel = false;
+            PLC_Alarm_UPS_Alarm.TopLevel = false;
+            PLC_Alarm_UPS_ConnectionFailure.TopLevel = false;
+            PLC_Alarm_UPS_MainFailure.TopLevel = false;
+            PLC_ProgressBar_UPS_ChargeValue.TopLevel = false;
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_EchoMode);
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_BatteryLow);
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_LDInverter);
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_Alarm);
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_ConnectionFailure);
+            this.Grp_UPS.Controls.Add(PLC_Alarm_UPS_MainFailure);
+            this.Grp_UPS.Controls.Add(PLC_ProgressBar_UPS_ChargeValue);
             PLC_Alarm_UPS_EchoMode.Show();
-            UPS_BatteryLow.Show();
-            UPS_LDInverter.Show();
-            UPS_Alarm.Show();
-            UPS_ConnectionFailure.Show();
-            UPS_MainFailure.Show();
-            UPS_ChargeValue.Show();
+            PLC_Alarm_UPS_BatteryLow.Show();
+            PLC_Alarm_UPS_LDInverter.Show();
+            PLC_Alarm_UPS_Alarm.Show();
+            PLC_Alarm_UPS_ConnectionFailure.Show();
+            PLC_Alarm_UPS_MainFailure.Show();
+            PLC_ProgressBar_UPS_ChargeValue.Show();
             PLC_Alarm_UPS_EchoMode.PLCAlarmName = "Eco Mode Active";
-            UPS_BatteryLow.PLCAlarmName = "Battery Low";
-            UPS_LDInverter.PLCAlarmName = "Inverter Alarm";
-            UPS_Alarm.PLCAlarmName = "General Alarm";
-            UPS_ConnectionFailure.PLCAlarmName = "Connection Failure";
-            UPS_MainFailure.PLCAlarmName = "Main Failure";
-            UPS_ChargeValue.PLCVariableName = "UPS Charge";
-            UPS_ChargeValue.MaxValue = 100;
-            UPS_ChargeValue.MinValue = 0;
+            PLC_Alarm_UPS_BatteryLow.PLCAlarmName = "Livello Batteria Basso";
+            PLC_Alarm_UPS_LDInverter.PLCAlarmName = "Allarme Inverter";
+            PLC_Alarm_UPS_Alarm.PLCAlarmName = "Allarme Generale UPS";
+            PLC_Alarm_UPS_ConnectionFailure.PLCAlarmName = "Errore di Connessione";
+            PLC_Alarm_UPS_MainFailure.PLCAlarmName = "Allarme Generico";
+            PLC_ProgressBar_UPS_ChargeValue.PLCVariableName = "Carica UPS";
+            PLC_ProgressBar_UPS_ChargeValue.MaxValue = 100;
+            PLC_ProgressBar_UPS_ChargeValue.MinValue = 0;
             PLC_Alarm_UPS_EchoMode.Location = new System.Drawing.Point(20, 20);
-            UPS_BatteryLow.Location = new System.Drawing.Point(20, 70);
-            UPS_LDInverter.Location = new System.Drawing.Point(20, 120);
-            UPS_Alarm.Location = new System.Drawing.Point(20, 170);
-            UPS_ConnectionFailure.Location = new System.Drawing.Point(340, 20);
-            UPS_MainFailure.Location = new System.Drawing.Point(340, 70);
-            UPS_ChargeValue.Location = new System.Drawing.Point(20, 290);
+            PLC_Alarm_UPS_BatteryLow.Location = new System.Drawing.Point(20, 70);
+            PLC_Alarm_UPS_LDInverter.Location = new System.Drawing.Point(20, 120);
+            PLC_Alarm_UPS_Alarm.Location = new System.Drawing.Point(20, 170);
+            PLC_Alarm_UPS_ConnectionFailure.Location = new System.Drawing.Point(340, 20);
+            PLC_Alarm_UPS_MainFailure.Location = new System.Drawing.Point(340, 70);
+            PLC_ProgressBar_UPS_ChargeValue.Location = new System.Drawing.Point(20, 290);
             PLC_Alarm_UPS_EchoMode.Name = "UPS_EchoMode";
-            UPS_BatteryLow.Name = "UPS_BatteryLow";
-            UPS_LDInverter.Name = "UPS_LDInverter";
-            UPS_Alarm.Name = "UPS_Alarm";
-            UPS_MainFailure.Name = "UPS_MainFailure";
-            UPS_ConnectionFailure.Name = "UPS_ConnectionFailure";
-            UPS_ChargeValue.Name = "UPS_ChargeValue";
+            PLC_Alarm_UPS_BatteryLow.Name = "PLC_Alarm_UPS_BatteryLow";
+            PLC_Alarm_UPS_LDInverter.Name = "UPS_LDInverter";
+            PLC_Alarm_UPS_Alarm.Name = "UPS_Alarm";
+            PLC_Alarm_UPS_MainFailure.Name = "PLC_Alarm_UPS_MainFailure";
+            PLC_Alarm_UPS_ConnectionFailure.Name = "UPS_ConnectionFailure";
+            PLC_ProgressBar_UPS_ChargeValue.Name = "UPS_ChargeValue";
             PLC_Alarm_UPS_EchoMode.PLCVariablePath = "TCPIP.S7-200.UPS.I_ECOMODE";
-            UPS_BatteryLow.PLCVariablePath = "TCPIP.S7-200.UPS.I_BATTLOW";
-            UPS_LDInverter.PLCVariablePath = "TCPIP.S7-200.UPS.I_LDINV";
-            UPS_Alarm.PLCVariablePath = "TCPIP.S7-200.UPS.I_ALARM";
-            UPS_ConnectionFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmLinkFailure";
-            UPS_MainFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmMainsFailure";
-            UPS_ChargeValue.PLCVariablePath = "TCPIP.S7-200.UPS.RemainingCapacity";
+            PLC_Alarm_UPS_BatteryLow.PLCVariablePath = "TCPIP.S7-200.UPS.I_BATTLOW";
+            PLC_Alarm_UPS_LDInverter.PLCVariablePath = "TCPIP.S7-200.UPS.I_LDINV";
+            PLC_Alarm_UPS_Alarm.PLCVariablePath = "TCPIP.S7-200.UPS.I_ALARM";
+            PLC_Alarm_UPS_ConnectionFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmLinkFailure";
+            PLC_Alarm_UPS_MainFailure.PLCVariablePath = "TCPIP.S7-200.UPS.AlmMainsFailure";
+            PLC_ProgressBar_UPS_ChargeValue.PLCVariablePath = "TCPIP.S7-200.UPS.RemainingCapacity";
             PLC_Alarm_UPS_EchoMode.ResetAvailable = false;
-            UPS_BatteryLow.ResetAvailable = false;
-            UPS_LDInverter.ResetAvailable = false;
-            UPS_Alarm.ResetAvailable = false;
-            UPS_ConnectionFailure.ResetAvailable = false;
-            UPS_MainFailure.ResetAvailable = false;
+            PLC_Alarm_UPS_BatteryLow.ResetAvailable = false;
+            PLC_Alarm_UPS_LDInverter.ResetAvailable = false;
+            PLC_Alarm_UPS_Alarm.ResetAvailable = false;
+            PLC_Alarm_UPS_ConnectionFailure.ResetAvailable = false;
+            PLC_Alarm_UPS_MainFailure.ResetAvailable = false;
             PLC_Alarm_UPS_EchoMode.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_BatteryLow.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_LDInverter.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_Alarm.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_ConnectionFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_MainFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
-            UPS_ChargeValue.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_UINT;
+            PLC_Alarm_UPS_BatteryLow.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Alarm_UPS_LDInverter.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Alarm_UPS_Alarm.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Alarm_UPS_ConnectionFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_Alarm_UPS_MainFailure.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_BOOL;
+            PLC_ProgressBar_UPS_ChargeValue.PLCVariableType = System.Runtime.InteropServices.VarEnum.VT_UINT;
         }
         public void StartUpdateTimer()
         {
@@ -1338,7 +1338,7 @@ namespace AnTaREs
         delegate void UpdateTimerExpiredCallback(object source, ElapsedEventArgs e);
         public void UpdateTimerExpired(object source,ElapsedEventArgs e)
         {
-           if(this.lblDateTime.InvokeRequired)
+           if(this.Lbl_DateTime.InvokeRequired)
             {
                 UpdateTimerExpiredCallback UpadateCallback = new UpdateTimerExpiredCallback(UpdateTimerExpired);
                 this.Invoke(UpadateCallback, new object[] { source, e });
@@ -1350,17 +1350,17 @@ namespace AnTaREs
                     try
                     {
                         DateTime = PLC.PLC_Utility.NtpClient.GetNetworkTime();
-                        lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
+                        Lbl_DateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
                     }
                     catch(Exception ex)
                     {
-                    lblDateTime.Text = "Error on NTP Server: "+ex;
+                        Lbl_DateTime.Text = "Error on NTP Server: "+ex;
                     }
                 }
                 else
                 {
                     DateTime = DateTime.AddSeconds(1.0);
-                    lblDateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
+                    Lbl_DateTime.Text = String.Format("{0:dd/MM/yyyy HH:mm:ss} UTC", DateTime);
                 }
            }
         }
@@ -1375,11 +1375,11 @@ namespace AnTaREs
             {
                 if (!Chk_Local.Checked)
                     VPN.Disconnect();
-                Main.Connected1 = false;
+                Frm_Main.Connected1 = false;
                 swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-                btnControlStatus.DisabledBorderColor = Color.Red;
-                btnControlStatus.DisabledForeColor = Color.Red;
-                btnControlStatus.DisabledBackColor = Color.Red;
+                Btn_ControlStatus.DisabledBorderColor = Color.Red;
+                Btn_ControlStatus.DisabledForeColor = Color.Red;
+                Btn_ControlStatus.DisabledBackColor = Color.Red;
                 OnlineConnections(false);
             }
             else if(swC.CheckState==MetroSet_UI.Enums.CheckState.Unchecked)
@@ -1394,24 +1394,24 @@ namespace AnTaREs
                             VPN.Connect();
                         if (VPN._handle != null && !Chk_Local.Checked)
                         {
-                            Main.Connected1 = true;
-                            btnControlStatus.DisabledBorderColor = Color.Green;
-                            btnControlStatus.DisabledForeColor = Color.Green;
-                            btnControlStatus.DisabledBackColor = Color.Green;
+                            Frm_Main.Connected1 = true;
+                            Btn_ControlStatus.DisabledBorderColor = Color.Green;
+                            Btn_ControlStatus.DisabledForeColor = Color.Green;
+                            Btn_ControlStatus.DisabledBackColor = Color.Green;
                             OnlineConnections(true);
                         }
                         else if(VPN._handle==null && Chk_Local.Checked)
                         {
-                            Main.Connected1 = true;
-                            btnControlStatus.DisabledBorderColor = Color.Green;
-                            btnControlStatus.DisabledForeColor = Color.Green;
-                            btnControlStatus.DisabledBackColor = Color.Green;
+                            Frm_Main.Connected1 = true;
+                            Btn_ControlStatus.DisabledBorderColor = Color.Green;
+                            Btn_ControlStatus.DisabledForeColor = Color.Green;
+                            Btn_ControlStatus.DisabledBackColor = Color.Green;
                             OnlineConnections(true);
                         }
                         else
                         {
                             swC.Switched = false;
-                            Main.Connected1 = false;
+                            Frm_Main.Connected1 = false;
                         }
                     }
                     catch(Exception ex)
@@ -1419,29 +1419,27 @@ namespace AnTaREs
                         if(!Chk_Local.Checked)
                             VPN.Disconnect();
                         swC.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-                        btnControlStatus.DisabledBorderColor = Color.Red;
-                        btnControlStatus.DisabledForeColor = Color.Red;
-                        btnControlStatus.DisabledBackColor = Color.Red;
+                        Btn_ControlStatus.DisabledBorderColor = Color.Red;
+                        Btn_ControlStatus.DisabledForeColor = Color.Red;
+                        Btn_ControlStatus.DisabledBackColor = Color.Red;
                         throw new Exception("Connection Error: " + ex.Message);
                     }
                 }
                 else if(YESNO==DialogResult.No)
-                {
                     swC.Switched = false;
-                }
             }
         }
         private void ConnectionUPS(bool Value)
         {
             //UPS
             PLC_Alarm_UPS_EchoMode.Online(Value);
-            UPS_BatteryLow.Online(Value);
-            UPS_LDInverter.Online(Value);
-            UPS_Alarm.Online(Value);
-            UPS_ConnectionFailure.Online(Value);
-            UPS_MainFailure.Online(Value);
-            UPS_ChargeValue.Online(Value);
-            PLC_UPS_Alarm_Bypass.Online(Value);
+            PLC_Alarm_UPS_BatteryLow.Online(Value);
+            PLC_Alarm_UPS_LDInverter.Online(Value);
+            PLC_Alarm_UPS_Alarm.Online(Value);
+            PLC_Alarm_UPS_ConnectionFailure.Online(Value);
+            PLC_Alarm_UPS_MainFailure.Online(Value);
+            PLC_ProgressBar_UPS_ChargeValue.Online(Value);
+            PLC_Toggle_PLC_UPS_Alarm_Bypass.Online(Value);
     }
         private void ConnectionServer(bool Value)
         {
@@ -1603,7 +1601,7 @@ namespace AnTaREs
                 OnlineConnections(false);
                 VPN.Disconnect();
             }
-            else
+            else if(Connected1)
                 OnlineConnections(false);
                 
         }

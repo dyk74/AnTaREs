@@ -171,7 +171,7 @@ namespace AnTaREs
         {
             if (!C_Modifiable)
                 return;
-            InputForm C_Form = new InputForm();
+            Frm_InputForm C_Form = new Frm_InputForm();
             string ResultString;
             if (C_Form.ShowDialog() == DialogResult.OK)
                 ResultString = C_Form.Input.Text;

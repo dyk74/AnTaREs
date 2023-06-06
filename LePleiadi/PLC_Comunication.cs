@@ -174,7 +174,7 @@ namespace AnTaREs
                 Array SyncItemServerErrors = new int[1];
                 int ItemCount = 1;
                 short Source = 2;
-                string ReturnValue = "";
+
                 SyncItemServerHandle.SetValue(0, 0);
                 SyncItemServerHandle.SetValue(Item.VariableHandleServer, 1);
                 try
@@ -186,6 +186,7 @@ namespace AnTaREs
                     VPN.Disconnect();
                     throw new Exception("Sync Read Error: " + ex.Message);
                 }
+                string ReturnValue;
                 if (Convert.ToInt32(SyncItemServerErrors.GetValue(1)) == 0)
                 {
                     if (SyncItemValues.GetValue(1).GetType().IsArray)
@@ -274,7 +275,7 @@ namespace AnTaREs
         }
         public class VariableHandle:Variabili
         {
-            private Comunicazioni Com;
+            private readonly Comunicazioni Com;
             public delegate void OnVariableValueChange(object sender);
             public delegate void OnVariableWriteComplete(object sender);
             public event OnVariableValueChange OnValueChange;
